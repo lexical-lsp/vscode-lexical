@@ -7,15 +7,114 @@
     "vscode": "^1.76.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Formatters"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "elixir",
+    "mix"
+  ],
+  "activationEvents": [
+    "onLanguage:phoenix-heex",
+    "onLanguage:surface",
+    "workspaceContains:mix.exs"
+  ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "lexical.helloWorld",
-        "title": "Hello World"
+        "id": "elixir",
+        "aliases": [
+          "Elixir",
+          "elixir"
+        ],
+        "extensions": [
+          ".ex",
+          ".exs"
+        ],
+        "filenames": [
+          "mix.lock"
+        ],
+        "configuration": "./elixir-language-configuration.json"
+      },
+      {
+        "id": "eex",
+        "aliases": [
+          "Embedded Elixir",
+          "EEx",
+          "eex"
+        ],
+        "extensions": [
+          ".eex",
+          ".leex"
+        ],
+        "configuration": "./eex-language-configuration.json"
+      },
+      {
+        "id": "html-eex",
+        "aliases": [
+          "HTML (Embedded Elixir)",
+          "HTML (EEx)"
+        ],
+        "extensions": [
+          ".html.heex"
+        ],
+        "configuration": "./eex-language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "elixir",
+        "scopeName": "source.elixir",
+        "path": "./syntaxes/elixir.json"
+      },
+      {
+        "language": "eex",
+        "scopeName": "text.elixir",
+        "path": "./syntaxes/eex.json"
+      },
+      {
+        "language": "html-eex",
+        "scopeName": "text.html.elixir",
+        "path": "./syntaxes/html-eex.json"
+      }
+    ],
+    "problemMatchers": [
+      {
+        "name": "mixCompileError",
+        "owner": "elixir",
+        "fileLocation": [
+          "relative",
+          "${workspaceRoot}"
+        ],
+        "severity": "error",
+        "pattern": {
+          "regexp": "^\\*\\* \\((\\w+)\\) (.*):(\\d+): (.*)$",
+          "file": 2,
+          "location": 3,
+          "message": 0
+        }
+      },
+      {
+        "name": "mixCompileWarning",
+        "owner": "elixir",
+        "fileLocation": [
+          "relative",
+          "${workspaceRoot}"
+        ],
+        "severity": "warning",
+        "pattern": [
+          {
+            "regexp": "^warning: (.*)$",
+            "message": 1
+          },
+          {
+            "regexp": "^  (.*):(\\d+)(.*)$",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ]
       }
     ]
   },
