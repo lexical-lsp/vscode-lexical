@@ -4,6 +4,8 @@
 
 The extension is not yet published to the Visual Studio Marketplace. The extension must be built and installed manually.
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on setting up dependencies.
+
 ### Configuring vscode-lexical
 
 vscode-lexical currently does not package lexical itself.
