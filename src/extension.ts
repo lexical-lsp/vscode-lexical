@@ -28,7 +28,7 @@ async function startLexical(context: ExtensionContext) {
     .trim();
 
   const serverOptions: ServerOptions = {
-    command: join(releaseDirectory, "lexical/start_lexical.sh"),
+    command: join(releaseDirectory, "lexical", "start_lexical.sh"),
   };
 
   const clientOptions: LanguageClientOptions = {
