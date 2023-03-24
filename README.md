@@ -1,6 +1,6 @@
 # lexical README
 
-## Starting the extension
+## Using the extension
 
 The extension is not yet published to the Visual Studio Marketplace. The extension must be built and installed manually.
 
@@ -14,9 +14,16 @@ Once that's done, create a file called `lexical_release_path.txt` at the root of
 
 It should look something like `/home/username/Projects/lexical/_build/dev/rel`.
 
-### Starting the extension
+### Starting the extension for development
 
 Press F5. VSCode should build and start the extension.
+
+### Installing the extension globally
+
+```sh
+npx vsce package --yarn
+code --install-extension *.vsix
+```
 
 ## Following extension guidelines
 
