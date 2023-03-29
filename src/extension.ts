@@ -12,13 +12,13 @@ import {
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
-  startLexical(context);
+  startLexical(context)
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
 
-async function startLexical(context: ExtensionContext) {
+async function startLexical(context: int) {
   const outputChannel = window.createOutputChannel("Lexical");
 
   const releaseDirectory = readFileSync(
