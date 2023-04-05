@@ -12,8 +12,10 @@ async function main() {
 		// Passed to --extensionTestsPath
 		const extensionTestsPath = path.resolve(__dirname, './suite/index');
 
+		const fixturesProjectPath = path.resolve(__dirname, './fixtures');
+
 		// Download VS Code, unzip it and run the integration test
-		await runTests({ extensionDevelopmentPath, extensionTestsPath });
+		await runTests({ extensionDevelopmentPath, extensionTestsPath, launchArgs: [fixturesProjectPath] });
 	} catch (err) {
 		console.error('Failed to run tests', err);
 		process.exit(1);

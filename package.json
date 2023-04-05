@@ -3,6 +3,8 @@
   "displayName": "Lexical",
   "description": "",
   "version": "0.0.1",
+  "repository": "github:lexical-lsp/vscode-lexical",
+  "publisher": "lexical-lsp",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -136,7 +138,7 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && cp -r ./src/test/fixtures ./out/test/fixtures",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",

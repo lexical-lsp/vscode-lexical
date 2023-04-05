@@ -1,15 +1,37 @@
-import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import * as assert from 'assert';
+import { activate, Fixture } from '../helpers';
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
-
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+suite('Should get diagnostics', () => {
+	test('Diagnoses uppercase texts', async () => {
+		await testDiagnostics(Fixture.diagnostics, [
+			{
+				message: '** (CompileError) lib/diagnostics.ex:3: undefined function foo/0 (expected Fixtures to define such a function or for it to be imported, but none are available)\n\n',
+				range: toRange(2, 0, 3, 0),
+				severity: vscode.DiagnosticSeverity.Error,
+				source: 'Elixir'
+			}
+		]);
 	});
 });
+
+function toRange(sLine: number, sChar: number, eLine: number, eChar: number) {
+	const start = new vscode.Position(sLine, sChar);
+	const end = new vscode.Position(eLine, eChar);
+	return new vscode.Range(start, end);
+}
+
+async function testDiagnostics(fixture: Fixture, expectedDiagnostics: vscode.Diagnostic[]) {
+	const [doc] = await activate(fixture);
+
+	const actualDiagnostics = vscode.languages.getDiagnostics(doc.uri);
+
+	assert.equal(actualDiagnostics.length, expectedDiagnostics.length);
+
+	expectedDiagnostics.forEach((expectedDiagnostic, i) => {
+		const actualDiagnostic = actualDiagnostics[i];
+		assert.equal(actualDiagnostic.message, expectedDiagnostic.message);
+		assert.deepEqual(actualDiagnostic.range, expectedDiagnostic.range);
+		assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity);
+	});
+}
