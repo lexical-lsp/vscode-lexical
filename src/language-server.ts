@@ -4,6 +4,7 @@ import { ExtensionContext, ProgressLocation, Uri, window } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
 import * as unzipper from 'unzipper';
 import { join } from "path";
+import * as InstallationManifest from "./installation-manifest";
 
 export async function start(releasePath: string): Promise<void> {
 	const outputChannel = window.createOutputChannel("Lexical");
@@ -52,13 +53,20 @@ export async function start(releasePath: string): Promise<void> {
 }
 
 export async function install(context: ExtensionContext): Promise<string> {
+	const lexicalInstallationDirectoryUri = getLexicalInstallationDirectoryUri(context);
+	const lexicalZipUri = getLexicalZipUri(lexicalInstallationDirectoryUri);
+	const lexicalReleaseUri = getLexicalReleaseUri(lexicalInstallationDirectoryUri);
+
+	if (InstallationManifest.fetch(lexicalInstallationDirectoryUri)?.installed) {
+		console.log('Latest version of Lexical is already installed. Skipping auto-install.');
+
+		return lexicalReleaseUri.fsPath;
+	}
+	
 	return window.withProgress({
 		title: 'Installing Lexical server...',
 		location: ProgressLocation.Notification
 	}, async progress => {
-		const lexicalZipUri = getLexicalZipUri(context);
-		const lexicalReleaseUri = getLexicalReleaseUri(context);
-
 		ensureInstallationDirectoryExists(context);
     
 		progress.report({ message: 'Downloading Lexical executable'});
@@ -68,6 +76,7 @@ export async function install(context: ExtensionContext): Promise<string> {
 		progress.report({ message: 'Installing...'});
 
 		extractZip(lexicalZipUri, lexicalReleaseUri);
+    InstallationManifest.write(lexicalInstallationDirectoryUri);
 
     return lexicalReleaseUri.fsPath;
 	});
@@ -77,13 +86,11 @@ function getLexicalInstallationDirectoryUri(context: ExtensionContext): Uri {
 	return Uri.joinPath(context.globalStorageUri, "lexical_install");
 }
 
-function getLexicalZipUri(context: ExtensionContext): Uri {
-	const installDirUri = getLexicalInstallationDirectoryUri(context);
+function getLexicalZipUri(installDirUri: Uri): Uri {
 	return Uri.joinPath(installDirUri, `lexical.zip`);
 }
 
-function getLexicalReleaseUri(context: ExtensionContext): Uri {
-	const installDirUri = getLexicalInstallationDirectoryUri(context);
+function getLexicalReleaseUri(installDirUri: Uri): Uri {
 	return Uri.joinPath(installDirUri, `lexical`);
 }
 

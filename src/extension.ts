@@ -18,7 +18,7 @@ export function deactivate(): void {}
 async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
   const releasePathOverride = Configuration.getReleasePathOverride();
 
-  if (releasePathOverride !== undefined) {
+  if (releasePathOverride !== undefined && releasePathOverride !== "") {
     console.log(`Release override path set to "${releasePathOverride}". Skipping auto-install.`);
 
     return releasePathOverride as string;
