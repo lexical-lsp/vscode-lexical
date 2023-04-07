@@ -3,11 +3,12 @@ import * as fs from "fs";
 import { ExtensionContext, ProgressLocation, Uri, window } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
 import * as unzipper from 'unzipper';
+import { join } from "path";
 
-export async function start(context: ExtensionContext): Promise<void> {
+export async function start(releasePath: string): Promise<void> {
 	const outputChannel = window.createOutputChannel("Lexical");
 
-	const startScriptPath = Uri.joinPath(getLexicalReleaseUri(context), "start_lexical.sh").fsPath;
+	const startScriptPath = join(releasePath, "start_lexical.sh");
 
 	const serverOptions: ServerOptions = {
 		command: startScriptPath,
@@ -38,6 +39,8 @@ export async function start(context: ExtensionContext): Promise<void> {
 		clientOptions
 	);
 
+  outputChannel.appendLine(`Starting lexical release in "${releasePath}"`);
+
 	await client
 		.start()
 		.then(() => {
@@ -48,7 +51,7 @@ export async function start(context: ExtensionContext): Promise<void> {
 		});
 }
 
-export async function install(context: ExtensionContext): Promise<void> {
+export async function install(context: ExtensionContext): Promise<string> {
 	return window.withProgress({
 		title: 'Installing Lexical server...',
 		location: ProgressLocation.Notification
@@ -65,6 +68,8 @@ export async function install(context: ExtensionContext): Promise<void> {
 		progress.report({ message: 'Installing...'});
 
 		extractZip(lexicalZipUri, lexicalReleaseUri);
+
+    return lexicalReleaseUri.fsPath;
 	});
 }
 

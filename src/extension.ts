@@ -1,13 +1,30 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { ExtensionContext, window } from "vscode";
+import { ExtensionContext, workspace } from "vscode";
 import * as LanguageServer from "./language-server";
+import * as Configuration from "./configuration";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate(context: ExtensionContext): void {
-	LanguageServer.install(context).then(() => LanguageServer.start(context));
+export async function activate(context: ExtensionContext): Promise<void> {
+  const releasePath = await maybeAutoInstall(context);
+
+  await LanguageServer.start(releasePath);
 }
 
 // This method is called when your extension is deactivated
 export function deactivate(): void {}
+
+async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
+  const releasePathOverride = Configuration.getReleasePathOverride();
+
+  if (releasePathOverride !== undefined) {
+    console.log(`Release override path set to "${releasePathOverride}". Skipping auto-install.`);
+
+    return releasePathOverride as string;
+  }
+
+  console.log("Release override path is undefined, starting auto-install.");
+
+  return await LanguageServer.install(context);
+}

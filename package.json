@@ -132,6 +132,11 @@
           ],
           "default": "off",
           "description": "Traces the communication between VS Code and the language server."
+        },
+        "lexical.server.releasePathOverride": {
+          "scope": "window",
+          "type": "string",
+          "markdownDescription": "The path to the lexical release the extension should start. The path should point to a folder containing the `start_lexical.sh` script. Note that setting this to any value will disable automatic installation of Lexical."
         }
       }
     }
