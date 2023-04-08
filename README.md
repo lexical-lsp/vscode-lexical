@@ -6,16 +6,6 @@ The extension is not yet published to the Visual Studio Marketplace. The extensi
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on setting up dependencies.
 
-### Configuring vscode-lexical
-
-vscode-lexical currently does not package lexical itself.
-
-First, clone the lexical repo and follow the instructions in the README to build a release.
-
-Once that's done, create a file called `lexical_release_path.txt` at the root of the project and write to it the absolute path to your lexical release.
-
-It should look something like `/home/username/Projects/lexical/_build/dev/rel`.
-
 ### Starting the extension for development
 
 Press F5. VSCode should build and start the extension.
@@ -26,6 +16,14 @@ Press F5. VSCode should build and start the extension.
 npx vsce package --yarn
 code --install-extension *.vsix
 ```
+
+### Using a version of Lexical other than the latest release
+
+The extension automatically downloads and installs the latest release of Lexical.
+
+If you wish to use any other version, such as an older or development version, you must download or build the corresponding release. You must then set the `lexical.server.releasePathOverride` setting to the folder containing the release you want to use.
+
+The path should look something like `/home/username/Projects/lexical/_build/dev/rel/lexical`.
 
 ## Following extension guidelines
 
