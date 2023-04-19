@@ -6,6 +6,8 @@ The extension is not yet published to the Visual Studio Marketplace. The extensi
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on setting up dependencies.
 
+The extension automatically downloads and installs a predefined build of Lexical from a private S3 repository. Follow [the instructions below](#using-a-version-of-lexical-other-than-the-predefined-one) if you want to make sure you're using the latest version. Support for automatic download of the latest release will be coming soon. 
+
 ### Starting the extension for development
 
 Press F5. VSCode should build and start the extension.
@@ -17,11 +19,9 @@ npx vsce package --yarn
 code --install-extension *.vsix
 ```
 
-### Using a version of Lexical other than the latest release
+### Using a version of Lexical other than the predefined one
 
-The extension automatically downloads and installs the latest release of Lexical.
-
-If you wish to use any other version, such as an older or development version, you must download or build the corresponding release. You must then set the `lexical.server.releasePathOverride` setting to the folder containing the release you want to use.
+If you wish to use any version of Lexical other than the one currently provided, such as an older or development version, you must download or build the corresponding release. You must then set the `lexical.server.releasePathOverride` setting to the folder containing the release you want to use.
 
 The path should look something like `/home/username/Projects/lexical/_build/dev/rel/lexical`.
 
