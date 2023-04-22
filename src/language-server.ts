@@ -75,7 +75,7 @@ export async function install(context: ExtensionContext): Promise<string> {
 
 		progress.report({ message: 'Installing...'});
 
-		extractZip(lexicalZipUri, lexicalReleaseUri);
+		await extractZip(lexicalZipUri, lexicalReleaseUri);
     InstallationManifest.write(lexicalInstallationDirectoryUri);
 
     return lexicalReleaseUri.fsPath;
@@ -108,9 +108,15 @@ function ensureInstallationDirectoryExists(context: ExtensionContext): void {
 	}
 }
 
-function extractZip(zipUri: Uri, releaseUri: Uri): void {
-	fs.createReadStream(zipUri.fsPath)
-		.pipe(unzipper.Extract({ path: releaseUri.fsPath }));
+async function extractZip(zipUri: Uri, releaseUri: Uri): Promise<void> {
+	await new Promise((resolve, reject) => {
+		fs.createReadStream(zipUri.fsPath)
+			.pipe(unzipper.Extract({ path: releaseUri.fsPath }))
+			.on('close', () => {
+				resolve(undefined);
+			});
+	});
+	
 
 	fs.chmodSync(Uri.joinPath(releaseUri, 'start_lexical.sh').fsPath, 0o755);
 	fs.chmodSync(Uri.joinPath(releaseUri, 'bin', 'lexical').fsPath, 0o755);
