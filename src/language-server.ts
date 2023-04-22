@@ -104,7 +104,7 @@ function ensureInstallationDirectoryExists(context: ExtensionContext): void {
 	const installDirUri = getLexicalInstallationDirectoryUri(context);
 
 	if (!fs.existsSync(installDirUri.fsPath)) {
-		fs.mkdirSync(installDirUri.fsPath);
+		fs.mkdirSync(installDirUri.fsPath, { recursive: true	});
 	}
 }
 
