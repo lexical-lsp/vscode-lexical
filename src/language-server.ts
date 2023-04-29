@@ -5,6 +5,7 @@ import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-lan
 import * as unzipper from 'unzipper';
 import { join } from "path";
 import * as InstallationManifest from "./installation-manifest";
+import { Release } from "./github";
 
 export async function start(releasePath: string): Promise<void> {
 	const outputChannel = window.createOutputChannel("Lexical");
@@ -57,26 +58,23 @@ export async function install(context: ExtensionContext): Promise<string> {
 	const lexicalZipUri = getLexicalZipUri(lexicalInstallationDirectoryUri);
 	const lexicalReleaseUri = getLexicalReleaseUri(lexicalInstallationDirectoryUri);
 
-	if (InstallationManifest.fetch(lexicalInstallationDirectoryUri)?.installed) {
-		console.log('Latest version of Lexical is already installed. Skipping auto-install.');
-
-		return lexicalReleaseUri.fsPath;
-	}
-	
 	return window.withProgress({
 		title: 'Installing Lexical server...',
 		location: ProgressLocation.Notification
 	}, async progress => {
 		ensureInstallationDirectoryExists(context);
     
-		progress.report({ message: 'Downloading Lexical executable'});
+		progress.report({ message: 'Downloading Lexical release'});
 
-		await downloadZip(lexicalZipUri);
+		const [zipBuffer, version] = await downloadZip();
 
 		progress.report({ message: 'Installing...'});
 
+		console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
+		fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, 'binary');
+
 		await extractZip(lexicalZipUri, lexicalReleaseUri);
-    InstallationManifest.write(lexicalInstallationDirectoryUri);
+    InstallationManifest.write(lexicalInstallationDirectoryUri, version);
 
     return lexicalReleaseUri.fsPath;
 	});
@@ -94,10 +92,29 @@ function getLexicalReleaseUri(installDirUri: Uri): Uri {
 	return Uri.joinPath(installDirUri, `lexical`);
 }
 
-async function downloadZip(zipUri: Uri): Promise<void> {
-	const response = await axios.get(`https://lexical-release.s3.ca-central-1.amazonaws.com/lexical.zip`, { responseType: 'arraybuffer'});
+async function downloadZip(): Promise<[NodeJS.ArrayBufferView, Date]> {
+	const latestRelease = (await axios.get<Release>("https://api.github.com/repos/lexical-lsp/lexical/releases/latest", { headers: { accept: "application/vnd.github+json" }})).data;
 
-	fs.writeFileSync(zipUri.fsPath, response.data, 'binary');
+	if (latestRelease.name === null) {
+		throw new Error("Latest Lexical release does not have a name. Cannot proceed with auto-install.");
+	}
+
+	console.log(`Latest release is "${latestRelease.name}"`);
+	
+	const zipAsset = latestRelease.assets.find(asset => asset.name === 'lexical.zip');
+
+	if (zipAsset === undefined) {
+		throw new Error(`Release ${latestRelease.name} did not contain the expected assets. Cannot proceed with auto-install.`);	
+	}
+
+	const zipUrl = zipAsset.browser_download_url;
+	console.log(`Downloading lexical archive from github with path "${zipUrl}"`);
+
+	const zipArrayBuffer = (await axios.get<NodeJS.ArrayBufferView>(zipUrl, { responseType: 'arraybuffer'})).data;
+
+	const version = new Date(latestRelease.name + '.000Z');
+
+	return [zipArrayBuffer, version];
 }
 
 function ensureInstallationDirectoryExists(context: ExtensionContext): void {
@@ -109,11 +126,16 @@ function ensureInstallationDirectoryExists(context: ExtensionContext): void {
 }
 
 async function extractZip(zipUri: Uri, releaseUri: Uri): Promise<void> {
+	console.log(`Extracting zip archive to ${releaseUri.fsPath}`);
 	await new Promise((resolve, reject) => {
 		fs.createReadStream(zipUri.fsPath)
 			.pipe(unzipper.Extract({ path: releaseUri.fsPath }))
 			.on('close', () => {
 				resolve(undefined);
+			})
+			.on('error', (err) => {
+				console.error(err);
+				reject(err);
 			});
 	});
 	
