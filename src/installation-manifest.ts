@@ -1,5 +1,6 @@
 import { Uri } from "vscode";
 import * as fs from "fs";
+import * as Release from './release';
 
 export interface T {
 	installedVersion: Date
@@ -9,10 +10,10 @@ interface RawInstallationManifest {
 	installedVersion: string
 }
 
-export function write(installDirUri: Uri, version: Date): void {
+export function write(installDirUri: Uri, release: Release.T): void {
   const installationManifestUri = Uri.joinPath(installDirUri, 'installation_manifest.json');
 
-	const manifest: T = { installedVersion: version };
+	const manifest: T = { installedVersion: release.version };
 	const rawManifest: RawInstallationManifest = toRaw(manifest);
 
 	console.log(`Latest release installation manifest is`, rawManifest);
