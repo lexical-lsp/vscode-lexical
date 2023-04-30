@@ -1,7 +1,7 @@
 import { Uri } from "vscode";
 import * as fs from "fs";
 
-export interface InstallationManifest {
+export interface T {
 	installedVersion: Date
 }
 
@@ -12,7 +12,7 @@ interface RawInstallationManifest {
 export function write(installDirUri: Uri, version: Date): void {
   const installationManifestUri = Uri.joinPath(installDirUri, 'installation_manifest.json');
 
-	const manifest: InstallationManifest = { installedVersion: version };
+	const manifest: T = { installedVersion: version };
 	const rawManifest: RawInstallationManifest = toRaw(manifest);
 
 	console.log(`Latest release installation manifest is`, rawManifest);
@@ -21,10 +21,10 @@ export function write(installDirUri: Uri, version: Date): void {
   fs.writeFileSync(installationManifestUri.fsPath, JSON.stringify(rawManifest));
 }
 
-export function fetch(installDirUri: Uri): InstallationManifest | undefined {
+export function fetch(installDirUri: Uri): T | undefined {
   const installationManifestUri = Uri.joinPath(installDirUri, 'installation_manifest.json');
 
-	console.log(`Looking for an installation manifest at path ${installationManifestUri}`);
+	console.log(`Looking for an installation manifest at path ${installationManifestUri.fsPath}`);
 
 	if (!fs.existsSync(installationManifestUri.fsPath)) {
 		console.log('No installation manifest found');
@@ -51,13 +51,13 @@ function isValid(rawManifest: unknown): rawManifest is RawInstallationManifest {
 		&& new Date(rawManifest.installedVersion).toString() !== 'Invalid Date';
 }
 
-function toRaw(manifest: InstallationManifest): RawInstallationManifest {
+function toRaw(manifest: T): RawInstallationManifest {
 	return {
 		installedVersion: manifest.installedVersion.toISOString()
 	};
 }
 
-function fromRaw(manifest: RawInstallationManifest): InstallationManifest {
+function fromRaw(manifest: RawInstallationManifest): T {
 	return {
 		installedVersion: new Date(manifest.installedVersion)
 	};

@@ -58,15 +58,23 @@ export async function install(context: ExtensionContext): Promise<string> {
 	const lexicalZipUri = getLexicalZipUri(lexicalInstallationDirectoryUri);
 	const lexicalReleaseUri = getLexicalReleaseUri(lexicalInstallationDirectoryUri);
 
+	ensureInstallationDirectoryExists(context);
+		
+	const latestRelease = await fetchLatestRelease();	
+	const installationManifest = InstallationManifest.fetch(lexicalInstallationDirectoryUri);
+
+	if (installationManifest !== undefined && isInstalledReleaseLatest(installationManifest, latestRelease)) {
+		console.log('Latest release is already installed. Skipping auto-install.');
+		return lexicalReleaseUri.fsPath;
+	}
+	
 	return window.withProgress({
 		title: 'Installing Lexical server...',
 		location: ProgressLocation.Notification
 	}, async progress => {
-		ensureInstallationDirectoryExists(context);
-    
 		progress.report({ message: 'Downloading Lexical release'});
 
-		const [zipBuffer, version] = await downloadZip();
+		const zipBuffer = await downloadZip(latestRelease);
 
 		progress.report({ message: 'Installing...'});
 
@@ -74,10 +82,23 @@ export async function install(context: ExtensionContext): Promise<string> {
 		fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, 'binary');
 
 		await extractZip(lexicalZipUri, lexicalReleaseUri);
-    InstallationManifest.write(lexicalInstallationDirectoryUri, version);
+
+		if (latestRelease.name === null) {
+			throw new Error("Latest Lexical release does not have a name. Cannot proceed with auto-install.");
+		}
+
+    InstallationManifest.write(lexicalInstallationDirectoryUri, releaseNameToDate(latestRelease.name));
 
     return lexicalReleaseUri.fsPath;
 	});
+}
+
+function isInstalledReleaseLatest(installationManifest: InstallationManifest.T, latestRelease: Release): boolean {
+	if (latestRelease.name === null) {
+		throw new Error("Latest Lexical release does not have a name. Cannot proceed with auto-install.");
+	}
+	
+	return releaseNameToDate(latestRelease.name) >= installationManifest.installedVersion;
 }
 
 function getLexicalInstallationDirectoryUri(context: ExtensionContext): Uri {
@@ -92,19 +113,23 @@ function getLexicalReleaseUri(installDirUri: Uri): Uri {
 	return Uri.joinPath(installDirUri, `lexical`);
 }
 
-async function downloadZip(): Promise<[NodeJS.ArrayBufferView, Date]> {
-	const latestRelease = (await axios.get<Release>("https://api.github.com/repos/lexical-lsp/lexical/releases/latest", { headers: { accept: "application/vnd.github+json" }})).data;
+async function fetchLatestRelease(): Promise<Release> {
+	const latestRelease = (await axios.get<Release>("https://api.github.com/repos/Blond11516/lexical/releases/latest", { headers: { accept: "application/vnd.github+json" }})).data;
 
 	if (latestRelease.name === null) {
 		throw new Error("Latest Lexical release does not have a name. Cannot proceed with auto-install.");
 	}
 
 	console.log(`Latest release is "${latestRelease.name}"`);
-	
-	const zipAsset = latestRelease.assets.find(asset => asset.name === 'lexical.zip');
+
+	return latestRelease;
+}
+
+async function downloadZip(release: Release): Promise<NodeJS.ArrayBufferView> {
+	const zipAsset = release.assets.find(asset => asset.name === 'lexical.zip');
 
 	if (zipAsset === undefined) {
-		throw new Error(`Release ${latestRelease.name} did not contain the expected assets. Cannot proceed with auto-install.`);	
+		throw new Error(`Release ${release.name} did not contain the expected assets. Cannot proceed with auto-install.`);	
 	}
 
 	const zipUrl = zipAsset.browser_download_url;
@@ -112,9 +137,7 @@ async function downloadZip(): Promise<[NodeJS.ArrayBufferView, Date]> {
 
 	const zipArrayBuffer = (await axios.get<NodeJS.ArrayBufferView>(zipUrl, { responseType: 'arraybuffer'})).data;
 
-	const version = new Date(latestRelease.name + '.000Z');
-
-	return [zipArrayBuffer, version];
+	return zipArrayBuffer;
 }
 
 function ensureInstallationDirectoryExists(context: ExtensionContext): void {
@@ -144,4 +167,8 @@ async function extractZip(zipUri: Uri, releaseUri: Uri): Promise<void> {
 	fs.chmodSync(Uri.joinPath(releaseUri, 'bin', 'lexical').fsPath, 0o755);
 	fs.chmodSync(Uri.joinPath(releaseUri, 'releases', '0.1.0', 'elixir').fsPath, 0o755);
 	fs.chmodSync(Uri.joinPath(releaseUri, 'releases', '0.1.0', 'iex').fsPath, 0o755);
+}
+
+function releaseNameToDate(releaseName: string): Date {
+	return new Date(releaseName + '.000Z');
 }
