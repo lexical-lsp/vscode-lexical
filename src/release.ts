@@ -23,7 +23,7 @@ namespace Release {
 	function githubReleaseNameToDate(releaseName: string): Date {
 		const date = new Date(releaseName + '.000Z');
 
-		if (date.toString() !== 'Invalid Date') {
+		if (date.toString() === 'Invalid Date') {
 			throw new Error(`Release name "${releaseName} is not a valid ISO8601 timestamp without milliseconds.`);
 		}
 
