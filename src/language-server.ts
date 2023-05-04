@@ -108,7 +108,7 @@ namespace LanguageServer {
 	}
 
 	async function fetchLatestRelease(): Promise<Release.T> {
-		const latestRelease = (await axios.get<Github.Release>("https://api.github.com/repos/Blond11516/lexical/releases/latest", { headers: { accept: "application/vnd.github+json" }})).data;
+		const latestRelease = (await axios.get<Github.Release>("https://api.github.com/repos/lexical-lsp/lexical/releases/latest", { headers: { accept: "application/vnd.github+json" }})).data;
 
 		console.log(`Latest release is "${latestRelease.name}"`);
 
