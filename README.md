@@ -6,7 +6,7 @@ The extension is not yet published to the Visual Studio Marketplace. The extensi
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on setting up dependencies.
 
-The extension automatically downloads and installs a predefined build of Lexical from a private S3 repository. Follow [the instructions below](#using-a-version-of-lexical-other-than-the-predefined-one) if you want to make sure you're using the latest version. Support for automatic download of the latest release will be coming soon. 
+The extension automatically downloads and installs a predefined build of Lexical from a private S3 repository. Follow [the instructions below](#using-a-version-of-lexical-other-than-the-predefined-one) if you want to make sure you're using the latest version. Support for automatic download of the latest release will be coming soon.
 
 ### Starting the extension for development
 

@@ -8,8 +8,7 @@
   },
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
   "typescript.tsc.autoDetect": "off",
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "prettier.enable": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.format.enable": true,
   "eslint.packageManager": "yarn",
   "editor.codeActionsOnSave": {

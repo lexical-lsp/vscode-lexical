@@ -1,12 +1,16 @@
 import axios from "axios";
 import * as fs from "fs";
 import { ExtensionContext, ProgressLocation, Uri, window } from "vscode";
-import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
-import * as unzipper from 'unzipper';
+import {
+	LanguageClient,
+	LanguageClientOptions,
+	ServerOptions,
+} from "vscode-languageclient/node";
+import * as unzipper from "unzipper";
 import { join } from "path";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
-import Release from './release';
+import Release from "./release";
 
 namespace LanguageServer {
 	export async function start(releasePath: string): Promise<void> {
@@ -56,42 +60,61 @@ namespace LanguageServer {
 	}
 
 	export async function install(context: ExtensionContext): Promise<string> {
-		const lexicalInstallationDirectoryUri = getLexicalInstallationDirectoryUri(context);
+		const lexicalInstallationDirectoryUri =
+			getLexicalInstallationDirectoryUri(context);
 		const lexicalZipUri = getLexicalZipUri(lexicalInstallationDirectoryUri);
-		const lexicalReleaseUri = getLexicalReleaseUri(lexicalInstallationDirectoryUri);
+		const lexicalReleaseUri = getLexicalReleaseUri(
+			lexicalInstallationDirectoryUri
+		);
 
 		ensureInstallationDirectoryExists(context);
 
 		const latestRelease = await fetchLatestRelease();
-		const installationManifest = InstallationManifest.fetch(lexicalInstallationDirectoryUri);
+		const installationManifest = InstallationManifest.fetch(
+			lexicalInstallationDirectoryUri
+		);
 
-		if (installationManifest !== undefined && isInstalledReleaseLatest(installationManifest, latestRelease)) {
-			console.log('Latest release is already installed. Skipping auto-install.');
+		if (
+			installationManifest !== undefined &&
+			isInstalledReleaseLatest(installationManifest, latestRelease)
+		) {
+			console.log(
+				"Latest release is already installed. Skipping auto-install."
+			);
 			return lexicalReleaseUri.fsPath;
 		}
-		
-		return window.withProgress({
-			title: 'Installing Lexical server...',
-			location: ProgressLocation.Notification
-		}, async progress => {
-			progress.report({ message: 'Downloading Lexical release'});
 
-			const zipBuffer = await downloadZip(latestRelease);
+		return window.withProgress(
+			{
+				title: "Installing Lexical server...",
+				location: ProgressLocation.Notification,
+			},
+			async (progress) => {
+				progress.report({ message: "Downloading Lexical release" });
 
-			progress.report({ message: 'Installing...'});
+				const zipBuffer = await downloadZip(latestRelease);
 
-			console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
-			fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, 'binary');
+				progress.report({ message: "Installing..." });
 
-			await extractZip(lexicalZipUri, lexicalReleaseUri);
+				console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
+				fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, "binary");
 
-			InstallationManifest.write(lexicalInstallationDirectoryUri, latestRelease);
+				await extractZip(lexicalZipUri, lexicalReleaseUri);
 
-			return lexicalReleaseUri.fsPath;
-		});
+				InstallationManifest.write(
+					lexicalInstallationDirectoryUri,
+					latestRelease
+				);
+
+				return lexicalReleaseUri.fsPath;
+			}
+		);
 	}
 
-	function isInstalledReleaseLatest(installationManifest: InstallationManifest.T, latestRelease: Release.T): boolean {
+	function isInstalledReleaseLatest(
+		installationManifest: InstallationManifest.T,
+		latestRelease: Release.T
+	): boolean {
 		return installationManifest.installedVersion >= latestRelease.version;
 	}
 
@@ -108,17 +131,30 @@ namespace LanguageServer {
 	}
 
 	async function fetchLatestRelease(): Promise<Release.T> {
-		const latestRelease = (await axios.get<Github.Release>("https://api.github.com/repos/lexical-lsp/lexical/releases/latest", { headers: { accept: "application/vnd.github+json" }})).data;
+		const latestRelease = (
+			await axios.get<Github.Release>(
+				"https://api.github.com/repos/lexical-lsp/lexical/releases/latest",
+				{ headers: { accept: "application/vnd.github+json" } }
+			)
+		).data;
 
 		console.log(`Latest release is "${latestRelease.name}"`);
 
 		return Release.fromGithubRelease(latestRelease);
 	}
 
-	async function downloadZip(release: Release.T): Promise<NodeJS.ArrayBufferView> {
-		console.log(`Downloading lexical archive from github with path "${release.archiveUrl}"`);
+	async function downloadZip(
+		release: Release.T
+	): Promise<NodeJS.ArrayBufferView> {
+		console.log(
+			`Downloading lexical archive from github with path "${release.archiveUrl}"`
+		);
 
-		const zipArrayBuffer = (await axios.get<NodeJS.ArrayBufferView>(release.archiveUrl.toString(), { responseType: 'arraybuffer'})).data;
+		const zipArrayBuffer = (
+			await axios.get<NodeJS.ArrayBufferView>(release.archiveUrl.toString(), {
+				responseType: "arraybuffer",
+			})
+		).data;
 
 		return zipArrayBuffer;
 	}
@@ -127,7 +163,7 @@ namespace LanguageServer {
 		const installDirUri = getLexicalInstallationDirectoryUri(context);
 
 		if (!fs.existsSync(installDirUri.fsPath)) {
-			fs.mkdirSync(installDirUri.fsPath, { recursive: true	});
+			fs.mkdirSync(installDirUri.fsPath, { recursive: true });
 		}
 	}
 
@@ -136,19 +172,25 @@ namespace LanguageServer {
 		await new Promise((resolve, reject) => {
 			fs.createReadStream(zipUri.fsPath)
 				.pipe(unzipper.Extract({ path: releaseUri.fsPath }))
-				.on('close', () => {
+				.on("close", () => {
 					resolve(undefined);
 				})
-				.on('error', (err) => {
+				.on("error", (err) => {
 					console.error(err);
 					reject(err);
 				});
 		});
 
-		fs.chmodSync(Uri.joinPath(releaseUri, 'start_lexical.sh').fsPath, 0o755);
-		fs.chmodSync(Uri.joinPath(releaseUri, 'bin', 'lexical').fsPath, 0o755);
-		fs.chmodSync(Uri.joinPath(releaseUri, 'releases', '0.1.0', 'elixir').fsPath, 0o755);
-		fs.chmodSync(Uri.joinPath(releaseUri, 'releases', '0.1.0', 'iex').fsPath, 0o755);
+		fs.chmodSync(Uri.joinPath(releaseUri, "start_lexical.sh").fsPath, 0o755);
+		fs.chmodSync(Uri.joinPath(releaseUri, "bin", "lexical").fsPath, 0o755);
+		fs.chmodSync(
+			Uri.joinPath(releaseUri, "releases", "0.1.0", "elixir").fsPath,
+			0o755
+		);
+		fs.chmodSync(
+			Uri.joinPath(releaseUri, "releases", "0.1.0", "iex").fsPath,
+			0o755
+		);
 	}
 }
 
