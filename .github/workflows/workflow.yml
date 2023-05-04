@@ -26,6 +26,25 @@ jobs:
       - name: Run linter
         run: yarn lint
 
+  check-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Verify formatting
+        run: yarn format:check
+
   build:
     runs-on: ubuntu-latest
 
