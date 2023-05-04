@@ -14,6 +14,7 @@ export async function activate(
 	const fixturesProjectPath = path.resolve(__dirname, "./fixtures");
 
 	// The extensionId is `publisher.name` from package.json
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const ext = vscode.extensions.getExtension("lexical-lsp.lexical")!;
 	await ext.activate();
 	try {

@@ -12,7 +12,9 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/naming-convention": "error",
+    "no-inner-declarations": "off",
     "curly": "error",
     "eqeqeq": "error",
     "no-throw-literal": "error",

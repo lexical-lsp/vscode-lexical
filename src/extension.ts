@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { ExtensionContext, workspace } from "vscode";
+import { ExtensionContext } from "vscode";
 import LanguageServer from "./language-server";
 import Configuration from "./configuration";
 
@@ -13,6 +13,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 }
 
 // This method is called when your extension is deactivated
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function deactivate(): void {}
 
 async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
