@@ -1,23 +1,27 @@
-import * as path from 'path';
+import * as path from "path";
 
-import { runTests } from '@vscode/test-electron';
+import { runTests } from "@vscode/test-electron";
 
 async function main() {
 	try {
 		// The folder containing the Extension Manifest package.json
 		// Passed to `--extensionDevelopmentPath`
-		const extensionDevelopmentPath = path.resolve(__dirname, '../../');
+		const extensionDevelopmentPath = path.resolve(__dirname, "../../");
 
 		// The path to test runner
 		// Passed to --extensionTestsPath
-		const extensionTestsPath = path.resolve(__dirname, './suite/index');
+		const extensionTestsPath = path.resolve(__dirname, "./suite/index");
 
-		const fixturesProjectPath = path.resolve(__dirname, './fixtures');
+		const fixturesProjectPath = path.resolve(__dirname, "./fixtures");
 
 		// Download VS Code, unzip it and run the integration test
-		await runTests({ extensionDevelopmentPath, extensionTestsPath, launchArgs: [fixturesProjectPath] });
+		await runTests({
+			extensionDevelopmentPath,
+			extensionTestsPath,
+			launchArgs: [fixturesProjectPath],
+		});
 	} catch (err) {
-		console.error('Failed to run tests', err);
+		console.error("Failed to run tests", err);
 		process.exit(1);
 	}
 }

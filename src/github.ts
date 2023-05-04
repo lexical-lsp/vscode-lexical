@@ -4,13 +4,13 @@
 
 namespace Github {
 	export interface Release {
-		name: string | null
-		assets: ReleaseAsset[]
+		name: string | null;
+		assets: ReleaseAsset[];
 	}
 
 	export interface ReleaseAsset {
-		browser_download_url: string
-		name: string
+		browser_download_url: string;
+		name: string;
 	}
 }
 
