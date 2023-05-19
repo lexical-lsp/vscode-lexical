@@ -191,6 +191,21 @@ namespace LanguageServer {
 			Uri.joinPath(releaseUri, "releases", "0.1.0", "iex").fsPath,
 			0o755
 		);
+
+		const remoteControlDirectoryName = fs
+			.readdirSync(Uri.joinPath(releaseUri, "lib").fsPath)
+			.find((lib) => lib.match(/^remote_control/));
+
+		if (remoteControlDirectoryName !== undefined) {
+			const portWrapperUri = Uri.joinPath(
+				releaseUri,
+				"lib",
+				remoteControlDirectoryName,
+				"priv",
+				"port_wrapper.sh"
+			);
+			fs.chmodSync(portWrapperUri.fsPath, 0o755);
+		}
 	}
 }
 
