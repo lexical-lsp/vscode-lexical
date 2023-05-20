@@ -1,38 +1,40 @@
-import * as path from "path";
-import * as Mocha from "mocha";
-import * as glob from "glob";
+import { runCLI } from "jest";
 
-export function run(): Promise<void> {
-	// Create the mocha test
-	const mocha = new Mocha({
-		ui: "tdd",
-		color: true,
-	});
+interface ITestRunner {
+	run(testsRoot: string, clb: (error?: Error, failures?: number) => void): void;
+}
+import path = require("path");
 
-	const testsRoot = path.resolve(__dirname, "..");
+const jestTestRunnerForVSCodeE2E: ITestRunner = {
+	run(
+		testsRoot: string,
+		reportTestResults: (error?: Error, failures?: number) => void
+	): void {
+		const projectRootPath = process.cwd();
+		const config = path.join(projectRootPath, "jest.e2e.config.js");
 
-	return new Promise((c, e) => {
-		glob("**/**.test.js", { cwd: testsRoot }, (err, files) => {
-			if (err) {
-				return e(err);
-			}
+		runCLI({ config } as any, [projectRootPath])
+			.then((jestCliCallResult) => {
+				jestCliCallResult.results.testResults.forEach((testResult) => {
+					testResult.testResults
+						.filter((assertionResult) => assertionResult.status === "passed")
+						.forEach(({ ancestorTitles, title, status }) => {
+							console.info(`  ● ${ancestorTitles} > ${title} (${status})`);
+						});
+				});
 
-			// Add files to the test suite
-			files.forEach((f) => mocha.addFile(path.resolve(testsRoot, f)));
-
-			try {
-				// Run the mocha test
-				mocha.run((failures) => {
-					if (failures > 0) {
-						e(new Error(`${failures} tests failed.`));
-					} else {
-						c();
+				jestCliCallResult.results.testResults.forEach((testResult) => {
+					if (testResult.failureMessage) {
+						console.error(testResult.failureMessage);
 					}
 				});
-			} catch (err) {
-				console.error(err);
-				e(err);
-			}
-		});
-	});
-}
+
+				reportTestResults(undefined, jestCliCallResult.results.numFailedTests);
+			})
+			.catch((errorCaughtByJestRunner) => {
+				reportTestResults(errorCaughtByJestRunner, 0);
+			});
+	},
+};
+
+module.exports = jestTestRunnerForVSCodeE2E;
