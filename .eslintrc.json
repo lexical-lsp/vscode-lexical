@@ -24,7 +24,8 @@
     "out",
     "dist",
     "**/*.d.ts",
-    "jest.*.config.js",
+    "jest.e2e.config.js",
+    "jest.config.ts",
     "src/test-e2e/vscode-environment.js",
     "src/test-e2e/vscode.js"
   ]
