@@ -153,6 +153,7 @@
     "test:e2e": "yarn run compile && node ./out/test-e2e/runTest.js"
   },
   "devDependencies": {
+    "@jest/globals": "^29.5.0",
     "@types/glob": "^8.1.0",
     "@types/node": "16.x",
     "@types/unzipper": "^0.10.5",
