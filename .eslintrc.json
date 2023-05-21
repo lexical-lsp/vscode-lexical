@@ -25,7 +25,7 @@
     "dist",
     "**/*.d.ts",
     "jest.*.config.js",
-    "src/test/vscode-environment.js",
-    "src/test/vscode.js"
+    "src/test-e2e/vscode-environment.js",
+    "src/test-e2e/vscode.js"
   ]
 }

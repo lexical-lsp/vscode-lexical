@@ -3,10 +3,10 @@ const path = require("path");
 
 module.exports = {
 	moduleFileExtensions: ["js"],
-	testMatch: ["<rootDir>/out/test/suite/**.test.js"],
-	testEnvironment: "./src/test/vscode-environment.js",
+	testMatch: ["<rootDir>/out/test-e2e/suite/**.test.js"],
+	testEnvironment: "./src/test-e2e/vscode-environment.js",
 	verbose: true,
 	moduleNameMapper: {
-		vscode: path.join(__dirname, "src", "test", "vscode.js"),
+		vscode: path.join(__dirname, "src", "test-e2e", "vscode.js"),
 	},
 };
