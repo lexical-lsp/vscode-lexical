@@ -1,4 +1,4 @@
-// see https://github.com/microsoft/vscode-test/issues/37#issuecomment-700167820
+// see https://github.com/microsoft/vscode-test/issues/37#issuecomment-700167820 and https://github.com/daddykotex/jest-tests
 const { TestEnvironment } = require("jest-environment-node");
 const vscode = require("vscode");
 

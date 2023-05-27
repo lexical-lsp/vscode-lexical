@@ -1,3 +1,5 @@
+// Adapted from https://github.com/daddykotex/jest-tests
+
 import { runCLI } from "jest";
 
 interface ITestRunner {
