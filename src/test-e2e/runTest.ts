@@ -16,6 +16,9 @@ async function main() {
 
 		// Download VS Code, unzip it and run the integration test
 		await runTests({
+			// Tests fail to run with a higher version. Requires further investigation.
+			// Not a huge deal, but would be nice to be able to test with latest version.
+			version: "1.73.0",
 			extensionDevelopmentPath,
 			extensionTestsPath,
 			launchArgs: [fixturesProjectPath],
