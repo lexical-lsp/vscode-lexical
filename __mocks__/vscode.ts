@@ -1,3 +1,4 @@
-const Uri = { parse: () => undefined };
+import { URI } from "vscode-uri";
 
-export default { Uri };
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const Uri = { parse: URI.parse };
