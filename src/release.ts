@@ -1,5 +1,5 @@
 import Github from "./github";
-import { Uri } from "vscode";
+import { Uri, test } from "vscode";
 
 namespace Release {
 	export interface T {
@@ -9,6 +9,9 @@ namespace Release {
 	}
 
 	export function fromGithubRelease(githubRelease: Github.Release): T {
+		console.log(Uri);
+		console.log(test);
+
 		if (githubRelease.name === null) {
 			throw new Error("Github release did not contain a name.");
 		}
