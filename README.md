@@ -1,32 +1,41 @@
-# lexical README
+# Lexical
+
+Lexical is a next-generation language server for the Elixir programming language.
+
+## Features
+
+- Context aware code completion
+- As-you-type compilation
+- Advanced error highlighting
+- Code actions
+- Code Formatting
+- Completely isolated build environment
+
+For all the details on what makes Lexical stand out from other Elixir language servers, see the [language server repository](https://github.com/lexical-lsp/lexical).
 
 ## Using the extension
 
-The extension is not yet published to the Visual Studio Marketplace. The extension must be built and installed manually.
+This extension will automatically download and install the [latest Lexical release](https://github.com/lexical-lsp/lexical/releases) from Github when starting up. You can disable this behaviour and point the extension to your own build with the [`lexical.server.releasePathOverride` configuration option](#lexicalserverreleasepathoverride).
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on setting up dependencies.
+## Configuration
 
-The extension automatically downloads and installs a predefined build of Lexical from a private S3 repository. Follow [the instructions below](#using-a-version-of-lexical-other-than-the-predefined-one) if you want to make sure you're using the latest version. Support for automatic download of the latest release will be coming soon.
+### lexical.server.releasePathOverride
 
-### Starting the extension for development
-
-Press F5. VSCode should build and start the extension.
-
-### Installing the extension globally
-
-```sh
-npx vsce package --yarn
-code --install-extension *.vsix
-```
-
-### Using a version of Lexical other than the predefined one
-
-If you wish to use any version of Lexical other than the one currently provided, such as an older or development version, you must download or build the corresponding release. You must then set the `lexical.server.releasePathOverride` setting to the folder containing the release you want to use.
+Tells the extension to use a local release of the Lexical language server instead of the automatically installed one. Useful to work on Lexical, or use an older version.
 
 The path should look something like `/home/username/Projects/lexical/_build/dev/rel/lexical`.
 
-## Following extension guidelines
+## Troubleshooting
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+Lexical outputs logs to two different files:
 
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+- `lexical.log`: Contains logs for the language server node, which handles all the LSP communication, code intelligence, etc.
+- `project.log`: Contains logs for the project node, which handles loading and compiling your project.
+
+### Getting help
+
+If you have questions or need help, please refer to one of the following channels:
+
+- The [issues on the vscode-lexical project](https://github.com/lexical-lsp/vscode-lexical/issues)
+- The [issues on the lexical project](https://github.com/lexical-lsp/lexical/issues)
+- The `#editor-tooling` channel in the [Elixir Discord server](https://discord.gg/elixir)

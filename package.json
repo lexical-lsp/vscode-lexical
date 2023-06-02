@@ -150,7 +150,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest",
-    "test:e2e": "yarn run compile && node ./out/test-e2e/runTest.js"
+    "test:e2e": "yarn run compile && node ./out/test-e2e/runTest.js",
+    "vsce:package": "vsce package --yarn",
+    "vsce:publish": "vsce publish --yarn",
+    "vsce:login": "vsce login lexical-lsp"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
@@ -161,6 +164,7 @@
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "@vscode/test-electron": "^2.2.3",
+    "@vscode/vsce": "^2.19.0",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.8.0",
     "glob": "^8.1.0",
