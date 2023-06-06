@@ -32,6 +32,10 @@ Lexical outputs logs to two different files:
 - `lexical.log`: Contains logs for the language server node, which handles all the LSP communication, code intelligence, etc.
 - `project.log`: Contains logs for the project node, which handles loading and compiling your project.
 
+### Known issues
+
+- Lexical currently fails to start when using a version of Erlang other than 25.2. If you cannot use this version of Erlang, a workaround is to clone the [Lexical language server repo](https://github.com/lexical-lsp/lexical), change `include_erts` to `true` in `mix.exs`, build a release following the instructions in the README and [configure the extension to use that local release](lexicalserverreleasepathoverride)
+
 ### Getting help
 
 If you have questions or need help, please refer to one of the following channels:
