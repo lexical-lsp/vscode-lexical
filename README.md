@@ -34,7 +34,7 @@ Lexical outputs logs to two different files:
 
 ### Known issues
 
-- Lexical currently fails to start when using a version of Erlang other than 25.2. If you cannot use this version of Erlang, a workaround is to clone the [Lexical language server repo](https://github.com/lexical-lsp/lexical), change `include_erts` to `true` in `mix.exs`, build a release following the instructions in the README and [configure the extension to use that local release](lexicalserverreleasepathoverride)
+- Lexical currently fails to start when using a version of Erlang other than 25.2. If you cannot use this version of Erlang, a workaround is to clone the [Lexical language server repo](https://github.com/lexical-lsp/lexical), change `include_erts` to `true` in `mix.exs`, build a release following the instructions in the README and [configure the extension to use that local release](#lexicalserverreleasepathoverride)
 
 ### Getting help
 
