@@ -8,3 +8,12 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+__mocks__/**
+.github/**
+out/test/**
+out/test-e2e/**
+*
+!CHANGELOG.md
+!*language-configuration.json
+!package.json
+!README.md
