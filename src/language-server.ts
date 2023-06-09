@@ -11,6 +11,7 @@ import { join } from "path";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
 import Release from "./release";
+import ReleaseVersion from "./release/version";
 
 namespace LanguageServer {
 	export async function start(releasePath: string): Promise<void> {
@@ -115,7 +116,10 @@ namespace LanguageServer {
 		installationManifest: InstallationManifest.T,
 		latestRelease: Release.T
 	): boolean {
-		return installationManifest.installedVersion >= latestRelease.version;
+		return ReleaseVersion.gte(
+			installationManifest.installedVersion,
+			latestRelease.version
+		);
 	}
 
 	function getLexicalInstallationDirectoryUri(context: ExtensionContext): Uri {
