@@ -1,10 +1,11 @@
 import Github from "./github";
 import { Uri } from "vscode";
+import ReleaseVersion from "./release/version";
 
 namespace Release {
 	export interface T {
 		name: string;
-		version: Date;
+		version: ReleaseVersion.T;
 		archiveUrl: Uri;
 	}
 
@@ -15,21 +16,9 @@ namespace Release {
 
 		return {
 			name: githubRelease.name,
-			version: githubReleaseNameToDate(githubRelease.name),
+			version: ReleaseVersion.fromGithubReleaseName(githubRelease.name),
 			archiveUrl: findArchiveUri(githubRelease),
 		};
-	}
-
-	function githubReleaseNameToDate(releaseName: string): Date {
-		const date = new Date(releaseName + ".000Z");
-
-		if (date.toString() === "Invalid Date") {
-			throw new Error(
-				`Release name "${releaseName} is not a valid ISO8601 timestamp without milliseconds.`
-			);
-		}
-
-		return date;
 	}
 
 	function findArchiveUri(githubRelease: Github.Release): Uri {
