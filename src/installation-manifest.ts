@@ -1,10 +1,11 @@
 import { Uri } from "vscode";
 import * as fs from "fs";
 import Release from "./release";
+import ReleaseVersion from "./release/version";
 
 namespace InstallationManifest {
 	export interface T {
-		installedVersion: Date;
+		installedVersion: ReleaseVersion.T;
 	}
 
 	interface RawInstallationManifest {
@@ -68,19 +69,19 @@ namespace InstallationManifest {
 			rawManifest !== null &&
 			"installedVersion" in rawManifest &&
 			typeof rawManifest.installedVersion === "string" &&
-			new Date(rawManifest.installedVersion).toString() !== "Invalid Date"
+			ReleaseVersion.isValid(rawManifest.installedVersion)
 		);
 	}
 
 	function toRaw(manifest: T): RawInstallationManifest {
 		return {
-			installedVersion: manifest.installedVersion.toISOString(),
+			installedVersion: ReleaseVersion.serialize(manifest.installedVersion),
 		};
 	}
 
 	function fromRaw(manifest: RawInstallationManifest): T {
 		return {
-			installedVersion: new Date(manifest.installedVersion),
+			installedVersion: ReleaseVersion.deserialize(manifest.installedVersion),
 		};
 	}
 }
