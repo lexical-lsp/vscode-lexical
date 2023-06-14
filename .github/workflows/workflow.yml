@@ -64,6 +64,25 @@ jobs:
       - name: Verify formatting
         run: yarn format:check
 
+  typecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Typecheck
+        run: yarn tsc --noEmit
+
   build:
     runs-on: ubuntu-latest
 
@@ -81,4 +100,4 @@ jobs:
         run: yarn install --immutable
 
       - name: Compile
-        run: yarn compile
+        run: yarn esbuild
