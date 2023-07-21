@@ -100,7 +100,11 @@ namespace LanguageServer {
 				console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
 				fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, "binary");
 
-				await extractZip(lexicalZipUri, lexicalReleaseUri);
+				await extractZip(
+					lexicalZipUri,
+					lexicalReleaseUri,
+					latestRelease.version
+				);
 
 				InstallationManifest.write(
 					lexicalInstallationDirectoryUri,
@@ -171,7 +175,11 @@ namespace LanguageServer {
 		}
 	}
 
-	async function extractZip(zipUri: Uri, releaseUri: Uri): Promise<void> {
+	async function extractZip(
+		zipUri: Uri,
+		releaseUri: Uri,
+		version: ReleaseVersion.T
+	): Promise<void> {
 		console.log(`Extracting zip archive to ${releaseUri.fsPath}`);
 		await new Promise((resolve, reject) => {
 			fs.createReadStream(zipUri.fsPath)
@@ -188,11 +196,21 @@ namespace LanguageServer {
 		fs.chmodSync(Uri.joinPath(releaseUri, "start_lexical.sh").fsPath, 0o755);
 		fs.chmodSync(Uri.joinPath(releaseUri, "bin", "lexical").fsPath, 0o755);
 		fs.chmodSync(
-			Uri.joinPath(releaseUri, "releases", "0.1.0", "elixir").fsPath,
+			Uri.joinPath(
+				releaseUri,
+				"releases",
+				ReleaseVersion.serialize(version),
+				"elixir"
+			).fsPath,
 			0o755
 		);
 		fs.chmodSync(
-			Uri.joinPath(releaseUri, "releases", "0.1.0", "iex").fsPath,
+			Uri.joinPath(
+				releaseUri,
+				"releases",
+				ReleaseVersion.serialize(version),
+				"iex"
+			).fsPath,
 			0o755
 		);
 
