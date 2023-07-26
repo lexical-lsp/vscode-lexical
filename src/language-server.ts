@@ -30,14 +30,6 @@ namespace LanguageServer {
 			documentSelector: [
 				{ language: "elixir", scheme: "file" },
 				{ language: "elixir", scheme: "untitled" },
-				{ language: "eex", scheme: "file" },
-				{ language: "eex", scheme: "untitled" },
-				{ language: "html-eex", scheme: "file" },
-				{ language: "html-eex", scheme: "untitled" },
-				{ language: "phoenix-heex", scheme: "file" },
-				{ language: "phoenix-heex", scheme: "untitled" },
-				{ language: "surface", scheme: "file" },
-				{ language: "surface", scheme: "untitled" },
 			],
 		};
 

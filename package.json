@@ -17,8 +17,6 @@
     "mix"
   ],
   "activationEvents": [
-    "onLanguage:phoenix-heex",
-    "onLanguage:surface",
     "workspaceContains:mix.exs"
   ],
   "main": "./out/main.js",
@@ -51,17 +49,6 @@
           ".leex"
         ],
         "configuration": "./eex-language-configuration.json"
-      },
-      {
-        "id": "html-eex",
-        "aliases": [
-          "HTML (Embedded Elixir)",
-          "HTML (EEx)"
-        ],
-        "extensions": [
-          ".html.heex"
-        ],
-        "configuration": "./eex-language-configuration.json"
       }
     ],
     "grammars": [
@@ -74,11 +61,6 @@
         "language": "eex",
         "scopeName": "text.elixir",
         "path": "./syntaxes/eex.json"
-      },
-      {
-        "language": "html-eex",
-        "scopeName": "text.html.elixir",
-        "path": "./syntaxes/html-eex.json"
       }
     ],
     "problemMatchers": [
