@@ -2,7 +2,7 @@
   "name": "lexical",
   "displayName": "Lexical",
   "description": "",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": "github:lexical-lsp/vscode-lexical",
   "publisher": "lexical-lsp",
   "engines": {
