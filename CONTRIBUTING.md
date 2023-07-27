@@ -20,7 +20,6 @@ Press F5. VSCode should build and start the extension.
 ## Installing the extension globally
 
 ```sh
-yarn esbuild
 yarn vsce:package
 code --install-extension *.vsix
 ```
