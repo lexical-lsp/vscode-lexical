@@ -6,12 +6,12 @@ import {
 	LanguageClientOptions,
 	ServerOptions,
 } from "vscode-languageclient/node";
-import * as unzipper from "unzipper";
 import { join } from "path";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
 import Release from "./release";
 import ReleaseVersion from "./release/version";
+import extract = require("extract-zip");
 
 namespace LanguageServer {
 	export async function start(releasePath: string): Promise<void> {
@@ -92,11 +92,7 @@ namespace LanguageServer {
 				console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
 				fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, "binary");
 
-				await extractZip(
-					lexicalZipUri,
-					lexicalReleaseUri,
-					latestRelease.version
-				);
+				await extractZip(lexicalZipUri, lexicalReleaseUri);
 
 				InstallationManifest.write(
 					lexicalInstallationDirectoryUri,
@@ -167,58 +163,14 @@ namespace LanguageServer {
 		}
 	}
 
-	async function extractZip(
-		zipUri: Uri,
-		releaseUri: Uri,
-		version: ReleaseVersion.T
-	): Promise<void> {
+	async function extractZip(zipUri: Uri, releaseUri: Uri): Promise<void> {
 		console.log(`Extracting zip archive to ${releaseUri.fsPath}`);
-		await new Promise((resolve, reject) => {
-			fs.createReadStream(zipUri.fsPath)
-				.pipe(unzipper.Extract({ path: releaseUri.fsPath }))
-				.on("close", () => {
-					resolve(undefined);
-				})
-				.on("error", (err) => {
-					console.error(err);
-					reject(err);
-				});
-		});
-
-		fs.chmodSync(Uri.joinPath(releaseUri, "start_lexical.sh").fsPath, 0o755);
-		fs.chmodSync(Uri.joinPath(releaseUri, "bin", "lexical").fsPath, 0o755);
-		fs.chmodSync(
-			Uri.joinPath(
-				releaseUri,
-				"releases",
-				ReleaseVersion.serialize(version),
-				"elixir"
-			).fsPath,
-			0o755
-		);
-		fs.chmodSync(
-			Uri.joinPath(
-				releaseUri,
-				"releases",
-				ReleaseVersion.serialize(version),
-				"iex"
-			).fsPath,
-			0o755
-		);
-
-		const remoteControlDirectoryName = fs
-			.readdirSync(Uri.joinPath(releaseUri, "lib").fsPath)
-			.find((lib) => lib.match(/^remote_control/));
-
-		if (remoteControlDirectoryName !== undefined) {
-			const portWrapperUri = Uri.joinPath(
-				releaseUri,
-				"lib",
-				remoteControlDirectoryName,
-				"priv",
-				"port_wrapper.sh"
-			);
-			fs.chmodSync(portWrapperUri.fsPath, 0o755);
+		fs.rmSync(releaseUri.fsPath, { recursive: true, force: true });
+		try {
+			await extract(zipUri.fsPath, { dir: releaseUri.fsPath });
+		} catch (err) {
+			console.error(err);
+			throw err;
 		}
 	}
 }
