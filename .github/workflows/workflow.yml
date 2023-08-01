@@ -73,6 +73,10 @@ jobs:
       - run: xvfb-run -a yarn test:e2e || true
 
       - run: |
+          ls out || true
+          ls out/test-e2e || true
+          ls out/test-e2e/fixtures || true
+          ls out/test-e2e/fixtures/.lexical || true
           cat out/test-e2e/fixtures/.lexical/lexical.log || true
           cat out/test-e2e/fixtures/.lexical/project.log || true
           cat out/test-e2e/fixtures/erl-crash.dump || true
