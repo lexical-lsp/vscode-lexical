@@ -26,7 +26,7 @@ export async function activate(
 
 		const doc = await vscode.workspace.openTextDocument(fixtureFilePath);
 		const editor = await vscode.window.showTextDocument(doc);
-		await sleep(400); // Wait for server activation
+		await sleep(1000); // Wait for server activation
 
 		return [doc, editor];
 	} catch (e) {
