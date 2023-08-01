@@ -1,19 +1,17 @@
 import * as vscode from "vscode";
 import { activate, Fixture } from "../helpers";
-import { expect, describe, test } from "@jest/globals";
+import { expect, test } from "@jest/globals";
 
-describe("Should get diagnostics", () => {
-	test("Diagnoses uppercase texts", async () => {
-		await testDiagnostics(Fixture.diagnostics, [
-			{
-				message:
-					"** (CompileError) lib/diagnostics.ex:3: undefined function foo/0 (expected Fixtures to define such a function or for it to be imported, but none are available)\n\n",
-				range: toRange(2, 4, 3, 0),
-				severity: vscode.DiagnosticSeverity.Error,
-				source: "Elixir",
-			},
-		]);
-	});
+test("Should get diagnostics", async () => {
+	await testDiagnostics(Fixture.diagnostics, [
+		{
+			message:
+				"** (CompileError) lib/diagnostics.ex:3: undefined function foo/0 (expected Fixtures to define such a function or for it to be imported, but none are available)\n\n",
+			range: toRange(2, 4, 3, 0),
+			severity: vscode.DiagnosticSeverity.Error,
+			source: "Elixir",
+		},
+	]);
 });
 
 function toRange(sLine: number, sChar: number, eLine: number, eChar: number) {
