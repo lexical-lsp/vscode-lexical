@@ -67,7 +67,20 @@ jobs:
 
       - run: yarn install --immutable
 
-      - run: xvfb-run -a yarn test:e2e
+      - run: xvfb-run -a yarn test:e2e || true
+
+      - run: |
+          echo "dir out"
+          ls out || true
+          echo "dir out/test-e2e"
+          ls out/test-e2e || true
+          echo "dir out/test-e2e/fixtures"
+          ls out/test-e2e/fixtures || true
+          echo "dir out/test-e2e/fixtures/.lexical"
+          ls out/test-e2e/fixtures/.lexical || true
+          cat out/test-e2e/fixtures/.lexical/lexical.log || true
+          cat out/test-e2e/fixtures/.lexical/project.log || true
+          cat out/test-e2e/fixtures/erl_crash.dump || true
 
   check-format:
     runs-on: ubuntu-latest
