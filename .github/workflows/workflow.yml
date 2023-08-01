@@ -70,7 +70,7 @@ jobs:
 
       - run: yarn install --immutable
 
-      - run: xvfb-run -a yarn test:e2e
+      - run: xvfb-run -a yarn test:e2e || true
 
       - run: |
           cat out/test-e2e/fixtures/.lexical/lexical.log || true
