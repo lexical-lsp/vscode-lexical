@@ -64,7 +64,7 @@ jobs:
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
-          otp-version: "24.3.4.12"
+          otp-version: "24.3.4.13"
           elixir-version: "1.13.4-otp-24"
           version-type: strict
 
