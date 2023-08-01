@@ -69,8 +69,11 @@ jobs:
 
       - run: |
           xvfb-run -a yarn test:e2e
-          cat out/test-e2e/fixtures/.lexical/lexical.log
-          cat out/test-e2e/fixtures/.lexical/project.log
+
+      - run: |
+          cat out/test-e2e/fixtures/.lexical/lexical.log || true
+          cat out/test-e2e/fixtures/.lexical/project.log || true
+          cat out/test-e2e/fixtures/erl-crash.dump || true
 
   check-format:
     runs-on: ubuntu-latest
