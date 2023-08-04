@@ -99,11 +99,11 @@ files are created).
 
 ### Known issues
 
-#### `init terminating in do_boot ({load_failed,[logger_simple_h,gen,logger_server,...`
+#### Error in output tab: `init terminating in do_boot ({load_failed,[logger_simple_h,gen,logger_server,...`
 
-When seeing this error in VSCode's Output tab, it most likely means your version
-of Erlang is incompatible with your build of Lexical. Please refer to the
-[Erlang compatibility section](#erlang) for more details.
+This error usually means your version of Erlang is incompatible with your build
+of Lexical. Please refer to the [Erlang compatibility section](#erlang) for more
+details.
 
 ### Getting help
 
