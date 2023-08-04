@@ -25,16 +25,24 @@ Tells the extension to use a local release of the Lexical language server instea
 
 The path should look something like `/home/username/Projects/lexical/_build/dev/rel/lexical`.
 
-## Troubleshooting
+### Erlang and Elixir version compatibility
 
-Lexical outputs logs to two different files:
+#### Erlang
 
-- `lexical.log`: Contains logs for the language server node, which handles all the LSP communication, code intelligence, etc.
-- `project.log`: Contains logs for the project node, which handles loading and compiling your project.
+Auto-installed builds of Lexical are currently only compatible with the version of Erlang they are built with. Refer to the following table to know which version that is:
 
-### Known issues
+| Lexical  | Erlang    |
+| -------- | --------- |
+| 0.2.2    | 24.3.4.13 |
+| >= 0.2.3 | 24.3.4.12 |
 
-Lexical supports the following versions of Elixir and Erlang:
+Refer to the [Releases page of Lexical](https://github.com/lexical-lsp/lexical/releases) to find out what the latest version is.
+
+If you wish to use any other version, it is required to build Lexical yourself. This isn't hard to do: clone the [Lexical language server repo](https://github.com/lexical-lsp/lexical), build a release following the instructions in the README and [configure the extension to use that local release](#lexicalserverreleasepathoverride).
+
+Finally, even when building yourself, you are by default limited to using only the version of Erlang you built Lexical with. To enable your projects to use different versions, follow the above steps to build Lexical yourself, but change `include_erts` to `true` in `mix.exs` before building the release.
+
+The following table illustrates which versions of Erlang Lexical is compatible with when building yourself.
 
 | Erlang | Version range  | Notes                                                                      |
 | ------ | -------------- | -------------------------------------------------------------------------- |
@@ -42,13 +50,30 @@ Lexical supports the following versions of Elixir and Erlang:
 | 25     | `>= 25.0`      |                                                                            |
 | 26     | In progress    |                                                                            |
 
+#### Elixir
+
+Lexical has much less strict requirements on the version of Elixir. Any supported version of Elixir should work with any build of Lexical, auto-installed or not. The supported versions of Elixir are as follows:
+
 | Elixir | Version Range | Notes                                                                     |
 | ------ | ------------- | ------------------------------------------------------------------------- |
 | 1.13   | `>= 1.13.4`   |                                                                           |
 | 1.14   | `all`         |                                                                           |
 | 1.15   | `>= 1.15.3`   | `1.15.0` - `1.15.2` had compiler bugs that prevented lexical from working |
 
-If you cannot use one of the above versions of Erlang, a workaround is to clone the [Lexical language server repo](https://github.com/lexical-lsp/lexical), change `include_erts` to `true` in `mix.exs`, build a release following the instructions in the README and [configure the extension to use that local release](#lexicalserverreleasepathoverride)
+## Troubleshooting
+
+Lexical outputs logs to two different files:
+
+- `lexical.log`: Contains logs for the language server node, which handles all the LSP communication, code intelligence, etc.
+- `project.log`: Contains logs for the project node, which handles loading and compiling your project.
+
+Additionally, the Lexical channel in VSCode's Output tab may contain some pertinent information, notably when Lexical fails to start whatsoever (no log files are created).
+
+### Known issues
+
+#### `init terminating in do_boot ({load_failed,[logger_simple_h,gen,logger_server,...`
+
+When seeing this error in VSCode's Output tab, it most likely means your version of Erlang is incompatible with your build of Lexical. Please refer to the [Erlang compatibility section](#erlang) for more details.
 
 ### Getting help
 
