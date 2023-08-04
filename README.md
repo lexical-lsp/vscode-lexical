@@ -1,6 +1,7 @@
 # Lexical
 
-Lexical is a next-generation language server for the Elixir programming language.
+Lexical is a next-generation language server for the Elixir programming
+language.
 
 ## Features
 
@@ -11,38 +12,59 @@ Lexical is a next-generation language server for the Elixir programming language
 - Code Formatting
 - Completely isolated build environment
 
-For all the details on what makes Lexical stand out from other Elixir language servers, see the [language server repository](https://github.com/lexical-lsp/lexical).
+For all the details on what makes Lexical stand out from other Elixir language
+servers, see the
+[language server repository](https://github.com/lexical-lsp/lexical).
 
 ## Using the extension
 
-This extension will automatically download and install the [latest Lexical release](https://github.com/lexical-lsp/lexical/releases) from Github when starting up. You can disable this behaviour and point the extension to your own build with the [`lexical.server.releasePathOverride` configuration option](#lexicalserverreleasepathoverride).
+This extension will automatically download and install the
+[latest Lexical release](https://github.com/lexical-lsp/lexical/releases) from
+Github when starting up. You can disable this behaviour and point the extension
+to your own build with the
+[`lexical.server.releasePathOverride` configuration option](#lexicalserverreleasepathoverride).
 
 ## Configuration
 
 ### lexical.server.releasePathOverride
 
-Tells the extension to use a local release of the Lexical language server instead of the automatically installed one. Useful to work on Lexical, or use an older version.
+Tells the extension to use a local release of the Lexical language server
+instead of the automatically installed one. Useful to work on Lexical, or use an
+older version.
 
-The path should look something like `/home/username/Projects/lexical/_build/dev/rel/lexical`.
+The path should look something like
+`/home/username/Projects/lexical/_build/dev/rel/lexical`.
 
 ### Erlang and Elixir version compatibility
 
 #### Erlang
 
-Auto-installed builds of Lexical are currently only compatible with the version of Erlang they are built with. Refer to the following table to know which version that is:
+Auto-installed builds of Lexical are currently only compatible with the version
+of Erlang they are built with. Refer to the following table to know which
+version that is:
 
 | Lexical  | Erlang    |
 | -------- | --------- |
 | 0.2.2    | 24.3.4.13 |
 | >= 0.2.3 | 24.3.4.12 |
 
-Refer to the [Releases page of Lexical](https://github.com/lexical-lsp/lexical/releases) to find out what the latest version is.
+Refer to the
+[Releases page of Lexical](https://github.com/lexical-lsp/lexical/releases) to
+find out what the latest version is.
 
-If you wish to use any other version, it is required to build Lexical yourself. This isn't hard to do: clone the [Lexical language server repo](https://github.com/lexical-lsp/lexical), build a release following the instructions in the README and [configure the extension to use that local release](#lexicalserverreleasepathoverride).
+If you wish to use any other version, it is required to build Lexical yourself.
+This isn't hard to do: clone the
+[Lexical language server repo](https://github.com/lexical-lsp/lexical), build a
+release following the instructions in the README and
+[configure the extension to use that local release](#lexicalserverreleasepathoverride).
 
-Finally, even when building yourself, you are by default limited to using only the version of Erlang you built Lexical with. To enable your projects to use different versions, follow the above steps to build Lexical yourself, but change `include_erts` to `true` in `mix.exs` before building the release.
+Finally, even when building yourself, you are by default limited to using only
+the version of Erlang you built Lexical with. To enable your projects to use
+different versions, follow the above steps to build Lexical yourself, but change
+`include_erts` to `true` in `mix.exs` before building the release.
 
-The following table illustrates which versions of Erlang Lexical is compatible with when building yourself.
+The following table illustrates which versions of Erlang Lexical is compatible
+with when building yourself.
 
 | Erlang | Version range  | Notes                                                                      |
 | ------ | -------------- | -------------------------------------------------------------------------- |
@@ -52,7 +74,9 @@ The following table illustrates which versions of Erlang Lexical is compatible w
 
 #### Elixir
 
-Lexical has much less strict requirements on the version of Elixir. Any supported version of Elixir should work with any build of Lexical, auto-installed or not. The supported versions of Elixir are as follows:
+Lexical has much less strict requirements on the version of Elixir. Any
+supported version of Elixir should work with any build of Lexical,
+auto-installed or not. The supported versions of Elixir are as follows:
 
 | Elixir | Version Range | Notes                                                                     |
 | ------ | ------------- | ------------------------------------------------------------------------- |
@@ -64,21 +88,31 @@ Lexical has much less strict requirements on the version of Elixir. Any supporte
 
 Lexical outputs logs to two different files:
 
-- `lexical.log`: Contains logs for the language server node, which handles all the LSP communication, code intelligence, etc.
-- `project.log`: Contains logs for the project node, which handles loading and compiling your project.
+- `lexical.log`: Contains logs for the language server node, which handles all
+  the LSP communication, code intelligence, etc.
+- `project.log`: Contains logs for the project node, which handles loading and
+  compiling your project.
 
-Additionally, the Lexical channel in VSCode's Output tab may contain some pertinent information, notably when Lexical fails to start whatsoever (no log files are created).
+Additionally, the Lexical channel in VSCode's Output tab may contain some
+pertinent information, notably when Lexical fails to start whatsoever (no log
+files are created).
 
 ### Known issues
 
 #### `init terminating in do_boot ({load_failed,[logger_simple_h,gen,logger_server,...`
 
-When seeing this error in VSCode's Output tab, it most likely means your version of Erlang is incompatible with your build of Lexical. Please refer to the [Erlang compatibility section](#erlang) for more details.
+When seeing this error in VSCode's Output tab, it most likely means your version
+of Erlang is incompatible with your build of Lexical. Please refer to the
+[Erlang compatibility section](#erlang) for more details.
 
 ### Getting help
 
-If you have questions or need help, please refer to one of the following channels:
+If you have questions or need help, please refer to one of the following
+channels:
 
-- The [issues on the vscode-lexical project](https://github.com/lexical-lsp/vscode-lexical/issues)
-- The [issues on the lexical project](https://github.com/lexical-lsp/lexical/issues)
-- The `#editor-tooling` channel in the [Elixir Discord server](https://discord.gg/elixir)
+- The
+  [issues on the vscode-lexical project](https://github.com/lexical-lsp/vscode-lexical/issues)
+- The
+  [issues on the lexical project](https://github.com/lexical-lsp/lexical/issues)
+- The `#editor-tooling` channel in the
+  [Elixir Discord server](https://discord.gg/elixir)
