@@ -30,18 +30,20 @@ to your own build with the
 
 Tells the extension to use a local release of the Lexical language server
 instead of the automatically installed one. Useful to work on Lexical, or use an
-older version.
+older version. This path can point to a directory that holds the lexical start script
+(assumed to be `start_lexical.sh`) or any executable launcher script.
 
 The path should look something like
-`/home/username/Projects/lexical/_build/dev/rel/lexical`.
+`/home/username/Projects/lexical/_build/dev/package/lexical/bin/start_lexical.sh`.
 
 ### Erlang and Elixir version compatibility
 
 #### Erlang
 
-Auto-installed builds of Lexical are currently only compatible with the version
-of Erlang they are built with. Refer to the following table to know which
-version that is:
+Auto-installed builds of Lexical are compatible with Elixir and Erlang versions
+that are newer than the version the build was built with.
+
+Refer to the following table to know which version that is:
 
 | Lexical  | Erlang    |
 | -------- | --------- |
@@ -52,16 +54,14 @@ Refer to the
 [Releases page of Lexical](https://github.com/lexical-lsp/lexical/releases) to
 find out what the latest version is.
 
-If you wish to use any other version, it is required to build Lexical yourself.
+These versions are a couple years old, and if you are using newer versions of Elixir and
+Erlang and Elixir in your projects, perfomrance will likely be better if you
+built Lexical yourself with a newer version of Elixir and Erlang.
+
 This isn't hard to do: clone the
 [Lexical language server repo](https://github.com/lexical-lsp/lexical), build a
 release following the instructions in the README and
 [configure the extension to use that local release](#lexicalserverreleasepathoverride).
-
-Finally, even when building yourself, you are by default limited to using only
-the version of Erlang you built Lexical with. To enable your projects to use
-different versions, follow the above steps to build Lexical yourself, but change
-`include_erts` to `true` in `mix.exs` before building the release.
 
 The following table illustrates which versions of Erlang Lexical is compatible
 with when building yourself.
