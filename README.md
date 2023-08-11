@@ -30,8 +30,8 @@ to your own build with the
 
 Tells the extension to use a local release of the Lexical language server
 instead of the automatically installed one. Useful to work on Lexical, or use an
-older version. This path can point to a directory that holds the lexical start script
-(assumed to be `start_lexical.sh`) or any executable launcher script.
+older version. This path can point to a directory that holds the lexical start
+script (assumed to be `start_lexical.sh`) or any executable launcher script.
 
 The path should look something like
 `/home/username/Projects/lexical/_build/dev/package/lexical/bin/start_lexical.sh`.
@@ -54,9 +54,9 @@ Refer to the
 [Releases page of Lexical](https://github.com/lexical-lsp/lexical/releases) to
 find out what the latest version is.
 
-These versions are a couple years old, and if you are using newer versions of Elixir and
-Erlang and Elixir in your projects, perfomrance will likely be better if you
-built Lexical yourself with a newer version of Elixir and Erlang.
+These versions are a couple years old, and if you are using newer versions of
+Elixir and Erlang and Elixir in your projects, perfomrance will likely be better
+if you built Lexical yourself with a newer version of Elixir and Erlang.
 
 This isn't hard to do: clone the
 [Lexical language server repo](https://github.com/lexical-lsp/lexical), build a
