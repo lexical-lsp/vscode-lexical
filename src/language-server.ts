@@ -14,10 +14,23 @@ import ReleaseVersion from "./release/version";
 import extract = require("extract-zip");
 
 namespace LanguageServer {
+	function isExecutableFile(path: fs.PathLike): boolean {
+		const stat = fs.lstatSync(path);
+		let hasExecuteAccess = false;
+		try {
+			fs.accessSync(path, fs.constants.X_OK);
+			hasExecuteAccess = true;
+		} catch (e) {
+			hasExecuteAccess = false;
+		}
+		return stat.isFile() && hasExecuteAccess;
+	}
+
 	export async function start(releasePath: string): Promise<void> {
 		const outputChannel = window.createOutputChannel("Lexical");
-
-		const startScriptPath = join(releasePath, "start_lexical.sh");
+		const startScriptPath = isExecutableFile(releasePath)
+			? releasePath
+			: join(releasePath, "start_lexical.sh");
 
 		const serverOptions: ServerOptions = {
 			command: startScriptPath,

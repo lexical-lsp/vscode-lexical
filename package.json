@@ -118,7 +118,7 @@
         "lexical.server.releasePathOverride": {
           "scope": "window",
           "type": "string",
-          "markdownDescription": "The path to the lexical release the extension should start. The path should point to a folder containing the `start_lexical.sh` script. Note that setting this to any value will disable automatic installation of Lexical."
+          "markdownDescription": "The path to the lexical executable. The path should point to a folder containing the `start_lexical.sh` or an executable file. Note that setting this to any value will disable automatic installation of Lexical."
         }
       }
     }
