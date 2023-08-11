@@ -16,14 +16,14 @@ import extract = require("extract-zip");
 namespace LanguageServer {
 	function isExecutableFile(path: fs.PathLike): boolean {
 		const stat = fs.lstatSync(path);
-		let access = false;
+		let hasExecuteAccess = false;
 		try {
-			fs.accessSync(path, fs.constants.R_OK);
-			access = true;
+			fs.accessSync(path, fs.constants.X_OK);
+			hasExecuteAccess = true;
 		} catch (e) {
-			access = false;
+			hasExecuteAccess = false;
 		}
-		return stat.isFile() && access;
+		return stat.isFile() && hasExecuteAccess;
 	}
 
 	export async function start(releasePath: string): Promise<void> {
