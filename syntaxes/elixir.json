@@ -600,7 +600,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -624,7 +624,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -648,7 +648,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -672,7 +672,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -696,7 +696,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -720,7 +720,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -744,7 +744,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -768,7 +768,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -792,7 +792,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -816,7 +816,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -840,7 +840,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with pipes",
@@ -856,7 +856,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with parens",
@@ -872,7 +872,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with curlies",
@@ -888,7 +888,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with curlies",
@@ -904,7 +904,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with curlies",
@@ -920,7 +920,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with single quoted heredoc",
@@ -936,7 +936,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with double quoted heredoc",
@@ -952,7 +952,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with curlies",
@@ -968,7 +968,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "comment": "Literal Character list sigil with curlies",
@@ -984,7 +984,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir"
+      "name": "support.function.variable.quoted.single.string.elixir"
     },
     {
       "begin": "~w\\{",
@@ -2064,7 +2064,7 @@
         }
       },
       "end": "'",
-      "name": "constant.language.symbol.single-quoted.elixir",
+      "name": "constant.language.symbol.single-quoted.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -2105,7 +2105,7 @@
         }
       },
       "end": "\"",
-      "name": "constant.language.symbol.double-quoted.elixir",
+      "name": "constant.language.symbol.double-quoted.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -2129,7 +2129,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.heredoc.elixir",
+      "name": "support.function.variable.quoted.single.heredoc.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
@@ -2153,7 +2153,7 @@
           "name": "punctuation.definition.string.end.elixir"
         }
       },
-      "name": "support.function.variable.quoted.single.elixir",
+      "name": "support.function.variable.quoted.single.string.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
