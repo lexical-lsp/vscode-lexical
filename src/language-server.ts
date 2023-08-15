@@ -26,11 +26,13 @@ namespace LanguageServer {
 		return stat.isFile() && hasExecuteAccess;
 	}
 
-	export async function start(releasePath: string): Promise<void> {
+	export async function start(
+		startScriptOrReleaseFolderPath: string
+	): Promise<void> {
 		const outputChannel = window.createOutputChannel("Lexical");
-		const startScriptPath = isExecutableFile(releasePath)
-			? releasePath
-			: join(releasePath, "start_lexical.sh");
+		const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
+			? startScriptOrReleaseFolderPath
+			: join(startScriptOrReleaseFolderPath, "start_lexical.sh");
 
 		const serverOptions: ServerOptions = {
 			command: startScriptPath,
@@ -59,7 +61,9 @@ namespace LanguageServer {
 			clientOptions
 		);
 
-		outputChannel.appendLine(`Starting lexical release in "${releasePath}"`);
+		outputChannel.appendLine(
+			`Starting lexical release in "${startScriptOrReleaseFolderPath}"`
+		);
 
 		await client
 			.start()
@@ -93,7 +97,8 @@ namespace LanguageServer {
 			console.log(
 				"Latest release is already installed. Skipping auto-install."
 			);
-			return lexicalReleaseUri.fsPath;
+			return getLexicalStartScriptPath(lexicalReleaseUri, latestRelease.version)
+				.fsPath;
 		}
 
 		return window.withProgress(
@@ -111,14 +116,21 @@ namespace LanguageServer {
 				console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
 				fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, "binary");
 
-				await extractZip(lexicalZipUri, lexicalReleaseUri);
+				await extractZip(
+					lexicalZipUri,
+					lexicalReleaseUri,
+					latestRelease.version
+				);
 
 				InstallationManifest.write(
 					lexicalInstallationDirectoryUri,
 					latestRelease
 				);
 
-				return lexicalReleaseUri.fsPath;
+				return getLexicalStartScriptPath(
+					lexicalReleaseUri,
+					latestRelease.version
+				).fsPath;
 			}
 		);
 	}
@@ -143,6 +155,17 @@ namespace LanguageServer {
 
 	function getLexicalReleaseUri(installDirUri: Uri): Uri {
 		return Uri.joinPath(installDirUri, `lexical`);
+	}
+
+	function getLexicalStartScriptPath(
+		releaseUri: Uri,
+		version: ReleaseVersion.T
+	): Uri {
+		if (usesNewPackaging(version)) {
+			return Uri.joinPath(releaseUri, "bin", "start_lexical.sh");
+		}
+
+		return Uri.joinPath(releaseUri, "start_lexical.sh");
 	}
 
 	async function fetchLatestRelease(): Promise<Release.T> {
@@ -182,15 +205,36 @@ namespace LanguageServer {
 		}
 	}
 
-	async function extractZip(zipUri: Uri, releaseUri: Uri): Promise<void> {
+	async function extractZip(
+		zipUri: Uri,
+		releaseUri: Uri,
+		version: ReleaseVersion.T
+	): Promise<void> {
 		console.log(`Extracting zip archive to ${releaseUri.fsPath}`);
+
 		fs.rmSync(releaseUri.fsPath, { recursive: true, force: true });
+
+		const zipDestinationUri = usesNewPackaging(version)
+			? Uri.joinPath(releaseUri, "..")
+			: releaseUri;
+
 		try {
-			await extract(zipUri.fsPath, { dir: releaseUri.fsPath });
+			await extract(zipUri.fsPath, { dir: zipDestinationUri.fsPath });
+
+			addExecutePermission(Uri.joinPath(releaseUri, "bin/start_lexical.sh"));
+			addExecutePermission(Uri.joinPath(releaseUri, "priv/port_wrapper.sh"));
 		} catch (err) {
 			console.error(err);
 			throw err;
 		}
+	}
+
+	function usesNewPackaging(version: ReleaseVersion.T): boolean {
+		return ReleaseVersion.gte(version, ReleaseVersion.deserialize("0.3.0"));
+	}
+
+	function addExecutePermission(fileUri: Uri): void {
+		fs.chmodSync(fileUri.fsPath, 0o755);
 	}
 }
 
