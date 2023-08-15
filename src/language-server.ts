@@ -221,9 +221,11 @@ namespace LanguageServer {
 		try {
 			await extract(zipUri.fsPath, { dir: zipDestinationUri.fsPath });
 
-			addExecutePermission(Uri.joinPath(releaseUri, "bin/start_lexical.sh"));
-			addExecutePermission(Uri.joinPath(releaseUri, "bin/debug_shell.sh"));
-			addExecutePermission(Uri.joinPath(releaseUri, "priv/port_wrapper.sh"));
+			if (usesNewPackaging(version)) {
+				addExecutePermission(Uri.joinPath(releaseUri, "bin/start_lexical.sh"));
+				addExecutePermission(Uri.joinPath(releaseUri, "bin/debug_shell.sh"));
+				addExecutePermission(Uri.joinPath(releaseUri, "priv/port_wrapper.sh"));
+			}
 		} catch (err) {
 			console.error(err);
 			throw err;
