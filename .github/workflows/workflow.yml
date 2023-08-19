@@ -65,7 +65,7 @@ jobs:
           elixir-version: "1.13.4-otp-24"
           version-type: strict
 
-      - run: epmd
+      - run: epmd -names
 
       - run: yarn install --immutable
 
