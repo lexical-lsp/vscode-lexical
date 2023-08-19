@@ -65,6 +65,8 @@ jobs:
           elixir-version: "1.13.4-otp-24"
           version-type: strict
 
+      - run: epmd
+
       - run: yarn install --immutable
 
       - run: xvfb-run -a yarn test:e2e || true
