@@ -7,9 +7,9 @@ import Configuration from "./configuration";
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: ExtensionContext): Promise<void> {
-	const releasePath = await maybeAutoInstall(context);
+	const startScriptOrReleaseFolderPath = await maybeAutoInstall(context);
 
-	await LanguageServer.start(releasePath);
+	await LanguageServer.start(startScriptOrReleaseFolderPath);
 }
 
 // This method is called when your extension is deactivated
