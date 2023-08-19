@@ -7,48 +7,46 @@ on:
       - main
 
 jobs:
-  # lint:
-  #   runs-on: ubuntu-latest
+  lint:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: yarn
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
 
-  #     - name: Install dependencies
-  #       run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
-  #     - name: Run linter
-  #       run: yarn lint
+      - name: Run linter
+        run: yarn lint
 
-  # test-unit:
-  # runs-on: ubuntu-latest
+  test-unit:
+    runs-on: ubuntu-latest
 
-  # steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #   - name: Setup Node
-  #     uses: actions/setup-node@v3
-  #     with:
-  #       node-version: 16
-  #       cache: yarn
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
 
-  #   - name: Install dependencies
-  #     run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
-  #   - name: Run unit tests
-  #     run: yarn test
+      - name: Run unit tests
+        run: yarn test
 
   test-e2e:
     runs-on: ubuntu-latest
-    env:
-      ERL_EPMD_PORT: 5000
 
     steps:
       - name: Checkout
@@ -67,80 +65,65 @@ jobs:
           elixir-version: "1.13.4-otp-24"
           version-type: strict
 
-      # - run: epmd -names
-
       - run: yarn install --immutable
 
       - run: |
           epmd -daemon
-          xvfb-run -a yarn test:e2e || true
+          xvfb-run -a yarn test:e2e
 
-      - run: |
-          echo "dir out"
-          ls out || true
-          echo "dir out/test-e2e"
-          ls out/test-e2e || true
-          echo "dir out/test-e2e/fixtures"
-          ls out/test-e2e/fixtures || true
-          echo "dir out/test-e2e/fixtures/.lexical"
-          ls out/test-e2e/fixtures/.lexical || true
-          cat out/test-e2e/fixtures/.lexical/lexical.log || true
-          cat out/test-e2e/fixtures/.lexical/project.log || true
-          cat out/test-e2e/fixtures/erl_crash.dump || true
+  check-format:
+    runs-on: ubuntu-latest
 
-  # check-format:
-  #   runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: yarn
+      - name: Install dependencies
+        run: yarn install --immutable
 
-  #     - name: Install dependencies
-  #       run: yarn install --immutable
+      - name: Verify formatting
+        run: yarn format:check
 
-  #     - name: Verify formatting
-  #       run: yarn format:check
+  typecheck:
+    runs-on: ubuntu-latest
 
-  # typecheck:
-  #   runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: yarn
+      - name: Install dependencies
+        run: yarn install --immutable
 
-  #     - name: Install dependencies
-  #       run: yarn install --immutable
+      - name: Typecheck
+        run: yarn tsc --noEmit
 
-  #     - name: Typecheck
-  #       run: yarn tsc --noEmit
+  build:
+    runs-on: ubuntu-latest
 
-  # build:
-  #   runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: yarn
+      - name: Install dependencies
+        run: yarn install --immutable
 
-  #     - name: Install dependencies
-  #       run: yarn install --immutable
-
-  #     - name: Compile
-  #       run: yarn esbuild
+      - name: Compile
+        run: yarn esbuild
