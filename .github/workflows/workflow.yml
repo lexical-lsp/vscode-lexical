@@ -45,6 +45,32 @@ jobs:
       - name: Run unit tests
         run: yarn test
 
+  test-e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "24.3.4.13"
+          elixir-version: "1.13.4-otp-24"
+          version-type: strict
+
+      - run: yarn install --immutable
+
+      - run: |
+          epmd -daemon
+          xvfb-run -a yarn test:e2e
+
   check-format:
     runs-on: ubuntu-latest
 

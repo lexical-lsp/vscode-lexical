@@ -1,2 +1,4 @@
 yarn 1.22.19
 nodejs 16.17.1
+erlang 24.3.4.13
+elixir 1.13.4-otp-24

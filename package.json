@@ -124,7 +124,7 @@
     }
   },
   "scripts": {
-    "test-compile": "tsc -p ./ && cp -r ./src/test-e2e/fixtures ./out/test-e2e/fixtures",
+    "test-compile": "tsc -p ./src/test-e2e --outDir ./out/test-e2e && yarn esbuild && rm -rf ./out/test-e2e/fixtures && cp -r ./src/test-e2e/fixtures ./out/test-e2e/fixtures",
     "lint": "eslint src --ext ts",
     "lint:fix": "yarn lint --fix",
     "format": "prettier --write .",

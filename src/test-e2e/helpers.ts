@@ -23,10 +23,10 @@ export async function activate(
 			"./lib/",
 			`${fixture}.ex`
 		);
-		console.log(fixtureFilePath);
+
 		const doc = await vscode.workspace.openTextDocument(fixtureFilePath);
 		const editor = await vscode.window.showTextDocument(doc);
-		await sleep(1500); // Wait for server activation
+		await sleep(1000); // Wait for server activation
 
 		return [doc, editor];
 	} catch (e) {
