@@ -52,11 +52,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v3
+      # with:
+      #   node-version: 16
+      #   cache: yarn
 
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
@@ -64,6 +64,8 @@ jobs:
           otp-version: "24.3.4.13"
           elixir-version: "1.13.4-otp-24"
           version-type: strict
+
+      - run: lsof -i tcp:4369
 
       - run: epmd -names
 
