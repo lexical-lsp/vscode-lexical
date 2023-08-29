@@ -1,7 +1,7 @@
 {
   "name": "lexical",
   "displayName": "Lexical",
-  "description": "",
+  "description": "Elixir language support for Visual Studio Code",
   "version": "0.0.8",
   "repository": "github:lexical-lsp/vscode-lexical",
   "publisher": "lexical-lsp",
