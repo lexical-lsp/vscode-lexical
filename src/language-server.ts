@@ -6,21 +6,21 @@ import Github from "./github";
 import Release from "./release";
 import ReleaseVersion from "./release/version";
 import extract = require("extract-zip");
+import Paths from "./paths";
 
 namespace LanguageServer {
 	export async function install(context: ExtensionContext): Promise<string> {
-		const lexicalInstallationDirectoryUri =
-			getLexicalInstallationDirectoryUri(context);
-		const lexicalZipUri = getLexicalZipUri(lexicalInstallationDirectoryUri);
-		const lexicalReleaseUri = getLexicalReleaseUri(
-			lexicalInstallationDirectoryUri
+		const installationDirectoryUri = Paths.getInstallationDirectoryUri(
+			context.globalStorageUri
 		);
+		const zipUri = Paths.getZipUri(context.globalStorageUri);
+		const releaseUri = Paths.getReleaseUri(context.globalStorageUri);
 
 		ensureInstallationDirectoryExists(context);
 
 		const latestRelease = await fetchLatestRelease();
 		const installationManifest = InstallationManifest.fetch(
-			lexicalInstallationDirectoryUri
+			installationDirectoryUri
 		);
 
 		if (
@@ -30,8 +30,7 @@ namespace LanguageServer {
 			console.log(
 				"Latest release is already installed. Skipping auto-install."
 			);
-			return getLexicalStartScriptPath(lexicalReleaseUri, latestRelease.version)
-				.fsPath;
+			return Paths.getStartScriptUri(releaseUri, latestRelease.version).fsPath;
 		}
 
 		return window.withProgress(
@@ -46,24 +45,15 @@ namespace LanguageServer {
 
 				progress.report({ message: "Installing..." });
 
-				console.log(`Writing zip archive to ${lexicalZipUri.fsPath}`);
-				fs.writeFileSync(lexicalZipUri.fsPath, zipBuffer, "binary");
+				console.log(`Writing zip archive to ${zipUri.fsPath}`);
+				fs.writeFileSync(zipUri.fsPath, zipBuffer, "binary");
 
-				await extractZip(
-					lexicalZipUri,
-					lexicalReleaseUri,
-					latestRelease.version
-				);
+				await extractZip(zipUri, releaseUri, latestRelease.version);
 
-				InstallationManifest.write(
-					lexicalInstallationDirectoryUri,
-					latestRelease
-				);
+				InstallationManifest.write(installationDirectoryUri, latestRelease);
 
-				return getLexicalStartScriptPath(
-					lexicalReleaseUri,
-					latestRelease.version
-				).fsPath;
+				return Paths.getStartScriptUri(releaseUri, latestRelease.version)
+					.fsPath;
 			}
 		);
 	}
@@ -76,29 +66,6 @@ namespace LanguageServer {
 			installationManifest.installedVersion,
 			latestRelease.version
 		);
-	}
-
-	function getLexicalInstallationDirectoryUri(context: ExtensionContext): Uri {
-		return Uri.joinPath(context.globalStorageUri, "lexical_install");
-	}
-
-	function getLexicalZipUri(installDirUri: Uri): Uri {
-		return Uri.joinPath(installDirUri, `lexical.zip`);
-	}
-
-	function getLexicalReleaseUri(installDirUri: Uri): Uri {
-		return Uri.joinPath(installDirUri, `lexical`);
-	}
-
-	function getLexicalStartScriptPath(
-		releaseUri: Uri,
-		version: ReleaseVersion.T
-	): Uri {
-		if (usesNewPackaging(version)) {
-			return Uri.joinPath(releaseUri, "bin", "start_lexical.sh");
-		}
-
-		return Uri.joinPath(releaseUri, "start_lexical.sh");
 	}
 
 	async function fetchLatestRelease(): Promise<Release.T> {
@@ -131,7 +98,9 @@ namespace LanguageServer {
 	}
 
 	function ensureInstallationDirectoryExists(context: ExtensionContext): void {
-		const installDirUri = getLexicalInstallationDirectoryUri(context);
+		const installDirUri = Paths.getInstallationDirectoryUri(
+			context.globalStorageUri
+		);
 
 		if (!fs.existsSync(installDirUri.fsPath)) {
 			fs.mkdirSync(installDirUri.fsPath, { recursive: true });
@@ -147,14 +116,14 @@ namespace LanguageServer {
 
 		fs.rmSync(releaseUri.fsPath, { recursive: true, force: true });
 
-		const zipDestinationUri = usesNewPackaging(version)
+		const zipDestinationUri = ReleaseVersion.usesNewPackaging(version)
 			? Uri.joinPath(releaseUri, "..")
 			: releaseUri;
 
 		try {
 			await extract(zipUri.fsPath, { dir: zipDestinationUri.fsPath });
 
-			if (usesNewPackaging(version)) {
+			if (ReleaseVersion.usesNewPackaging(version)) {
 				addExecutePermission(Uri.joinPath(releaseUri, "bin/start_lexical.sh"));
 				addExecutePermission(Uri.joinPath(releaseUri, "bin/debug_shell.sh"));
 				addExecutePermission(Uri.joinPath(releaseUri, "priv/port_wrapper.sh"));
@@ -163,10 +132,6 @@ namespace LanguageServer {
 			console.error(err);
 			throw err;
 		}
-	}
-
-	function usesNewPackaging(version: ReleaseVersion.T): boolean {
-		return ReleaseVersion.gte(version, ReleaseVersion.deserialize("0.3.0"));
 	}
 
 	function addExecutePermission(fileUri: Uri): void {
