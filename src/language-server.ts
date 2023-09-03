@@ -1,12 +1,6 @@
 import axios from "axios";
 import * as fs from "fs";
 import { ExtensionContext, ProgressLocation, Uri, window } from "vscode";
-import {
-	LanguageClient,
-	LanguageClientOptions,
-	ServerOptions,
-} from "vscode-languageclient/node";
-import { join } from "path";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
 import Release from "./release";
@@ -14,67 +8,6 @@ import ReleaseVersion from "./release/version";
 import extract = require("extract-zip");
 
 namespace LanguageServer {
-	function isExecutableFile(path: fs.PathLike): boolean {
-		const stat = fs.lstatSync(path);
-		let hasExecuteAccess = false;
-		try {
-			fs.accessSync(path, fs.constants.X_OK);
-			hasExecuteAccess = true;
-		} catch (e) {
-			hasExecuteAccess = false;
-		}
-		return stat.isFile() && hasExecuteAccess;
-	}
-
-	export async function start(
-		startScriptOrReleaseFolderPath: string
-	): Promise<void> {
-		const outputChannel = window.createOutputChannel("Lexical");
-		const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
-			? startScriptOrReleaseFolderPath
-			: join(startScriptOrReleaseFolderPath, "start_lexical.sh");
-
-		const serverOptions: ServerOptions = {
-			command: startScriptPath,
-		};
-
-		const clientOptions: LanguageClientOptions = {
-			outputChannel,
-			// Register the server for Elixir documents
-			// the client will iterate through this list and chose the first matching element
-			documentSelector: [
-				{ language: "elixir", scheme: "file" },
-				{ language: "elixir", scheme: "untitled" },
-				{ language: "eex", scheme: "file" },
-				{ language: "eex", scheme: "untitled" },
-				{ language: "html-eex", scheme: "file" },
-				{ language: "html-eex", scheme: "untitled" },
-				{ language: "phoenix-heex", scheme: "file" },
-				{ language: "phoenix-heex", scheme: "untitled" },
-			],
-		};
-
-		const client = new LanguageClient(
-			"lexical",
-			"Lexical",
-			serverOptions,
-			clientOptions
-		);
-
-		outputChannel.appendLine(
-			`Starting lexical release in "${startScriptOrReleaseFolderPath}"`
-		);
-
-		await client
-			.start()
-			.then(() => {
-				console.log("Started Lexical");
-			})
-			.catch((reason) => {
-				window.showWarningMessage(`Failed to start Lexical: ${reason}`);
-			});
-	}
-
 	export async function install(context: ExtensionContext): Promise<string> {
 		const lexicalInstallationDirectoryUri =
 			getLexicalInstallationDirectoryUri(context);
