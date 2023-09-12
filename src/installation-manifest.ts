@@ -61,6 +61,13 @@ namespace InstallationManifest {
 		return undefined;
 	}
 
+	export function isInstalledVersionGreaterThan(
+		manifest: T,
+		releaseVersion: ReleaseVersion.T
+	): boolean {
+		return ReleaseVersion.gte(manifest.installedVersion, releaseVersion);
+	}
+
 	function isValid(
 		rawManifest: unknown
 	): rawManifest is RawInstallationManifest {

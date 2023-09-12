@@ -4,7 +4,6 @@ import { ExtensionContext, ProgressLocation, window } from "vscode";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
 import Release from "./release";
-import ReleaseVersion from "./release/version";
 import Paths from "./paths";
 import Zip from "./zip";
 
@@ -25,7 +24,10 @@ namespace LanguageServer {
 
 		if (
 			installationManifest !== undefined &&
-			isInstalledReleaseLatest(installationManifest, latestRelease)
+			InstallationManifest.isInstalledVersionGreaterThan(
+				installationManifest,
+				latestRelease.version
+			)
 		) {
 			console.log(
 				"Latest release is already installed. Skipping auto-install."
@@ -55,16 +57,6 @@ namespace LanguageServer {
 				return Paths.getStartScriptUri(releaseUri, latestRelease.version)
 					.fsPath;
 			}
-		);
-	}
-
-	function isInstalledReleaseLatest(
-		installationManifest: InstallationManifest.T,
-		latestRelease: Release.T
-	): boolean {
-		return ReleaseVersion.gte(
-			installationManifest.installedVersion,
-			latestRelease.version
 		);
 	}
 
