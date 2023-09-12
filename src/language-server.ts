@@ -1,12 +1,12 @@
 import axios from "axios";
 import * as fs from "fs";
-import { ExtensionContext, ProgressLocation, Uri, window } from "vscode";
+import { ExtensionContext, ProgressLocation, window } from "vscode";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
 import Release from "./release";
 import ReleaseVersion from "./release/version";
-import extract = require("extract-zip");
 import Paths from "./paths";
+import Zip from "./zip";
 
 namespace LanguageServer {
 	export async function install(context: ExtensionContext): Promise<string> {
@@ -48,7 +48,7 @@ namespace LanguageServer {
 				console.log(`Writing zip archive to ${zipUri.fsPath}`);
 				fs.writeFileSync(zipUri.fsPath, zipBuffer, "binary");
 
-				await extractZip(zipUri, releaseUri, latestRelease.version);
+				await Zip.extract(zipUri, releaseUri, latestRelease.version);
 
 				InstallationManifest.write(installationDirectoryUri, latestRelease);
 
@@ -105,37 +105,6 @@ namespace LanguageServer {
 		if (!fs.existsSync(installDirUri.fsPath)) {
 			fs.mkdirSync(installDirUri.fsPath, { recursive: true });
 		}
-	}
-
-	async function extractZip(
-		zipUri: Uri,
-		releaseUri: Uri,
-		version: ReleaseVersion.T
-	): Promise<void> {
-		console.log(`Extracting zip archive to ${releaseUri.fsPath}`);
-
-		fs.rmSync(releaseUri.fsPath, { recursive: true, force: true });
-
-		const zipDestinationUri = ReleaseVersion.usesNewPackaging(version)
-			? Uri.joinPath(releaseUri, "..")
-			: releaseUri;
-
-		try {
-			await extract(zipUri.fsPath, { dir: zipDestinationUri.fsPath });
-
-			if (ReleaseVersion.usesNewPackaging(version)) {
-				addExecutePermission(Uri.joinPath(releaseUri, "bin/start_lexical.sh"));
-				addExecutePermission(Uri.joinPath(releaseUri, "bin/debug_shell.sh"));
-				addExecutePermission(Uri.joinPath(releaseUri, "priv/port_wrapper.sh"));
-			}
-		} catch (err) {
-			console.error(err);
-			throw err;
-		}
-	}
-
-	function addExecutePermission(fileUri: Uri): void {
-		fs.chmodSync(fileUri.fsPath, 0o755);
 	}
 }
 
