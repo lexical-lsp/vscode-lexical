@@ -1,3 +1,9 @@
+[![Discord](https://img.shields.io/badge/Discord-5865F3?style=flat&logo=discord&logoColor=white&link=https://discord.gg/FvdkuVyted)](https://discord.gg/FvdkuVyted)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lexical-lsp/vscode-lexical/workflow.yml)
+[![Number of installs](https://img.shields.io/visual-studio-marketplace/i/lexical-lsp.lexical)](https://marketplace.visualstudio.com/items?itemName=lexical-lsp.lexical)
+
+<img alt="Lexical logo: Lexi the lynx" src="https://github.com/lexical-lsp/lexical/blob/main/assets/lexi-logo.svg" width="150" height="200" align="right"/>
+
 # Lexical
 
 Lexical is a next-generation language server for the Elixir programming
