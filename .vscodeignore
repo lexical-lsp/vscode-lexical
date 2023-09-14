@@ -3,3 +3,4 @@
 !syntaxes/*
 !out/main.js
 !*-language-configuration.json
+!assets/*
