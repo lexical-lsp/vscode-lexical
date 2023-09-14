@@ -17,7 +17,7 @@ namespace LanguageServer {
 
 		ensureInstallationDirectoryExists(context);
 
-		const latestRelease = await fetchLatestRelease();
+		const latestRelease = await Github.fetchLatestRelease();
 		const installationManifest = InstallationManifest.fetch(
 			installationDirectoryUri
 		);
@@ -58,19 +58,6 @@ namespace LanguageServer {
 					.fsPath;
 			}
 		);
-	}
-
-	async function fetchLatestRelease(): Promise<Release.T> {
-		const latestRelease = (
-			await axios.get<Github.Release>(
-				"https://api.github.com/repos/lexical-lsp/lexical/releases/latest",
-				{ headers: { accept: "application/vnd.github+json" } }
-			)
-		).data;
-
-		console.log(`Latest release is "${latestRelease.name}"`);
-
-		return Release.fromGithubRelease(latestRelease);
 	}
 
 	async function downloadZip(

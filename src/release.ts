@@ -1,6 +1,6 @@
-import Github from "./github";
 import { Uri } from "vscode";
 import ReleaseVersion from "./release/version";
+import GithubRelease from "./github/release";
 
 namespace Release {
 	export interface T {
@@ -9,7 +9,7 @@ namespace Release {
 		archiveUrl: Uri;
 	}
 
-	export function fromGithubRelease(githubRelease: Github.Release): T {
+	export function fromGithubRelease(githubRelease: GithubRelease.T): T {
 		if (githubRelease.name === null) {
 			throw new Error("Github release did not contain a name.");
 		}
@@ -21,7 +21,7 @@ namespace Release {
 		};
 	}
 
-	function findArchiveUri(githubRelease: Github.Release): Uri {
+	function findArchiveUri(githubRelease: GithubRelease.T): Uri {
 		const zipAsset = githubRelease.assets.find(
 			(asset) => asset.name === "lexical.zip"
 		);
