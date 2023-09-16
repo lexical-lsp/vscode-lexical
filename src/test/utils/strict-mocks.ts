@@ -36,63 +36,63 @@ function mockModuleFunction<M, F extends keyof M>(
   to remake that assertion and prevent typescript from complaining that we might
   be trying to get the return type of a non-function type
  */
-export function mockResolvedValue<
-	M,
-	F extends KeyOfType<M, AsyncFunction>,
-	V extends AwaitedReturnOfFunctionOfType<M, F>
->(module: M, fun: F, value: V): void {
+export function mockResolvedValue<M, F extends KeyOfType<M, AsyncFunction>>(
+	module: M,
+	fun: F,
+	value: AwaitedReturnOfFunctionOfType<M, F>
+): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockResolvedValue(value);
 }
 
-export function mockResolvedValueOnce<
-	M,
-	F extends KeyOfType<M, AsyncFunction>,
-	V extends AwaitedReturnOfFunctionOfType<M, F>
->(module: M, fun: F, value: V): void {
+export function mockResolvedValueOnce<M, F extends KeyOfType<M, AsyncFunction>>(
+	module: M,
+	fun: F,
+	value: AwaitedReturnOfFunctionOfType<M, F>
+): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockResolvedValueOnce(value);
 }
 
-export function mockReturnValue<
-	M,
-	F extends KeyOfType<M, Fun>,
-	V extends ReturnOfFunctionOfType<M, F>
->(module: M, fun: F, value: V): void {
+export function mockReturnValue<M, F extends KeyOfType<M, Fun>>(
+	module: M,
+	fun: F,
+	value: ReturnOfFunctionOfType<M, F>
+): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockReturnValue(value);
 }
 
-export function mockReturnValueOnce<
-	M,
-	F extends KeyOfType<M, Fun>,
-	V extends ReturnOfFunctionOfType<M, F>
->(module: M, fun: F, value: V): void {
+export function mockReturnValueOnce<M, F extends KeyOfType<M, Fun>>(
+	module: M,
+	fun: F,
+	value: ReturnOfFunctionOfType<M, F>
+): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockReturnValueOnce(value);
 }
 
-export function mockRejectedValueOnce<M, F extends KeyOfType<M, AsyncFunction>>(
+export function mockRejectedValueOnce<M>(
 	module: M,
-	fun: F,
+	fun: KeyOfType<M, AsyncFunction>,
 	value: unknown
 ): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockRejectedValueOnce(value);
 }
 
-export function mockBlockedPromise<M, F extends KeyOfType<M, AsyncFunction>>(
+export function mockBlockedPromise<M>(
 	module: M,
-	fun: F
+	fun: KeyOfType<M, AsyncFunction>
 ): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockImplementation(() => new Promise(() => undefined));
 }
 
-export function mockBlockedPromiseOnce<
-	M,
-	F extends KeyOfType<M, AsyncFunction>
->(module: M, fun: F): void {
+export function mockBlockedPromiseOnce<M>(
+	module: M,
+	fun: KeyOfType<M, AsyncFunction>
+): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockImplementationOnce(() => new Promise(() => undefined));
 }
