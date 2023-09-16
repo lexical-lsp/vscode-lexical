@@ -4,6 +4,7 @@ import InstallationManifest from "../installation-manifest";
 import { Uri } from "vscode";
 import * as semver from "semver";
 import ReleaseVersion from "../release/version";
+import { mockReturnValue } from "./utils/strict-mocks";
 
 jest.mock("fs");
 
@@ -74,12 +75,14 @@ describe("isInstalledVersionGreaterThan", () => {
 });
 
 function givenFileDoesNotExist() {
-	(fs.existsSync as jest.Mock).mockReturnValue(false);
+	mockReturnValue(fs, "existsSync", false);
 }
 
 function givenStoredManifest(manifest: Record<string, unknown>) {
-	(fs.existsSync as jest.Mock).mockReturnValue(true);
-	(fs.readFileSync as jest.Mock).mockReturnValue(
+	mockReturnValue(fs, "existsSync", true);
+	mockReturnValue(
+		fs,
+		"readFileSync",
 		Buffer.from(JSON.stringify(manifest), "utf-8")
 	);
 }

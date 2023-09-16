@@ -4,12 +4,11 @@ import Github from "../github";
 import GithubReleaseFixture from "./fixtures/github-release-fixture";
 import ReleaseVersion from "../release/version";
 import { URI } from "vscode-uri";
-
-jest.mock("axios");
+import { mockResolvedValue } from "./utils/strict-mocks";
 
 describe("fetchLatestRelease", () => {
 	beforeEach(() => {
-		asMocked(axios.get).mockResolvedValue({ data: GithubReleaseFixture.any() });
+		mockResolvedValue(axios, "get", { data: GithubReleaseFixture.any() });
 	});
 
 	test("downloads the latest release from Github", async () => {
@@ -22,7 +21,7 @@ describe("fetchLatestRelease", () => {
 	});
 
 	test("returns a lexical release", async () => {
-		asMocked(axios.get).mockResolvedValue({
+		mockResolvedValue(axios, "get", {
 			data: {
 				name: "0.0.1",
 				assets: [
@@ -39,9 +38,3 @@ describe("fetchLatestRelease", () => {
 		});
 	});
 });
-
-function asMocked<F extends (...args: any) => unknown>(
-	fun: F
-): jest.MockedFunction<F> {
-	return fun as jest.MockedFunction<F>;
-}
