@@ -13,7 +13,31 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-namespace": "off",
-    "@typescript-eslint/naming-convention": "error",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "default",
+        "format": ["camelCase"],
+        "leadingUnderscore": "allow",
+        "trailingUnderscore": "allow",
+        "filter": {
+          "regex": "^(browser_download_url)$",
+          "match": false
+        }
+      },
+
+      {
+        "selector": "variable",
+        "format": ["camelCase", "UPPER_CASE"],
+        "leadingUnderscore": "allow",
+        "trailingUnderscore": "allow"
+      },
+
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      }
+    ],
     "no-inner-declarations": "off",
     "curly": "error",
     "eqeqeq": "error",

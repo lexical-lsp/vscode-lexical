@@ -37,14 +37,12 @@ describe("fromGithubRelease", () => {
 		const githubRelease: GithubRelease.T = {
 			name: githubReleaseName,
 			assets: [
-				// eslint-disable-next-line @typescript-eslint/naming-convention
 				{ name: "lexical.zip", browser_download_url: "https://example.com" },
 			],
 		};
 
 		const release = Release.fromGithubRelease(githubRelease);
 
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const expected: Release.T = {
 			name: githubReleaseName,
 			version: new Date(githubReleaseName + ".000Z"),
@@ -58,7 +56,6 @@ describe("fromGithubRelease", () => {
 		const githubRelease: GithubRelease.T = {
 			name: githubReleaseName,
 			assets: [
-				// eslint-disable-next-line @typescript-eslint/naming-convention
 				{ name: "lexical.zip", browser_download_url: "https://example.com" },
 			],
 		};

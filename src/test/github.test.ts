@@ -26,7 +26,6 @@ describe("fetchLatestRelease", () => {
 			data: {
 				name: "0.0.1",
 				assets: [
-					// eslint-disable-next-line @typescript-eslint/naming-convention
 					{ name: "lexical.zip", browser_download_url: "https://example.com" },
 				],
 			},

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 namespace GithubRelease {
 	export interface T {
 		name: string | null;
