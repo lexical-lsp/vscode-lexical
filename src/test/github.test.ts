@@ -5,6 +5,9 @@ import GithubReleaseFixture from "./fixtures/github-release-fixture";
 import ReleaseVersion from "../release/version";
 import { URI } from "vscode-uri";
 import { mockResolvedValue } from "./utils/strict-mocks";
+import ReleaseFixture from "./fixtures/release-fixture";
+
+jest.mock("axios");
 
 describe("fetchLatestRelease", () => {
 	beforeEach(() => {
@@ -36,5 +39,33 @@ describe("fetchLatestRelease", () => {
 			version: ReleaseVersion.deserialize("0.0.1"),
 			archiveUrl: URI.parse("https://example.com"),
 		});
+	});
+});
+
+describe("downloadZip", () => {
+	beforeEach(() => {
+		mockResolvedValue(axios, "get", { data: {} });
+	});
+
+	test("it should download the zip from github", async () => {
+		const release = ReleaseFixture.any({
+			archiveUrl: URI.parse("https://example.com"),
+		});
+		await Github.downloadZip(release);
+
+		expect(axios.get).toHaveBeenCalledWith("https://example.com/", {
+			responseType: "arraybuffer",
+		});
+	});
+
+	test("it should return the downloaded zip", async () => {
+		const someBuffer = "some random data";
+		mockResolvedValue(axios, "get", { data: someBuffer });
+		const release = ReleaseFixture.any({
+			archiveUrl: URI.parse("https://example.com"),
+		});
+		const buffer = await Github.downloadZip(release);
+
+		expect(buffer).toEqual(someBuffer);
 	});
 });

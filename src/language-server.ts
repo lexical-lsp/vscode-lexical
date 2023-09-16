@@ -1,9 +1,7 @@
-import axios from "axios";
 import * as fs from "fs";
 import { ExtensionContext, ProgressLocation, window } from "vscode";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
-import Release from "./release";
 import Paths from "./paths";
 import Zip from "./zip";
 
@@ -43,7 +41,7 @@ namespace LanguageServer {
 			async (progress) => {
 				progress.report({ message: "Downloading Lexical release" });
 
-				const zipBuffer = await downloadZip(latestRelease);
+				const zipBuffer = await Github.downloadZip(latestRelease);
 
 				progress.report({ message: "Installing..." });
 
@@ -58,22 +56,6 @@ namespace LanguageServer {
 					.fsPath;
 			}
 		);
-	}
-
-	async function downloadZip(
-		release: Release.T
-	): Promise<NodeJS.ArrayBufferView> {
-		console.log(
-			`Downloading lexical archive from github with path "${release.archiveUrl}"`
-		);
-
-		const zipArrayBuffer = (
-			await axios.get<NodeJS.ArrayBufferView>(release.archiveUrl.toString(), {
-				responseType: "arraybuffer",
-			})
-		).data;
-
-		return zipArrayBuffer;
 	}
 
 	function ensureInstallationDirectoryExists(context: ExtensionContext): void {

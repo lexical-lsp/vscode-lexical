@@ -17,6 +17,22 @@ namespace Github {
 
 		return Release.fromGithubRelease(latestRelease);
 	}
+
+	export async function downloadZip(
+		release: Release.T
+	): Promise<NodeJS.ArrayBufferView> {
+		console.log(
+			`Downloading lexical archive from github with path "${release.archiveUrl}"`
+		);
+
+		const zipArrayBuffer = (
+			await axios.get<NodeJS.ArrayBufferView>(release.archiveUrl.toString(), {
+				responseType: "arraybuffer",
+			})
+		).data;
+
+		return zipArrayBuffer;
+	}
 }
 
 export default Github;
