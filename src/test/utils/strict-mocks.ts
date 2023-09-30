@@ -53,3 +53,10 @@ export function mockReturnValue<M, F extends KeyOfType<M, Fun>>(
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockReturnValue(value);
 }
+
+export function mockKeys<T extends object>(obj: T): T {
+	return Object.keys(obj).reduce((acc, cur) => {
+		acc[cur as keyof T] = jest.fn() as any;
+		return acc;
+	}, {} as T);
+}

@@ -5,4 +5,4 @@ function joinPath(base: URI, ...pathSegments: string[]): URI {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const Uri = { parse: URI.parse, joinPath };
+export const Uri = { parse: URI.parse, joinPath, file: URI.file };

@@ -48,7 +48,7 @@ describe("downloadZip", () => {
 	});
 
 	test("it should download the zip from github", async () => {
-		const release = ReleaseFixture.any({
+		const release = ReleaseFixture.create({
 			archiveUrl: URI.parse("https://example.com"),
 		});
 		await Github.downloadZip(release);
@@ -61,7 +61,7 @@ describe("downloadZip", () => {
 	test("it should return the downloaded zip", async () => {
 		const someBuffer = "some random data";
 		mockResolvedValue(axios, "get", { data: someBuffer });
-		const release = ReleaseFixture.any({
+		const release = ReleaseFixture.create({
 			archiveUrl: URI.parse("https://example.com"),
 		});
 		const buffer = await Github.downloadZip(release);
