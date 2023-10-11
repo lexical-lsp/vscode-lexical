@@ -36,7 +36,7 @@ async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
 
 	console.log("Release override path is undefined, starting auto-install.");
 
-	return await LanguageServer.install(context);
+	return await LanguageServer.install(context.globalStorageUri);
 }
 
 function isExecutableFile(path: fs.PathLike): boolean {

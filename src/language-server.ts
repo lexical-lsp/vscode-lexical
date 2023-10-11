@@ -1,15 +1,14 @@
-import { ExtensionContext, ProgressLocation, window } from "vscode";
+import { ProgressLocation, Uri, window } from "vscode";
 import InstallationManifest from "./installation-manifest";
 import Github from "./github";
 import Paths from "./paths";
 import AutoInstaller from "./auto-installer";
 
 namespace LanguageServer {
-	export async function install(context: ExtensionContext): Promise<string> {
-		const installationDirectoryUri = Paths.getInstallationDirectoryUri(
-			context.globalStorageUri
-		);
-		const releaseUri = Paths.getReleaseUri(context.globalStorageUri);
+	export async function install(globalStorageUri: Uri): Promise<string> {
+		const installationDirectoryUri =
+			Paths.getInstallationDirectoryUri(globalStorageUri);
+		const releaseUri = Paths.getReleaseUri(globalStorageUri);
 
 		const latestRelease = await Github.fetchLatestRelease();
 
