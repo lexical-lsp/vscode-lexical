@@ -7,6 +7,7 @@ const config: Config = {
 	maxWorkers: "50%",
 	showSeed: true,
 	testMatch: ["<rootDir>/src/test/**/*.test.ts"],
+	setupFilesAfterEnv: ["./testSetup.ts"],
 };
 
 export default config;

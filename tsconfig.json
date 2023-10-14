@@ -1,5 +1,5 @@
 {
-  "exclude": ["jest*.config.ts", "__mocks__/*"],
+  "exclude": ["jest*.config.ts", "testSetup.ts", "__mocks__/*"],
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES2020",
@@ -7,6 +7,7 @@
     "lib": ["ES2020"],
     "sourceMap": true,
     "rootDir": "src",
+    "skipLibCheck": true,
     "strict": true /* enable all strict type-checking options */
     /* Additional Checks */
     // "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */

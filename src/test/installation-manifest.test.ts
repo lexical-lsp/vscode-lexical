@@ -3,6 +3,8 @@ import * as fs from "fs";
 import InstallationManifest from "../installation-manifest";
 import { Uri } from "vscode";
 import * as semver from "semver";
+import ReleaseVersion from "../release/version";
+import { mockReturnValue } from "./utils/strict-mocks";
 
 jest.mock("fs");
 
@@ -46,13 +48,41 @@ describe("fetch", () => {
 	});
 });
 
+describe("isInstalledVersionGreaterThan", () => {
+	test("returns true if installed version is greater", () => {
+		const installedVersion = ReleaseVersion.deserialize("2.0.0");
+		const otherVersion = ReleaseVersion.deserialize("1.0.0");
+		const manifest: InstallationManifest.T = {
+			installedVersion: installedVersion,
+		};
+
+		expect(
+			InstallationManifest.isInstalledVersionGreaterThan(manifest, otherVersion)
+		).toBeTrue();
+	});
+
+	test("returns false if installed version is not greater", () => {
+		const installedVersion = ReleaseVersion.deserialize("1.0.0");
+		const otherVersion = ReleaseVersion.deserialize("2.0.0");
+		const manifest: InstallationManifest.T = {
+			installedVersion: installedVersion,
+		};
+
+		expect(
+			InstallationManifest.isInstalledVersionGreaterThan(manifest, otherVersion)
+		).toBeFalse();
+	});
+});
+
 function givenFileDoesNotExist() {
-	(fs.existsSync as jest.Mock).mockReturnValue(false);
+	mockReturnValue(fs, "existsSync", false);
 }
 
 function givenStoredManifest(manifest: Record<string, unknown>) {
-	(fs.existsSync as jest.Mock).mockReturnValue(true);
-	(fs.readFileSync as jest.Mock).mockReturnValue(
+	mockReturnValue(fs, "existsSync", true);
+	mockReturnValue(
+		fs,
+		"readFileSync",
 		Buffer.from(JSON.stringify(manifest), "utf-8")
 	);
 }

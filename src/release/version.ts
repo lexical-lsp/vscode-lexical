@@ -67,6 +67,10 @@ namespace ReleaseVersion {
 		);
 	}
 
+	export function usesNewPackaging(version: T): boolean {
+		return gte(version, deserialize("0.3.0"));
+	}
+
 	function deserializeToDate(rawVersion: string): Date | undefined {
 		const date = parseISO(rawVersion);
 

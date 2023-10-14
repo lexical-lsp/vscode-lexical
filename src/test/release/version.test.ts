@@ -99,3 +99,20 @@ describe("fromGithubReleaseName", () => {
 		expect(() => ReleaseVersion.fromGithubReleaseName("hello")).toThrow();
 	});
 });
+
+describe("usesNewPackaging", () => {
+	test("true if version is equal to 0.3.0", () => {
+		const version = ReleaseVersion.deserialize("0.3.0");
+		expect(ReleaseVersion.usesNewPackaging(version)).toBe(true);
+	});
+
+	test("false if version is lower than 0.3.0", () => {
+		const version = ReleaseVersion.deserialize("0.2.9");
+		expect(ReleaseVersion.usesNewPackaging(version)).toBe(false);
+	});
+
+	test("true if version is greater than 0.3.0", () => {
+		const version = ReleaseVersion.deserialize("0.3.1");
+		expect(ReleaseVersion.usesNewPackaging(version)).toBe(true);
+	});
+});
