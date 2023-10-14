@@ -6,6 +6,7 @@
   "repository": "github:lexical-lsp/vscode-lexical",
   "publisher": "lexical-lsp",
   "icon": "assets/lexi-logo-square-128.png",
+  "license": "Apache-2.0",
   "engines": {
     "vscode": "^1.73.0"
   },
