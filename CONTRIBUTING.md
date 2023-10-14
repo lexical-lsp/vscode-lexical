@@ -36,6 +36,7 @@ code --install-extension *.vsix
       with the "Manage Marketplace" scope if you don't already have one.
    1. Login in to vsce: `yarn vsce:login` with your Personal Access Token
 1. Publish the extension to the VSCode marketplace: `yarn vsce:publish`
-1. Follow steps 1 through 3 on this page to setup you Open VSX account and
-   create an access token
+1. Follow steps 1 through 3 on
+   [this page](https://github.com/eclipse/openvsx/wiki/Publishing-Extensions#how-to-publish-an-extension)
+   to setup you Open VSX account and create an access token
 1. Publish the extension to Open VSX: `yarn ovsx:publish <your access token>`
