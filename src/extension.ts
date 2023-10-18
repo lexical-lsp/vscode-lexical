@@ -41,7 +41,7 @@ async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
 		console.log(
-			`Release override path set to "${releasePathOverride}". Skipping auto-install.`
+			`Release override path set to "${releasePathOverride}". Skipping auto-install.`,
 		);
 
 		return releasePathOverride as string;
@@ -65,7 +65,7 @@ function isExecutableFile(path: fs.PathLike): boolean {
 }
 
 async function start(
-	startScriptOrReleaseFolderPath: string
+	startScriptOrReleaseFolderPath: string,
 ): Promise<LanguageClient | undefined> {
 	const outputChannel = window.createOutputChannel("Lexical");
 	const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
@@ -96,11 +96,11 @@ async function start(
 		"lexical",
 		"Lexical",
 		serverOptions,
-		clientOptions
+		clientOptions,
 	);
 
 	outputChannel.appendLine(
-		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`
+		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`,
 	);
 
 	try {

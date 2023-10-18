@@ -9,7 +9,7 @@ export enum Fixture {
  * Activates the vscode.lsp-sample extension
  */
 export async function activate(
-	fixture: Fixture
+	fixture: Fixture,
 ): Promise<[vscode.TextDocument, vscode.TextEditor]> {
 	const fixturesProjectPath = path.resolve(__dirname, "./fixtures");
 
@@ -21,7 +21,7 @@ export async function activate(
 		const fixtureFilePath = path.resolve(
 			fixturesProjectPath,
 			"./lib/",
-			`${fixture}.ex`
+			`${fixture}.ex`,
 		);
 
 		const doc = await vscode.workspace.openTextDocument(fixtureFilePath);

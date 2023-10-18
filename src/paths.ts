@@ -7,7 +7,7 @@ namespace Paths {
 	export function getInstallationDirectoryUri(globalStorageUri: Uri): Uri {
 		const installationDirectory = Uri.joinPath(
 			globalStorageUri,
-			"lexical_install"
+			"lexical_install",
 		);
 		ensureDirectoryExists(installationDirectory);
 		return installationDirectory;
@@ -16,13 +16,13 @@ namespace Paths {
 	export function getReleaseUri(globalStorageUri: Uri): Uri {
 		return Uri.joinPath(
 			getInstallationDirectoryUri(globalStorageUri),
-			"lexical"
+			"lexical",
 		);
 	}
 
 	export function getStartScriptUri(
 		releaseUri: Uri,
-		version: ReleaseVersion.T
+		version: ReleaseVersion.T,
 	): Uri {
 		if (ReleaseVersion.usesNewPackaging(version)) {
 			return Uri.joinPath(releaseUri, "bin", "start_lexical.sh");

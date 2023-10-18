@@ -3,7 +3,7 @@ namespace Commands {
 
 	type RegisterFunction = <Context>(
 		command: T<Context>,
-		context: Context
+		context: Context,
 	) => void;
 
 	export interface T<Context> {
@@ -12,7 +12,7 @@ namespace Commands {
 	}
 
 	export function getRegisterFunction(
-		clientRegister: (id: string, handler: CommandHandler) => void
+		clientRegister: (id: string, handler: CommandHandler) => void,
 	): RegisterFunction {
 		return <Context>(command: T<Context>, context: Context) =>
 			clientRegister(command.id, command.createHandler(context));

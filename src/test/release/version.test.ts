@@ -14,7 +14,7 @@ describe("serialize", () => {
 
 	test("should serialize a semantic version", () => {
 		const serialized = ReleaseVersion.serialize(
-			new SemVer(validSemanticVersion)
+			new SemVer(validSemanticVersion),
 		);
 		expect(serialized).toEqual(validSemanticVersion);
 	});
@@ -70,7 +70,7 @@ describe("gte", () => {
 		const greaterSemanticVersion = new SemVer("2.2.2");
 
 		expect(
-			ReleaseVersion.gte(greaterSemanticVersion, lowerSemanticVersion)
+			ReleaseVersion.gte(greaterSemanticVersion, lowerSemanticVersion),
 		).toBe(true);
 	});
 

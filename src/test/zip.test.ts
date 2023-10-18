@@ -27,7 +27,7 @@ describe("extract", () => {
 		Zip.extract(
 			zipUri,
 			releaseUri,
-			ReleaseVersionFixture.thatUsesNewPackaging()
+			ReleaseVersionFixture.thatUsesNewPackaging(),
 		);
 
 		expect(extract).toHaveBeenCalledWith(zipUri.fsPath, {
@@ -41,7 +41,7 @@ describe("extract", () => {
 		Zip.extract(
 			zipUri,
 			releaseUri,
-			ReleaseVersionFixture.thatDoesNotUseNewPackaging()
+			ReleaseVersionFixture.thatDoesNotUseNewPackaging(),
 		);
 
 		expect(extract).toHaveBeenCalledWith(zipUri.fsPath, {
@@ -54,15 +54,15 @@ describe("extract", () => {
 		await Zip.extract(
 			URI.parse("/zip"),
 			releaseUri,
-			ReleaseVersionFixture.thatUsesNewPackaging()
+			ReleaseVersionFixture.thatUsesNewPackaging(),
 		);
 
 		expectExecutePermissionWasAdded(
-			releaseUri.fsPath + "/bin/start_lexical.sh"
+			releaseUri.fsPath + "/bin/start_lexical.sh",
 		);
 		expectExecutePermissionWasAdded(releaseUri.fsPath + "/bin/debug_shell.sh");
 		expectExecutePermissionWasAdded(
-			releaseUri.fsPath + "/priv/port_wrapper.sh"
+			releaseUri.fsPath + "/priv/port_wrapper.sh",
 		);
 	});
 
@@ -74,8 +74,8 @@ describe("extract", () => {
 			Zip.extract(
 				URI.parse("/zip"),
 				URI.parse("/release"),
-				ReleaseVersionFixture.thatUsesNewPackaging()
-			)
+				ReleaseVersionFixture.thatUsesNewPackaging(),
+			),
 		).rejects.toThrowError(anError);
 	});
 
@@ -89,14 +89,15 @@ describe("extract", () => {
 			Zip.extract(
 				URI.parse("/zip"),
 				URI.parse("/release"),
-				ReleaseVersionFixture.thatUsesNewPackaging()
-			)
+				ReleaseVersionFixture.thatUsesNewPackaging(),
+			),
 		).rejects.toThrowError(anError);
 	});
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function asMocked<F extends (...args: any) => unknown>(
-	fun: F
+	fun: F,
 ): jest.MockedFunction<F> {
 	return fun as jest.MockedFunction<F>;
 }

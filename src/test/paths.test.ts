@@ -17,7 +17,7 @@ describe("Paths", () => {
 
 		expectUrisToBeEqual(
 			installationDirectory,
-			URI.parse("/vscode/lexical_install")
+			URI.parse("/vscode/lexical_install"),
 		);
 	});
 
@@ -28,7 +28,7 @@ describe("Paths", () => {
 
 		expectUrisToBeEqual(
 			zipUri,
-			URI.parse("/real-tmp/vscode-lexical/lexical.zip")
+			URI.parse("/real-tmp/vscode-lexical/lexical.zip"),
 		);
 	});
 
@@ -49,7 +49,7 @@ describe("Paths", () => {
 
 		expectUrisToBeEqual(
 			releaseUri,
-			URI.parse("/vscode/lexical_install/lexical")
+			URI.parse("/vscode/lexical_install/lexical"),
 		);
 	});
 
@@ -61,7 +61,7 @@ describe("Paths", () => {
 
 			expectUrisToBeEqual(
 				startScriptUri,
-				URI.parse("/lexical/bin/start_lexical.sh")
+				URI.parse("/lexical/bin/start_lexical.sh"),
 			);
 		});
 	});

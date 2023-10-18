@@ -15,11 +15,11 @@ namespace LanguageServer {
 		if (
 			AutoInstaller.isInstalledReleaseLatest(
 				installationDirectoryUri,
-				latestRelease
+				latestRelease,
 			)
 		) {
 			console.log(
-				"Latest release is already installed. Skipping auto-install."
+				"Latest release is already installed. Skipping auto-install.",
 			);
 			return Paths.getStartScriptUri(releaseUri, latestRelease.version).fsPath;
 		}
@@ -36,7 +36,7 @@ namespace LanguageServer {
 
 				return Paths.getStartScriptUri(releaseUri, latestRelease.version)
 					.fsPath;
-			}
+			},
 		);
 	}
 }

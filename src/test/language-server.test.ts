@@ -64,7 +64,7 @@ describe("LanguageServer", () => {
 			expect(AutoInstaller.install).toHaveBeenCalledWith(
 				expect.anything(),
 				latestRelease,
-				releaseUri
+				releaseUri,
 			);
 		});
 
@@ -79,7 +79,7 @@ describe("LanguageServer", () => {
 
 			expect(InstallationManifest.write).toHaveBeenCalledWith(
 				installationDirUri,
-				latestRelease
+				latestRelease,
 			);
 		});
 

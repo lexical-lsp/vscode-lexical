@@ -30,7 +30,7 @@ describe("restartServer", () => {
 
 function getClientStub(
 	isRunning: boolean,
-	restart: LanguageClient["restart"]
+	restart: LanguageClient["restart"],
 ): LanguageClient {
 	return {
 		isRunning() {

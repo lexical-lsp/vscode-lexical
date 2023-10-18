@@ -21,7 +21,7 @@ describe("write", () => {
 
 		expect(fs.writeFileSync).toHaveBeenCalledWith(
 			"/vscode/installation_manifest.json",
-			`{"installedVersion":"${aVersion.format()}"}`
+			`{"installedVersion":"${aVersion.format()}"}`,
 		);
 	});
 });
@@ -57,7 +57,10 @@ describe("isInstalledVersionGreaterThan", () => {
 		};
 
 		expect(
-			InstallationManifest.isInstalledVersionGreaterThan(manifest, otherVersion)
+			InstallationManifest.isInstalledVersionGreaterThan(
+				manifest,
+				otherVersion,
+			),
 		).toBeTrue();
 	});
 
@@ -69,7 +72,10 @@ describe("isInstalledVersionGreaterThan", () => {
 		};
 
 		expect(
-			InstallationManifest.isInstalledVersionGreaterThan(manifest, otherVersion)
+			InstallationManifest.isInstalledVersionGreaterThan(
+				manifest,
+				otherVersion,
+			),
 		).toBeFalse();
 	});
 });
@@ -83,6 +89,6 @@ function givenStoredManifest(manifest: Record<string, unknown>) {
 	mockReturnValue(
 		fs,
 		"readFileSync",
-		Buffer.from(JSON.stringify(manifest), "utf-8")
+		Buffer.from(JSON.stringify(manifest), "utf-8"),
 	);
 }
