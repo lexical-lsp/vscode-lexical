@@ -123,7 +123,14 @@
           "markdownDescription": "The path to the lexical executable. The path should point to a folder containing the `start_lexical.sh` or an executable file. Note that setting this to any value will disable automatic installation of Lexical."
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "lexical.server.restart",
+        "category": "Lexical",
+        "title": "Restart Lexical's language server"
+      }
+    ]
   },
   "scripts": {
     "test-compile": "tsc -p ./src/test-e2e --outDir ./out/test-e2e && yarn esbuild && rm -rf ./out/test-e2e/fixtures && cp -r ./src/test-e2e/fixtures ./out/test-e2e/fixtures",
