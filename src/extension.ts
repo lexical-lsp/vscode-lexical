@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { ExtensionContext, window } from "vscode";
+import { ExtensionContext, commands, window } from "vscode";
 import LanguageServer from "./language-server";
 import Configuration from "./configuration";
 import {
@@ -10,13 +10,26 @@ import {
 } from "vscode-languageclient/node";
 import { join } from "path";
 import * as fs from "fs";
+import Commands from "./commands";
+import restartServer from "./commands/restart-server";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: ExtensionContext): Promise<void> {
 	const startScriptOrReleaseFolderPath = await maybeAutoInstall(context);
 
-	await start(startScriptOrReleaseFolderPath);
+	const client = await start(startScriptOrReleaseFolderPath);
+
+	const registerCommand = Commands.getRegisterFunction((id, handler) => {
+		context.subscriptions.push(commands.registerCommand(id, handler));
+	});
+
+	if (client !== undefined) {
+		registerCommand(restartServer, {
+			client,
+			showWarning: window.showWarningMessage,
+		});
+	}
 }
 
 // This method is called when your extension is deactivated
@@ -51,7 +64,9 @@ function isExecutableFile(path: fs.PathLike): boolean {
 	return stat.isFile() && hasExecuteAccess;
 }
 
-async function start(startScriptOrReleaseFolderPath: string): Promise<void> {
+async function start(
+	startScriptOrReleaseFolderPath: string
+): Promise<LanguageClient | undefined> {
 	const outputChannel = window.createOutputChannel("Lexical");
 	const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
 		? startScriptOrReleaseFolderPath
@@ -92,5 +107,8 @@ async function start(startScriptOrReleaseFolderPath: string): Promise<void> {
 		await client.start();
 	} catch (reason) {
 		window.showWarningMessage(`Failed to start Lexical: ${reason}`);
+		return undefined;
 	}
+
+	return client;
 }
