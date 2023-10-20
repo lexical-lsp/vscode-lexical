@@ -1,6 +1,6 @@
 {
   "name": "lexical",
-  "displayName": "Lexical",
+  "displayName": "Lexical (Elixir Language Server)",
   "description": "Elixir language support for Visual Studio Code",
   "version": "0.0.10",
   "repository": "github:lexical-lsp/vscode-lexical",
