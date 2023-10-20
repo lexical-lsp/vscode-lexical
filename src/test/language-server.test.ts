@@ -2,12 +2,18 @@ import { describe, expect, jest, test } from "@jest/globals";
 import LanguageServer from "../language-server";
 import Github from "../github";
 import { URI } from "vscode-uri";
-import { mockResolvedValue, mockReturnValue } from "./utils/strict-mocks";
+import {
+	mockRejectedValue,
+	mockResolvedValue,
+	mockReturnValue,
+} from "./utils/strict-mocks";
 import ReleaseFixture from "./fixtures/release-fixture";
 import Paths from "../paths";
 import AutoInstaller from "../auto-installer";
 import InstallationManifest from "../installation-manifest";
 import Release from "../release";
+import ReleaseVersionFixture from "./fixtures/release-version-fixture";
+import ReleaseVersion from "../release/version";
 
 jest.mock("../github");
 jest.mock("../paths");
@@ -23,7 +29,7 @@ describe("LanguageServer", () => {
 			givenLatestRelease();
 			givenInstalledReleaseIsLatest();
 
-			await LanguageServer.install(globalStorageUri);
+			await LanguageServer.install(globalStorageUri, showError);
 
 			expect(Github.fetchLatestRelease).toHaveBeenCalled();
 		});
@@ -35,7 +41,7 @@ describe("LanguageServer", () => {
 			givenLatestRelease();
 			givenInstalledReleaseIsLatest();
 
-			await LanguageServer.install(globalStorageUri);
+			await LanguageServer.install(globalStorageUri, showError);
 
 			expect(AutoInstaller.install).not.toHaveBeenCalled();
 		});
@@ -47,7 +53,10 @@ describe("LanguageServer", () => {
 			givenLatestRelease();
 			givenInstalledReleaseIsLatest();
 
-			const startScriptPath = await LanguageServer.install(globalStorageUri);
+			const startScriptPath = await LanguageServer.install(
+				globalStorageUri,
+				showError,
+			);
 
 			expect(startScriptPath).toEqual(startScriptUri.fsPath);
 		});
@@ -59,12 +68,12 @@ describe("LanguageServer", () => {
 			const latestRelease = givenLatestRelease();
 			givenInstalledReleaseIsNotLatest();
 
-			await LanguageServer.install(globalStorageUri);
+			await LanguageServer.install(globalStorageUri, showError);
 
 			expect(AutoInstaller.install).toHaveBeenCalledWith(
 				expect.anything(),
 				latestRelease,
-				releaseUri
+				releaseUri,
 			);
 		});
 
@@ -75,11 +84,11 @@ describe("LanguageServer", () => {
 			const latestRelease = givenLatestRelease();
 			givenInstalledReleaseIsNotLatest();
 
-			await LanguageServer.install(globalStorageUri);
+			await LanguageServer.install(globalStorageUri, showError);
 
 			expect(InstallationManifest.write).toHaveBeenCalledWith(
 				installationDirUri,
-				latestRelease
+				latestRelease,
 			);
 		});
 
@@ -88,14 +97,76 @@ describe("LanguageServer", () => {
 			const startScriptUri = givenStartScriptUri();
 			givenInstalledReleaseIsNotLatest();
 
-			const startScriptPath = await LanguageServer.install(globalStorageUri);
+			const startScriptPath = await LanguageServer.install(
+				globalStorageUri,
+				showError,
+			);
 
 			expect(startScriptPath).toEqual(startScriptUri.fsPath);
+		});
+
+		test("when installating a new version fails and another version is already installed, it should return the path for the already installed server", async () => {
+			givenInstallationDirUri();
+			givenLatestRelease();
+			const startScriptUri = givenStartScriptUri();
+			givenInstalledReleaseIsNotLatest();
+			givenInstallingLatestReleaseFails();
+			givenInstalledVersion(ReleaseVersionFixture.any());
+
+			const startScriptPath = await LanguageServer.install(
+				globalStorageUri,
+				showError,
+			);
+
+			expect(startScriptPath).toEqual(startScriptUri.fsPath);
+		});
+
+		test("when installating a new version fails and no other version is already installed, it should return undefined", async () => {
+			givenInstallationDirUri();
+			givenLatestRelease();
+			givenInstalledReleaseIsNotLatest();
+			givenInstallingLatestReleaseFails();
+			givenInstalledVersion(undefined);
+
+			const startScriptPath = await LanguageServer.install(
+				globalStorageUri,
+				showError,
+			);
+
+			expect(startScriptPath).toBeUndefined();
+		});
+
+		test("when fetching the latest release fails and another version is already installed, it should return the path for the already installed server", async () => {
+			givenInstallationDirUri();
+			givenFetchingLatestReleaseFails();
+			const startScriptUri = givenStartScriptUri();
+			givenInstalledVersion(ReleaseVersionFixture.any());
+
+			const startScriptPath = await LanguageServer.install(
+				globalStorageUri,
+				showError,
+			);
+
+			expect(startScriptPath).toEqual(startScriptUri.fsPath);
+		});
+
+		test("when fetching the latest release fails and no other version is already installed, it should return undefined", async () => {
+			givenInstallationDirUri();
+			givenFetchingLatestReleaseFails();
+			givenInstalledVersion(undefined);
+
+			const startScriptPath = await LanguageServer.install(
+				globalStorageUri,
+				showError,
+			);
+
+			expect(startScriptPath).toBeUndefined();
 		});
 	});
 });
 
 const globalStorageUri = URI.parse("file://tmp.txt");
+const showError = jest.fn();
 
 function givenInstalledReleaseIsLatest(): void {
 	mockReturnValue(AutoInstaller, "isInstalledReleaseLatest", true);
@@ -109,6 +180,10 @@ function givenLatestRelease(): Release.T {
 	const latestRelease = ReleaseFixture.create();
 	mockResolvedValue(Github, "fetchLatestRelease", latestRelease);
 	return latestRelease;
+}
+
+function givenFetchingLatestReleaseFails(): void {
+	mockRejectedValue(Github, "fetchLatestRelease", new Error());
 }
 
 function givenStartScriptUri(): URI {
@@ -127,4 +202,16 @@ function givenInstallationDirUri(): URI {
 	const installationDirUri = URI.parse("file://install");
 	mockReturnValue(Paths, "getInstallationDirectoryUri", installationDirUri);
 	return installationDirUri;
+}
+
+function givenInstallingLatestReleaseFails(): void {
+	mockRejectedValue(AutoInstaller, "install", new Error());
+}
+
+function givenInstalledVersion(version: ReleaseVersion.T | undefined): void {
+	mockReturnValue(
+		InstallationManifest,
+		"fetch",
+		version && { installedVersion: version },
+	);
 }
