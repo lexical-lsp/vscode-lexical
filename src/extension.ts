@@ -18,17 +18,19 @@ import restartServer from "./commands/restart-server";
 export async function activate(context: ExtensionContext): Promise<void> {
 	const startScriptOrReleaseFolderPath = await maybeAutoInstall(context);
 
-	const client = await start(startScriptOrReleaseFolderPath);
+	if (startScriptOrReleaseFolderPath !== undefined) {
+		const client = await start(startScriptOrReleaseFolderPath);
 
-	const registerCommand = Commands.getRegisterFunction((id, handler) => {
-		context.subscriptions.push(commands.registerCommand(id, handler));
-	});
-
-	if (client !== undefined) {
-		registerCommand(restartServer, {
-			client,
-			showWarning: window.showWarningMessage,
+		const registerCommand = Commands.getRegisterFunction((id, handler) => {
+			context.subscriptions.push(commands.registerCommand(id, handler));
 		});
+
+		if (client !== undefined) {
+			registerCommand(restartServer, {
+				client,
+				showWarning: window.showWarningMessage,
+			});
+		}
 	}
 }
 
@@ -36,7 +38,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export function deactivate(): void {}
 
-async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
+async function maybeAutoInstall(
+	context: ExtensionContext
+): Promise<string | undefined> {
 	const releasePathOverride = Configuration.getReleasePathOverride();
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
@@ -49,7 +53,10 @@ async function maybeAutoInstall(context: ExtensionContext): Promise<string> {
 
 	console.log("Release override path is undefined, starting auto-install.");
 
-	return await LanguageServer.install(context.globalStorageUri);
+	return await LanguageServer.install(
+		context.globalStorageUri,
+		window.showErrorMessage
+	);
 }
 
 function isExecutableFile(path: fs.PathLike): boolean {

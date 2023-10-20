@@ -1029,7 +1029,7 @@
     jszip "^3.10.1"
     semver "^7.3.8"
 
-"@vscode/vsce@^2.19.0":
+"@vscode/vsce@^2.19.0", "@vscode/vsce@^2.21.1":
   version "2.21.1"
   resolved "https://registry.yarnpkg.com/@vscode/vsce/-/vsce-2.21.1.tgz#793c78d992483b428611a3927211a9640041be14"
   integrity sha512-f45/aT+HTubfCU2oC7IaWnH9NjOWp668ML002QiFObFRVUCoLtcwepp9mmql/ArFUy+HCHp54Xrq4koTcOD6TA==

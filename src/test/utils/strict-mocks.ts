@@ -45,6 +45,15 @@ export function mockResolvedValue<M, F extends KeyOfType<M, AsyncFunction>>(
 	mockedFunction.mockResolvedValue(value);
 }
 
+export function mockRejectedValue<M>(
+	module: M,
+	fun: KeyOfType<M, AsyncFunction>,
+	value: unknown
+): void {
+	const mockedFunction = mockModuleFunction(module, fun);
+	mockedFunction.mockRejectedValue(value);
+}
+
 export function mockReturnValue<M, F extends KeyOfType<M, Fun>>(
 	module: M,
 	fun: F,
