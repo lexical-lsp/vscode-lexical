@@ -55,7 +55,7 @@ describe("LanguageServer", () => {
 
 			const startScriptPath = await LanguageServer.install(
 				globalStorageUri,
-				showError,
+				showError
 			);
 
 			expect(startScriptPath).toEqual(startScriptUri.fsPath);
@@ -73,7 +73,7 @@ describe("LanguageServer", () => {
 			expect(AutoInstaller.install).toHaveBeenCalledWith(
 				expect.anything(),
 				latestRelease,
-				releaseUri,
+				releaseUri
 			);
 		});
 
@@ -88,7 +88,7 @@ describe("LanguageServer", () => {
 
 			expect(InstallationManifest.write).toHaveBeenCalledWith(
 				installationDirUri,
-				latestRelease,
+				latestRelease
 			);
 		});
 
@@ -99,7 +99,7 @@ describe("LanguageServer", () => {
 
 			const startScriptPath = await LanguageServer.install(
 				globalStorageUri,
-				showError,
+				showError
 			);
 
 			expect(startScriptPath).toEqual(startScriptUri.fsPath);
@@ -115,7 +115,7 @@ describe("LanguageServer", () => {
 
 			const startScriptPath = await LanguageServer.install(
 				globalStorageUri,
-				showError,
+				showError
 			);
 
 			expect(startScriptPath).toEqual(startScriptUri.fsPath);
@@ -130,7 +130,7 @@ describe("LanguageServer", () => {
 
 			const startScriptPath = await LanguageServer.install(
 				globalStorageUri,
-				showError,
+				showError
 			);
 
 			expect(startScriptPath).toBeUndefined();
@@ -144,7 +144,7 @@ describe("LanguageServer", () => {
 
 			const startScriptPath = await LanguageServer.install(
 				globalStorageUri,
-				showError,
+				showError
 			);
 
 			expect(startScriptPath).toEqual(startScriptUri.fsPath);
@@ -157,7 +157,7 @@ describe("LanguageServer", () => {
 
 			const startScriptPath = await LanguageServer.install(
 				globalStorageUri,
-				showError,
+				showError
 			);
 
 			expect(startScriptPath).toBeUndefined();
@@ -212,6 +212,6 @@ function givenInstalledVersion(version: ReleaseVersion.T | undefined): void {
 	mockReturnValue(
 		InstallationManifest,
 		"fetch",
-		version && { installedVersion: version },
+		version && { installedVersion: version }
 	);
 }
