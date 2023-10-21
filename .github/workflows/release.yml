@@ -1,0 +1,79 @@
+name: Release vscode-lexical
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  publish-vscode:
+    runs-on: ubuntu-latest
+    name: Build and publish vscode-lexical to official VSCode marketplace
+    env:
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Publish vscode-lexical
+        run: yarn vsce:publish
+
+  publish-openvsx:
+    runs-on: ubuntu-latest
+    name: Build and publish vscode-lexical to official Open VSX marketplace
+    env:
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Publish vscode-lexical
+        run: yarn ovsx:publish ${{ env.OVSX_PAT }}
+
+  github-release:
+    runs-on: ubuntu-latest
+    name: Create Github Release
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Package vscode-lexical
+        run: yarn vsce:package --out vscode-lexical.vsix
+
+      - run: cp vscode-lexical.vsix vscode-lexical-${{ github.ref_name }}.vsix
+
+      - name: Create Github Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: lexical*.vsix
+          makeLatest: true
+          allowUpdates: true
