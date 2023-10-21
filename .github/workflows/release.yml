@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Publish vscode-lexical
+      - name: Publish extension
         run: yarn vsce:publish
 
   publish-openvsx:
@@ -45,7 +45,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Publish vscode-lexical
+      - name: Publish extension
         run: yarn ovsx:publish ${{ env.OVSX_PAT }}
 
   github-release:
@@ -74,6 +74,6 @@ jobs:
       - name: Create Github Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: lexical*.vsix
+          artifacts: vscode-lexical*.vsix
           makeLatest: true
           allowUpdates: true
