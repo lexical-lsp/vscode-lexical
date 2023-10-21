@@ -5,9 +5,13 @@
 ### Added
 
 - Lexical is now published to the Open VSX marketplace.
-- New command `Restart Lexical's language server`. Restarts the language server without having to reload VSCode entierely.
-- Updated the extension to be more descriptive. This should help Lexical come up higher in marketplace search results.
-- When auto-installing a new release fails during certain key operations, Lexical can now fallback to an already installed version rather than failing outright and not starting.
+- New command `Restart Lexical's language server`. Restarts the language server
+  without having to reload VSCode entierely.
+- Updated the extension to be more descriptive. This should help Lexical come up
+  higher in marketplace search results.
+- When auto-installing a new release fails during certain key operations,
+  Lexical can now fallback to an already installed version rather than failing
+  outright and not starting.
 
 ## [0.0.10]
 
@@ -27,13 +31,19 @@
 
 ### Added
 
-- Updates the `lexical.server.releasePathOverride` configuration option to support specifying a path to the start script rather than a folder containing a Lexical release.
-- Grammar improvements that exclude brackets from being matched together when part of string or other similar non-structural context.
-- Support installing and starting Lexical versions that use the new packaging structure. This change should be transparent for users but ensures compatibility with future releases of Lexical.
+- Updates the `lexical.server.releasePathOverride` configuration option to
+  support specifying a path to the start script rather than a folder containing
+  a Lexical release.
+- Grammar improvements that exclude brackets from being matched together when
+  part of string or other similar non-structural context.
+- Support installing and starting Lexical versions that use the new packaging
+  structure. This change should be transparent for users but ensures
+  compatibility with future releases of Lexical.
 
 ### Fixed
 
-- Improve documentation on which versions of Elixir and Erlang are supported by Lexical.
+- Improve documentation on which versions of Elixir and Erlang are supported by
+  Lexical.
 
 ## [0.0.7]
 
@@ -46,7 +56,8 @@
 ### Fixed
 
 - Fix incorrect command to publish extension in README.
-- Improve documentation on which versions of Elixir and Erlang are supported by Lexical.
+- Improve documentation on which versions of Elixir and Erlang are supported by
+  Lexical.
 
 ## [0.0.5]
 
@@ -58,22 +69,28 @@
 
 ### Fixed
 
-- Use installed release version to add execute permission to launch scripts, fixing an issue where only Lexical version 0.0.1 would be able to start.
+- Use installed release version to add execute permission to launch scripts,
+  fixing an issue where only Lexical version 0.0.1 would be able to start.
 
 ## [0.0.3]
 
 ### Added
 
-- Support for installating releases with semantic versions, rather than the older style of commit releases.
-- Bundle extension with [esbuild](https://esbuild.github.io/), making downloaded bundle much smaller.
+- Support for installating releases with semantic versions, rather than the
+  older style of commit releases.
+- Bundle extension with [esbuild](https://esbuild.github.io/), making downloaded
+  bundle much smaller.
 
 ## [0.0.2]
 
 ### Added
 
-- Documentation in README to explain features, installation, configuration, troubleshooting, etc.
-- Ability to automatically download and install the latest release of Lexical on extension start.
+- Documentation in README to explain features, installation, configuration,
+  troubleshooting, etc.
+- Ability to automatically download and install the latest release of Lexical on
+  extension start.
 - Configuration options:
-	- `lexical.server.releasePathOverride`: Disables auto-install and manually provide a path to a build of Lexical.
-	- `lexical.trace.server`: Traces all LSP messages between VSCode and Lexical.
+  - `lexical.server.releasePathOverride`: Disables auto-install and manually
+    provide a path to a build of Lexical.
+  - `lexical.trace.server`: Traces all LSP messages between VSCode and Lexical.
 - Elixir grammar to provide syntax highlihting and other basic functionality.
