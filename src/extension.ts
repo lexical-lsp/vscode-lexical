@@ -25,12 +25,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
 			context.subscriptions.push(commands.registerCommand(id, handler));
 		});
 
-		if (client !== undefined) {
-			registerCommand(restartServer, {
-				client,
-				showWarning: window.showWarningMessage,
-			});
-		}
+		registerCommand(restartServer, {
+			client,
+		});
 	}
 }
 
@@ -73,7 +70,7 @@ function isExecutableFile(path: fs.PathLike): boolean {
 
 async function start(
 	startScriptOrReleaseFolderPath: string
-): Promise<LanguageClient | undefined> {
+): Promise<LanguageClient> {
 	const outputChannel = window.createOutputChannel("Lexical");
 	const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
 		? startScriptOrReleaseFolderPath
@@ -114,7 +111,6 @@ async function start(
 		await client.start();
 	} catch (reason) {
 		window.showWarningMessage(`Failed to start Lexical: ${reason}`);
-		return undefined;
 	}
 
 	return client;
