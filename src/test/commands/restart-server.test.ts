@@ -3,11 +3,10 @@ import restartServer from "../../commands/restart-server";
 import { LanguageClient } from "vscode-languageclient/node";
 
 describe("restartServer", () => {
-	test("restarts the language client", () => {
+	test("given it is running, restarts it", () => {
 		const restart = jest.fn<LanguageClient["restart"]>();
 		const handler = restartServer.createHandler({
-			client: getClientStub(true, restart),
-			showWarning: jest.fn(),
+			client: getClientStub({ isRunning: true, restart }),
 		});
 
 		handler();
@@ -15,27 +14,32 @@ describe("restartServer", () => {
 		expect(restart).toHaveBeenCalled();
 	});
 
-	test("given the client is not running, shows a warning", () => {
-		const showWarning = jest.fn();
+	test("given the client is not running, starts it", () => {
+		const start = jest.fn<LanguageClient["restart"]>();
 		const handler = restartServer.createHandler({
-			client: getClientStub(false, jest.fn<LanguageClient["restart"]>()),
-			showWarning: showWarning,
+			client: getClientStub({ isRunning: false, start }),
 		});
 
 		handler();
 
-		expect(showWarning).toHaveBeenCalled();
+		expect(start).toHaveBeenCalled();
 	});
 });
 
-function getClientStub(
-	isRunning: boolean,
-	restart: LanguageClient["restart"]
-): LanguageClient {
+function getClientStub({
+	isRunning,
+	restart = jest.fn<LanguageClient["restart"]>(),
+	start = jest.fn<LanguageClient["start"]>(),
+}: {
+	isRunning: boolean;
+	restart?: LanguageClient["restart"];
+	start?: LanguageClient["start"];
+}): LanguageClient {
 	return {
 		isRunning() {
 			return isRunning;
 		},
 		restart,
+		start,
 	} as unknown as LanguageClient;
 }
