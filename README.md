@@ -15,8 +15,9 @@ language.
 - As-you-type compilation
 - Advanced error highlighting
 - Code actions
-- Code Formatting
+- Code formatting
 - Completely isolated build environment
+- Syntax highlighting
 
 For all the details on what makes Lexical stand out from other Elixir language
 servers, see the
@@ -103,13 +104,19 @@ Additionally, the Lexical channel in VSCode's Output tab may contain some
 pertinent information, notably when Lexical fails to start whatsoever (no log
 files are created).
 
-### Known issues
+### Frequent issues and questions
 
 #### Error in output tab: `init terminating in do_boot ({load_failed,[logger_simple_h,gen,logger_server,...`
 
 This error usually means your version of Erlang is incompatible with your build
 of Lexical. Please refer to the [Erlang compatibility section](#erlang) for more
 details.
+
+#### I'm not getting syntax highlighting for HEEx
+
+This extension does not support syntax highlighting for HEEx, either in `.heex`
+files or in `~H` sigils. HEEx syntax highlighting is provided by the
+[Phoenix Framework extension](https://marketplace.visualstudio.com/items?itemName=phoenixframework.phoenix).
 
 ### Getting help
 
