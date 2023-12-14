@@ -9,6 +9,11 @@
   start failed due to environment reasons, like an incompatible version of
   Erlang or Elixir.
 
+### Documentation
+
+- Adds a note in the readme about lack of support for HEEx syntax highlighting
+  and directs users to the Phoenix Framework extension instead.
+
 ## [0.0.11]
 
 ### Added
