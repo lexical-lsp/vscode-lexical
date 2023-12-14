@@ -5,9 +5,9 @@
 ### Added
 
 - The `Restart Lexical's language server` command now starts the language server
-  if it isn't already running. Useful to quickly restart Lexical if initial start
-  failed due to environment reasons, like an incompatible version of Erlang or
-  Elixir.
+  if it isn't already running. Useful to quickly restart Lexical if initial
+  start failed due to environment reasons, like an incompatible version of
+  Erlang or Elixir.
 
 ## [0.0.11]
 
