@@ -8,6 +8,8 @@
   if it isn't already running. Useful to quickly restart Lexical if initial
   start failed due to environment reasons, like an incompatible version of
   Erlang or Elixir.
+- Added the `projectDir` configuration option which lets users specify a
+  subdirectory in which Lexical should be started instead of the workspace root.
 
 ### Documentation
 
