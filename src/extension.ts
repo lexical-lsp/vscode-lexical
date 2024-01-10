@@ -12,14 +12,16 @@ import { join } from "path";
 import * as fs from "fs";
 import Commands from "./commands";
 import restartServer from "./commands/restart-server";
+import { URI } from "vscode-uri";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: ExtensionContext): Promise<void> {
 	const startScriptOrReleaseFolderPath = await maybeAutoInstall(context);
+	const projectDir = Configuration.getProjectDirUri();
 
 	if (startScriptOrReleaseFolderPath !== undefined) {
-		const client = await start(startScriptOrReleaseFolderPath);
+		const client = await start(startScriptOrReleaseFolderPath, projectDir);
 
 		const registerCommand = Commands.getRegisterFunction((id, handler) => {
 			context.subscriptions.push(commands.registerCommand(id, handler));
@@ -69,9 +71,15 @@ function isExecutableFile(path: fs.PathLike): boolean {
 }
 
 async function start(
-	startScriptOrReleaseFolderPath: string
+	startScriptOrReleaseFolderPath: string,
+	workspaceUri: URI
 ): Promise<LanguageClient> {
 	const outputChannel = window.createOutputChannel("Lexical");
+
+	outputChannel.appendLine(
+		`Starting Lexical in directory ${workspaceUri?.fsPath}`
+	);
+
 	const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
 		? startScriptOrReleaseFolderPath
 		: join(startScriptOrReleaseFolderPath, "start_lexical.sh");
@@ -94,6 +102,11 @@ async function start(
 			{ language: "phoenix-heex", scheme: "file" },
 			{ language: "phoenix-heex", scheme: "untitled" },
 		],
+		workspaceFolder: {
+			index: 0,
+			uri: workspaceUri,
+			name: workspaceUri.path,
+		},
 	};
 
 	const client = new LanguageClient(
