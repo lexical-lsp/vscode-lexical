@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { ExtensionContext, commands, window } from "vscode";
+import { ExtensionContext, commands, window, workspace } from "vscode";
 import LanguageServer from "./language-server";
 import Configuration from "./configuration";
 import {
@@ -18,7 +18,7 @@ import { URI } from "vscode-uri";
 // Your extension is activated the very first time the command is executed
 export async function activate(context: ExtensionContext): Promise<void> {
 	const startScriptOrReleaseFolderPath = await maybeAutoInstall(context);
-	const projectDir = Configuration.getProjectDirUri();
+	const projectDir = Configuration.getProjectDirUri(getConfig, workspace);
 
 	if (startScriptOrReleaseFolderPath !== undefined) {
 		const client = await start(startScriptOrReleaseFolderPath, projectDir);
@@ -40,7 +40,7 @@ export function deactivate(): void {}
 async function maybeAutoInstall(
 	context: ExtensionContext
 ): Promise<string | undefined> {
-	const releasePathOverride = Configuration.getReleasePathOverride();
+	const releasePathOverride = Configuration.getReleasePathOverride(getConfig);
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
 		console.log(
@@ -127,4 +127,8 @@ async function start(
 	}
 
 	return client;
+}
+
+function getConfig(section: string) {
+	return workspace.getConfiguration("lexical.server").get(section);
 }
