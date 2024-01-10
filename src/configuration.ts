@@ -4,15 +4,11 @@ import { URI } from "vscode-uri";
 
 namespace Configuration {
 	export function getReleasePathOverride(): string | undefined {
-		return workspace
-			.getConfiguration("lexical.server")
-			.get("releasePathOverride");
+		return getConfig("releasePathOverride") as string | undefined;
 	}
 
 	export function getProjectDirUri(): URI {
-		const projectDirConfig = workspace
-			.getConfiguration("lexical.server")
-			.get("projectDir");
+		const projectDirConfig = getConfig("projectDir");
 
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const workspacePath = workspace.workspaceFolders![0].uri.path;
@@ -23,6 +19,10 @@ namespace Configuration {
 		} else {
 			return URI.file(workspacePath);
 		}
+	}
+
+	function getConfig(section: string) {
+		return workspace.getConfiguration("lexical.server").get(section);
 	}
 }
 
