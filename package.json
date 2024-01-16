@@ -121,6 +121,11 @@
           "scope": "window",
           "type": "string",
           "markdownDescription": "The path to the lexical executable. The path should point to a folder containing the `start_lexical.sh` or an executable file. Note that setting this to any value will disable automatic installation of Lexical."
+        },
+        "lexical.server.projectDir": {
+          "scope": "window",
+          "type": "string",
+          "markdownDescription": "A subdirectory of the current workspace in which to start Lexical."
         }
       }
     },
