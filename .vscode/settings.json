@@ -12,7 +12,7 @@
   "eslint.format.enable": true,
   "eslint.packageManager": "yarn",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": true
   },
   "eslint.validate": ["typescript"]
 }
