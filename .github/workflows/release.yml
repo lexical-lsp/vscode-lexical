@@ -77,3 +77,7 @@ jobs:
           artifacts: vscode-lexical*.vsix
           makeLatest: true
           allowUpdates: true
+          body: >
+            See the
+            [changelog](https://github.com/lexical-lsp/vscode-lexical/blob/main/CHANGELOG.md)
+            for the full release notes.
