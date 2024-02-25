@@ -13,6 +13,7 @@ import * as fs from "fs";
 import Commands from "./commands";
 import restartServer from "./commands/restart-server";
 import { URI } from "vscode-uri";
+import Logger from "./logger";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -43,14 +44,14 @@ async function maybeAutoInstall(
 	const releasePathOverride = Configuration.getReleasePathOverride(getConfig);
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
-		console.log(
+		Logger.info(
 			`Release override path set to "${releasePathOverride}". Skipping auto-install.`
 		);
 
 		return releasePathOverride as string;
 	}
 
-	console.log("Release override path is undefined, starting auto-install.");
+	Logger.info("Release override path is undefined, starting auto-install.");
 
 	return await LanguageServer.install(
 		context.globalStorageUri,
@@ -74,11 +75,7 @@ async function start(
 	startScriptOrReleaseFolderPath: string,
 	workspaceUri: URI
 ): Promise<LanguageClient> {
-	const outputChannel = window.createOutputChannel("Lexical");
-
-	outputChannel.appendLine(
-		`Starting Lexical in directory ${workspaceUri?.fsPath}`
-	);
+	Logger.info(`Starting Lexical in directory ${workspaceUri?.fsPath}`);
 
 	const startScriptPath = isExecutableFile(startScriptOrReleaseFolderPath)
 		? startScriptOrReleaseFolderPath
@@ -89,7 +86,7 @@ async function start(
 	};
 
 	const clientOptions: LanguageClientOptions = {
-		outputChannel,
+		outputChannel: Logger.outputChannel(),
 		// Register the server for Elixir documents
 		// the client will iterate through this list and chose the first matching element
 		documentSelector: [
@@ -116,7 +113,7 @@ async function start(
 		clientOptions
 	);
 
-	outputChannel.appendLine(
+	Logger.info(
 		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`
 	);
 

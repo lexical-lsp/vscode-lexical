@@ -5,6 +5,7 @@ import Github from "./github";
 import * as fs from "fs";
 import Zip from "./zip";
 import Paths from "./paths";
+import Logger from "./logger";
 
 namespace AutoInstaller {
 	export function isInstalledReleaseLatest(
@@ -36,7 +37,7 @@ namespace AutoInstaller {
 		progress.report({ message: "Installing..." });
 
 		const zipUri = Paths.getZipUri();
-		console.log(`Writing zip archive to ${zipUri.fsPath}`);
+		Logger.info(`Writing zip archive to ${zipUri.fsPath}`);
 		fs.writeFileSync(zipUri.fsPath, zipBuffer, "binary");
 
 		await Zip.extract(zipUri, releaseUri, latestRelease.version);

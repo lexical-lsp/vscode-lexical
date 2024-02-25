@@ -1,6 +1,7 @@
 import axios from "axios";
 import GithubRelease from "./github/release";
 import Release from "./release";
+import Logger from "./logger";
 
 // Raw github types as per official documentation: https://docs.github.com/en/rest?apiVersion=2022-11-28
 
@@ -13,7 +14,7 @@ namespace Github {
 			)
 		).data;
 
-		console.log(`Latest release is "${latestRelease.name}"`);
+		Logger.info(`Latest release is "${latestRelease.name}"`);
 
 		return Release.fromGithubRelease(latestRelease);
 	}
@@ -21,7 +22,7 @@ namespace Github {
 	export async function downloadZip(
 		release: Release.T
 	): Promise<NodeJS.ArrayBufferView> {
-		console.log(
+		Logger.info(
 			`Downloading lexical archive from github with path "${release.archiveUrl}"`
 		);
 
