@@ -16,7 +16,7 @@ namespace InstallationManifest {
 	export function write(installDirUri: Uri, release: Release.T): void {
 		const installationManifestUri = Uri.joinPath(
 			installDirUri,
-			"installation_manifest.json"
+			"installation_manifest.json",
 		);
 
 		const manifest: T = { installedVersion: release.version };
@@ -26,23 +26,23 @@ namespace InstallationManifest {
 			manifest: JSON.stringify(rawManifest),
 		});
 		Logger.info(
-			`Writing installation manifest to ${installationManifestUri.fsPath}`
+			`Writing installation manifest to ${installationManifestUri.fsPath}`,
 		);
 
 		fs.writeFileSync(
 			installationManifestUri.fsPath,
-			JSON.stringify(rawManifest)
+			JSON.stringify(rawManifest),
 		);
 	}
 
 	export function fetch(installDirUri: Uri): T | undefined {
 		const installationManifestUri = Uri.joinPath(
 			installDirUri,
-			"installation_manifest.json"
+			"installation_manifest.json",
 		);
 
 		Logger.info(
-			`Looking for an installation manifest at path ${installationManifestUri.fsPath}`
+			`Looking for an installation manifest at path ${installationManifestUri.fsPath}`,
 		);
 
 		if (!fs.existsSync(installationManifestUri.fsPath)) {
@@ -69,13 +69,13 @@ namespace InstallationManifest {
 
 	export function isInstalledVersionGreaterThan(
 		manifest: T,
-		releaseVersion: ReleaseVersion.T
+		releaseVersion: ReleaseVersion.T,
 	): boolean {
 		return ReleaseVersion.gte(manifest.installedVersion, releaseVersion);
 	}
 
 	function isValid(
-		rawManifest: unknown
+		rawManifest: unknown,
 	): rawManifest is RawInstallationManifest {
 		return (
 			typeof rawManifest === "object" &&

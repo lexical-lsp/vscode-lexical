@@ -10,10 +10,10 @@ import Logger from "./logger";
 namespace AutoInstaller {
 	export function isInstalledReleaseLatest(
 		installationDirectoryUri: Uri,
-		latestRelease: Release.T
+		latestRelease: Release.T,
 	): boolean {
 		const installationManifest = InstallationManifest.fetch(
-			installationDirectoryUri
+			installationDirectoryUri,
 		);
 		if (installationManifest === undefined) {
 			return false;
@@ -21,14 +21,14 @@ namespace AutoInstaller {
 
 		return InstallationManifest.isInstalledVersionGreaterThan(
 			installationManifest,
-			latestRelease.version
+			latestRelease.version,
 		);
 	}
 
 	export async function install(
 		progress: Progress<{ message: string }>,
 		latestRelease: Release.T,
-		releaseUri: Uri
+		releaseUri: Uri,
 	) {
 		progress.report({ message: "Downloading Lexical release" });
 

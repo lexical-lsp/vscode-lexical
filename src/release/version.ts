@@ -24,7 +24,7 @@ namespace ReleaseVersion {
 		}
 
 		throw new Error(
-			`Version "${rawVersion} is not a valid ISO8601 nor a valid semantic number.`
+			`Version "${rawVersion} is not a valid ISO8601 nor a valid semantic number.`,
 		);
 	}
 
@@ -63,7 +63,7 @@ namespace ReleaseVersion {
 		}
 
 		throw new Error(
-			`Release name "${releaseName} is not a valid ISO8601 timestamp without milliseconds nor a valid semantic number.`
+			`Release name "${releaseName} is not a valid ISO8601 timestamp without milliseconds nor a valid semantic number.`,
 		);
 	}
 
@@ -82,7 +82,7 @@ namespace ReleaseVersion {
 	}
 
 	function deserializeToSemantic(
-		rawVersion: string
+		rawVersion: string,
 	): semver.SemVer | undefined {
 		const semanticVersion = semver.valid(rawVersion);
 
@@ -98,7 +98,7 @@ namespace ReleaseVersion {
 	}
 
 	function githubReleaseNameToSemanticVersion(
-		releaseName: string
+		releaseName: string,
 	): semver.SemVer | undefined {
 		return semver.coerce(releaseName) ?? undefined;
 	}

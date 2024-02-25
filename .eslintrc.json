@@ -25,17 +25,19 @@
           "match": false
         }
       },
-
       {
         "selector": "variable",
         "format": ["camelCase", "UPPER_CASE"],
         "leadingUnderscore": "allow",
         "trailingUnderscore": "allow"
       },
-
       {
         "selector": "typeLike",
         "format": ["PascalCase"]
+      },
+      {
+        "selector": "import",
+        "format": ["PascalCase", "camelCase"]
       }
     ],
     "no-inner-declarations": "off",

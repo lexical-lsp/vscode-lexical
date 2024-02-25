@@ -10,7 +10,7 @@ namespace Github {
 		const latestRelease = (
 			await axios.get<GithubRelease.T>(
 				"https://api.github.com/repos/lexical-lsp/lexical/releases/latest",
-				{ headers: { accept: "application/vnd.github+json" } }
+				{ headers: { accept: "application/vnd.github+json" } },
 			)
 		).data;
 
@@ -20,10 +20,10 @@ namespace Github {
 	}
 
 	export async function downloadZip(
-		release: Release.T
+		release: Release.T,
 	): Promise<NodeJS.ArrayBufferView> {
 		Logger.info(
-			`Downloading lexical archive from github with path "${release.archiveUrl}"`
+			`Downloading lexical archive from github with path "${release.archiveUrl}"`,
 		);
 
 		const zipArrayBuffer = (

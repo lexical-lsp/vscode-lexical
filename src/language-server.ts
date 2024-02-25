@@ -9,7 +9,7 @@ import Logger from "./logger";
 namespace LanguageServer {
 	export async function install(
 		globalStorageUri: Uri,
-		showError: (message: string) => void
+		showError: (message: string) => void,
 	): Promise<string | undefined> {
 		const installationDirectoryUri =
 			Paths.getInstallationDirectoryUri(globalStorageUri);
@@ -24,18 +24,18 @@ namespace LanguageServer {
 				releaseUri,
 				e,
 				"Failed to fetch latest release from Github.",
-				showError
+				showError,
 			);
 		}
 
 		if (
 			AutoInstaller.isInstalledReleaseLatest(
 				installationDirectoryUri,
-				latestRelease
+				latestRelease,
 			)
 		) {
 			Logger.info(
-				"Latest release is already installed. Skipping auto-install."
+				"Latest release is already installed. Skipping auto-install.",
 			);
 			return Paths.getStartScriptUri(releaseUri, latestRelease.version).fsPath;
 		}
@@ -56,7 +56,7 @@ namespace LanguageServer {
 						releaseUri,
 						e,
 						failedActionMessage,
-						showError
+						showError,
 					);
 				}
 
@@ -64,7 +64,7 @@ namespace LanguageServer {
 
 				return Paths.getStartScriptUri(releaseUri, latestRelease.version)
 					.fsPath;
-			}
+			},
 		);
 	}
 
@@ -73,19 +73,19 @@ namespace LanguageServer {
 		releaseUri: Uri,
 		e: unknown,
 		failedActionMessage: string,
-		showError: (message: string) => void
+		showError: (message: string) => void,
 	): string | undefined {
 		const manifest = InstallationManifest.fetch(installationDirectoryUri);
 
 		if (manifest !== undefined) {
 			showError(
-				`${failedActionMessage} Using already installed release ${manifest.installedVersion.toString()} instead. Installation error: ${e}`
+				`${failedActionMessage} Using already installed release ${manifest.installedVersion.toString()} instead. Installation error: ${e}`,
 			);
 			return Paths.getStartScriptUri(releaseUri, manifest.installedVersion)
 				.fsPath;
 		} else {
 			showError(
-				`${failedActionMessage} No installed version was found. Please see the following error to try and remediate the issue. Installation erro: ${e}`
+				`${failedActionMessage} No installed version was found. Please see the following error to try and remediate the issue. Installation erro: ${e}`,
 			);
 			return undefined;
 		}

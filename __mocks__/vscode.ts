@@ -17,7 +17,7 @@ const progressStub = {
 type WithProgressFun = (
 	progress: Progress<{
 		message: string;
-	}>
+	}>,
 ) => Promise<void>;
 
 const outputChannelStub = {

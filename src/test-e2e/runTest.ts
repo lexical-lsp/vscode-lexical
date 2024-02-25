@@ -18,7 +18,7 @@ async function main() {
 		await runTests({
 			// Tests fail to run with a higher version. Requires further investigation.
 			// Not a huge deal, but would be nice to be able to test with latest version.
-			version: "1.74.0",
+			version: "1.82.0",
 			extensionDevelopmentPath,
 			extensionTestsPath,
 			launchArgs: [fixturesProjectPath],

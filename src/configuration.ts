@@ -6,14 +6,14 @@ namespace Configuration {
 	type GetConfig = (section: string) => unknown;
 
 	export function getReleasePathOverride(
-		getConfig: GetConfig
+		getConfig: GetConfig,
 	): string | undefined {
 		return getConfig("releasePathOverride") as string | undefined;
 	}
 
 	export function getProjectDirUri(
 		getConfig: GetConfig,
-		workspace: typeof vsWorkspace
+		workspace: typeof vsWorkspace,
 	): URI {
 		const projectDirConfig = getConfig("projectDir");
 

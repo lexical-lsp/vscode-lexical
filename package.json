@@ -8,7 +8,7 @@
   "icon": "assets/lexi-logo-square-128.png",
   "license": "Apache-2.0",
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.82.0"
   },
   "categories": [
     "Programming Languages",
@@ -154,33 +154,33 @@
     "esbuild": "yarn esbuild-base --sourcemap"
   },
   "devDependencies": {
-    "@jest/globals": "^29.7.0",
-    "@types/glob": "^8.1.0",
-    "@types/node": "16.x",
-    "@types/vscode": "^1.73.0",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "@vscode/test-electron": "^2.2.3",
-    "@vscode/vsce": "^2.21.1",
-    "esbuild": "^0.17.19",
-    "eslint": "^8.34.0",
-    "eslint-config-prettier": "^8.8.0",
-    "glob": "^8.1.0",
-    "jest": "^29.7.0",
-    "jest-environment-node": "^29.7.0",
-    "jest-extended": "^4.0.2",
-    "ovsx": "^0.8.3",
-    "prettier": "^2.8.8",
-    "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.5",
-    "vscode-uri": "^3.0.7"
+    "@jest/globals": "29.7.0",
+    "@types/glob": "8.1.0",
+    "@types/node": "20.x",
+    "@types/vscode": "1.82.0",
+    "@typescript-eslint/eslint-plugin": "7.0.2",
+    "@typescript-eslint/parser": "7.0.2",
+    "@vscode/test-electron": "2.3.9",
+    "@vscode/vsce": "2.24.0",
+    "esbuild": "0.20.1",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "9.1.0",
+    "glob": "9.3.5",
+    "jest": "29.7.0",
+    "jest-environment-node": "29.7.0",
+    "jest-extended": "4.0.2",
+    "ovsx": "0.8.3",
+    "prettier": "3.2.5",
+    "ts-jest": "29.1.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.3.3",
+    "vscode-uri": "3.0.8"
   },
   "dependencies": {
-    "axios": "^1.3.4",
-    "date-fns": "^2.30.0",
-    "extract-zip": "^2.0.1",
-    "semver": "^7.5.1",
-    "vscode-languageclient": "^8.1.0"
+    "axios": "1.6.7",
+    "date-fns": "3.3.1",
+    "extract-zip": "2.0.1",
+    "semver": "7.6.0",
+    "vscode-languageclient": "9.0.1"
   }
 }
