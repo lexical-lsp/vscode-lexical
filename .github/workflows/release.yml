@@ -19,13 +19,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Publish extension
-        run: yarn vsce:publish
+        run: npm run vsce:publish
 
   publish-openvsx:
     runs-on: ubuntu-latest
@@ -40,13 +40,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Publish extension
-        run: yarn ovsx:publish ${{ env.OVSX_PAT }}
+        run: npm run ovsx:publish -- ${{ env.OVSX_PAT }}
 
   github-release:
     runs-on: ubuntu-latest
@@ -61,13 +61,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Package vscode-lexical
-        run: yarn vsce:package --out vscode-lexical.vsix
+        run: npm run vsce:package -- --out vscode-lexical.vsix
 
       - run: cp vscode-lexical.vsix vscode-lexical-${{ github.ref_name }}.vsix
 

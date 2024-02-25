@@ -18,13 +18,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Run linter
-        run: yarn lint
+        run: npm run lint
 
   test-unit:
     runs-on: ubuntu-latest
@@ -37,13 +37,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Run unit tests
-        run: yarn test
+        run: npm run test
 
   test-e2e:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
@@ -65,11 +65,11 @@ jobs:
           elixir-version: "1.13.4-otp-24"
           version-type: strict
 
-      - run: yarn install --frozen-lockfile
+      - run: npm ci
 
       - run: |
           epmd -daemon
-          xvfb-run -a yarn test:e2e
+          xvfb-run -a npm run test:e2e
 
   check-format:
     runs-on: ubuntu-latest
@@ -82,13 +82,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Verify formatting
-        run: yarn format:check
+        run: npm run format:check
 
   typecheck:
     runs-on: ubuntu-latest
@@ -101,13 +101,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Typecheck
-        run: yarn tsc --noEmit
+        run: npm run tsc -- --noEmit
 
   build:
     runs-on: ubuntu-latest
@@ -120,10 +120,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Compile
-        run: yarn esbuild
+        run: npm run esbuild
