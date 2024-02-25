@@ -6,6 +6,11 @@
 
 - Added more logging to better expose the extension's startup process
 
+### Maintenance
+
+- Updated all of the extension's dependencies. This should have no impact on
+  users apart from a slightly smaller package.
+
 ## [0.0.12]
 
 ### Added
