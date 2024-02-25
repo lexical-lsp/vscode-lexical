@@ -62,4 +62,5 @@ code --install-extension *.vsix
 1. Follow steps 1 through 3 on
    [this page](https://github.com/eclipse/openvsx/wiki/Publishing-Extensions#how-to-publish-an-extension)
    to setup you Open VSX account and create an access token
-1. Publish the extension to Open VSX: `npm run ovsx:publish <your access token>`
+1. Publish the extension to Open VSX:
+   `npm run ovsx:publish -- <your access token>`

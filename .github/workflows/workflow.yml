@@ -107,7 +107,7 @@ jobs:
         run: npm ci
 
       - name: Typecheck
-        run: npm run tsc --noEmit
+        run: npm run tsc -- --noEmit
 
   build:
     runs-on: ubuntu-latest
