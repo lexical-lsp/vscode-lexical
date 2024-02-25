@@ -13,7 +13,7 @@ import Release from "../release";
 
 jest.mock("../installation-manifest", () => {
 	const original = jest.requireActual<typeof InstallationManifest>(
-		"../installation-manifest"
+		"../installation-manifest",
 	);
 
 	return {
@@ -44,7 +44,7 @@ describe("AutoInstaller", () => {
 
 			const isLatest = AutoInstaller.isInstalledReleaseLatest(
 				AN_INSTALLATION_DIR_URI,
-				release
+				release,
 			);
 
 			expect(isLatest).toBeFalse();
@@ -56,7 +56,7 @@ describe("AutoInstaller", () => {
 
 			const isLatest = AutoInstaller.isInstalledReleaseLatest(
 				AN_INSTALLATION_DIR_URI,
-				release
+				release,
 			);
 
 			expect(isLatest).toBeTrue();
@@ -68,7 +68,7 @@ describe("AutoInstaller", () => {
 
 			const isLatest = AutoInstaller.isInstalledReleaseLatest(
 				AN_INSTALLATION_DIR_URI,
-				release
+				release,
 			);
 
 			expect(isLatest).toBeTrue();
@@ -80,7 +80,7 @@ describe("AutoInstaller", () => {
 
 			const isLatest = AutoInstaller.isInstalledReleaseLatest(
 				AN_INSTALLATION_DIR_URI,
-				release
+				release,
 			);
 
 			expect(isLatest).toBeFalse();
@@ -104,7 +104,7 @@ describe("AutoInstaller", () => {
 			expect(fs.writeFileSync).toHaveBeenCalledWith(
 				"/tmp/vscode-lexical/lexical.zip",
 				buffer,
-				"binary"
+				"binary",
 			);
 		});
 
@@ -116,7 +116,7 @@ describe("AutoInstaller", () => {
 			expect(Zip.extract).toHaveBeenCalledWith(
 				zipUri,
 				A_RELEASE_URI,
-				A_RELEASE.version
+				A_RELEASE.version,
 			);
 		});
 	});

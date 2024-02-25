@@ -22,7 +22,7 @@ function toRange(sLine: number, sChar: number, eLine: number, eChar: number) {
 
 async function testDiagnostics(
 	fixture: Fixture,
-	expectedDiagnostics: vscode.Diagnostic[]
+	expectedDiagnostics: vscode.Diagnostic[],
 ) {
 	const [doc] = await activate(fixture);
 

@@ -23,12 +23,12 @@ namespace Release {
 
 	function findArchiveUri(githubRelease: GithubRelease.T): Uri {
 		const zipAsset = githubRelease.assets.find(
-			(asset) => asset.name === "lexical.zip"
+			(asset) => asset.name === "lexical.zip",
 		);
 
 		if (zipAsset === undefined) {
 			throw new Error(
-				`Github release ${githubRelease.name} did not contain the expected assets.`
+				`Github release ${githubRelease.name} did not contain the expected assets.`,
 			);
 		}
 

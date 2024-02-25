@@ -19,7 +19,7 @@ type ReturnOfFunctionOfType<T, F extends keyof T> = T[F] extends Fun
 
 function mockModuleFunction<M, F extends keyof M>(
 	module: M,
-	fun: F
+	fun: F,
 ): jest.Mock<(...args: any) => any> {
 	if (!jest.isMockFunction(module[fun])) {
 		module[fun] = jest.fn() as M[F];
@@ -39,7 +39,7 @@ function mockModuleFunction<M, F extends keyof M>(
 export function mockResolvedValue<M, F extends KeyOfType<M, AsyncFunction>>(
 	module: M,
 	fun: F,
-	value: AwaitedReturnOfFunctionOfType<M, F>
+	value: AwaitedReturnOfFunctionOfType<M, F>,
 ): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockResolvedValue(value);
@@ -48,7 +48,7 @@ export function mockResolvedValue<M, F extends KeyOfType<M, AsyncFunction>>(
 export function mockRejectedValue<M>(
 	module: M,
 	fun: KeyOfType<M, AsyncFunction>,
-	value: unknown
+	value: unknown,
 ): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockRejectedValue(value);
@@ -57,7 +57,7 @@ export function mockRejectedValue<M>(
 export function mockReturnValue<M, F extends KeyOfType<M, Fun>>(
 	module: M,
 	fun: F,
-	value: ReturnOfFunctionOfType<M, F>
+	value: ReturnOfFunctionOfType<M, F>,
 ): void {
 	const mockedFunction = mockModuleFunction(module, fun);
 	mockedFunction.mockReturnValue(value);

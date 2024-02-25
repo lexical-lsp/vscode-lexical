@@ -19,7 +19,7 @@ describe("fetchLatestRelease", () => {
 
 		expect(axios.get).toHaveBeenCalledWith(
 			"https://api.github.com/repos/lexical-lsp/lexical/releases/latest",
-			{ headers: { accept: "application/vnd.github+json" } }
+			{ headers: { accept: "application/vnd.github+json" } },
 		);
 	});
 

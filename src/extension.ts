@@ -39,13 +39,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
 export function deactivate(): void {}
 
 async function maybeAutoInstall(
-	context: ExtensionContext
+	context: ExtensionContext,
 ): Promise<string | undefined> {
 	const releasePathOverride = Configuration.getReleasePathOverride(getConfig);
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
 		Logger.info(
-			`Release override path set to "${releasePathOverride}". Skipping auto-install.`
+			`Release override path set to "${releasePathOverride}". Skipping auto-install.`,
 		);
 
 		return releasePathOverride as string;
@@ -55,7 +55,7 @@ async function maybeAutoInstall(
 
 	return await LanguageServer.install(
 		context.globalStorageUri,
-		window.showErrorMessage
+		window.showErrorMessage,
 	);
 }
 
@@ -73,7 +73,7 @@ function isExecutableFile(path: fs.PathLike): boolean {
 
 async function start(
 	startScriptOrReleaseFolderPath: string,
-	workspaceUri: URI
+	workspaceUri: URI,
 ): Promise<LanguageClient> {
 	Logger.info(`Starting Lexical in directory ${workspaceUri?.fsPath}`);
 
@@ -110,11 +110,11 @@ async function start(
 		"lexical",
 		"Lexical",
 		serverOptions,
-		clientOptions
+		clientOptions,
 	);
 
 	Logger.info(
-		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`
+		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`,
 	);
 
 	try {

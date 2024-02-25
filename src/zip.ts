@@ -8,7 +8,7 @@ namespace Zip {
 	export async function extract(
 		zipUri: Uri,
 		releaseUri: Uri,
-		version: ReleaseVersion.T
+		version: ReleaseVersion.T,
 	): Promise<void> {
 		Logger.info("Extracting zip archive to {path}", {
 			path: releaseUri.fsPath,

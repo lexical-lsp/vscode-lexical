@@ -9,7 +9,7 @@ describe("Configuration", () => {
 		const workspace = WorkspaceFixture.withUri(URI.file("/stub"));
 		const projectDirUri = Configuration.getProjectDirUri(
 			getConfigMock,
-			workspace
+			workspace,
 		);
 
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -21,7 +21,7 @@ describe("Configuration", () => {
 		const workspace = WorkspaceFixture.withUri(URI.file("/stub"));
 		const projectDirUri = Configuration.getProjectDirUri(
 			getConfigMock,
-			workspace
+			workspace,
 		);
 
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

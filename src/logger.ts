@@ -13,7 +13,7 @@ namespace Logger {
 
 	export function debug(
 		message: string,
-		args: Record<string, number | boolean | string> = {}
+		args: Record<string, number | boolean | string> = {},
 	): void {
 		const localizedMessage = l10n.t(message, args);
 		channel.debug(localizedMessage);
@@ -22,7 +22,7 @@ namespace Logger {
 
 	export function info(
 		message: string,
-		args: Record<string, number | boolean | string> = {}
+		args: Record<string, number | boolean | string> = {},
 	): void {
 		const localizedMessage = l10n.t(message, args);
 		channel.info(localizedMessage);
@@ -31,7 +31,7 @@ namespace Logger {
 
 	export function warn(
 		message: string,
-		args: Record<string, number | boolean | string> = {}
+		args: Record<string, number | boolean | string> = {},
 	): void {
 		const localizedMessage = l10n.t(message, args);
 		channel.warn(localizedMessage);
@@ -40,7 +40,7 @@ namespace Logger {
 
 	export function error(
 		message: string,
-		args: Record<string, number | boolean | string> = {}
+		args: Record<string, number | boolean | string> = {},
 	): void {
 		const localizedMessage = l10n.t(message, args);
 		channel.error(localizedMessage);
