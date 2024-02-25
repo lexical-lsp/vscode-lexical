@@ -1,5 +1,11 @@
 # Change Log
 
+## [Unreleased]
+
+### Added
+
+- Added more logging to better expose the extension's startup process
+
 ## [0.0.12]
 
 ### Added
