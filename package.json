@@ -157,7 +157,7 @@
     "@jest/globals": "29.7.0",
     "@types/glob": "8.1.0",
     "@types/node": "20.x",
-    "@types/vscode": "1.86.0",
+    "@types/vscode": "1.82.0",
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "@typescript-eslint/parser": "7.0.2",
     "@vscode/test-electron": "2.3.9",
@@ -182,6 +182,5 @@
     "extract-zip": "2.0.1",
     "semver": "7.6.0",
     "vscode-languageclient": "9.0.1"
-  },
-  "packageManager": "yarn@4.1.0"
+  }
 }
