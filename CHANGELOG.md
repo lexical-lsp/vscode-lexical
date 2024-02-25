@@ -9,7 +9,7 @@
 ### Maintenance
 
 - Updated all of the extension's dependencies. This should have no impact on
-  users outside of a slightly smaller package.
+  users apart from a slightly smaller package.
 
 ## [0.0.12]
 
