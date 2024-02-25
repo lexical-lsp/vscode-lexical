@@ -10,7 +10,6 @@
   "typescript.tsc.autoDetect": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.format.enable": true,
-  "eslint.packageManager": "yarn",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
