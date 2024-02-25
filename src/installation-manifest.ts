@@ -2,6 +2,7 @@ import { Uri } from "vscode";
 import * as fs from "fs";
 import Release from "./release";
 import ReleaseVersion from "./release/version";
+import Logger from "./logger";
 
 namespace InstallationManifest {
 	export interface T {
@@ -21,8 +22,10 @@ namespace InstallationManifest {
 		const manifest: T = { installedVersion: release.version };
 		const rawManifest: RawInstallationManifest = toRaw(manifest);
 
-		console.log(`Latest release installation manifest is`, rawManifest);
-		console.log(
+		Logger.info(`Latest release installation manifest is {manifest}`, {
+			manifest: JSON.stringify(rawManifest),
+		});
+		Logger.info(
 			`Writing installation manifest to ${installationManifestUri.fsPath}`
 		);
 
@@ -38,26 +41,29 @@ namespace InstallationManifest {
 			"installation_manifest.json"
 		);
 
-		console.log(
+		Logger.info(
 			`Looking for an installation manifest at path ${installationManifestUri.fsPath}`
 		);
 
 		if (!fs.existsSync(installationManifestUri.fsPath)) {
-			console.log("No installation manifest found");
+			Logger.info("No installation manifest found");
 			return undefined;
 		}
 
-		const rawManifest = JSON.parse(
-			fs.readFileSync(installationManifestUri.fsPath).toString()
-		);
+		const rawManifest = fs
+			.readFileSync(installationManifestUri.fsPath)
+			.toString();
+		Logger.info("Fetched the following manifest {manifest}", {
+			manifest: rawManifest,
+		});
 
-		console.log("Fetched the following manifest", rawManifest);
+		const parsedManifest = JSON.parse(rawManifest);
 
-		if (isValid(rawManifest)) {
-			return fromRaw(rawManifest);
+		if (isValid(parsedManifest)) {
+			return fromRaw(parsedManifest);
 		}
 
-		console.warn("Fetched manifest is invalid. Returning no manifest.");
+		Logger.warn("Fetched manifest is invalid. Returning no manifest.");
 		return undefined;
 	}
 

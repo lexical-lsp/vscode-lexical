@@ -4,6 +4,7 @@ import Github from "./github";
 import Paths from "./paths";
 import AutoInstaller from "./auto-installer";
 import Release from "./release";
+import Logger from "./logger";
 
 namespace LanguageServer {
 	export async function install(
@@ -33,7 +34,7 @@ namespace LanguageServer {
 				latestRelease
 			)
 		) {
-			console.log(
+			Logger.info(
 				"Latest release is already installed. Skipping auto-install."
 			);
 			return Paths.getStartScriptUri(releaseUri, latestRelease.version).fsPath;

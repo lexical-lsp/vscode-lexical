@@ -2,6 +2,7 @@ import { Uri } from "vscode";
 import extractZip = require("extract-zip");
 import * as fs from "fs";
 import ReleaseVersion from "./release/version";
+import Logger from "./logger";
 
 namespace Zip {
 	export async function extract(
@@ -9,7 +10,9 @@ namespace Zip {
 		releaseUri: Uri,
 		version: ReleaseVersion.T
 	): Promise<void> {
-		console.log(`Extracting zip archive to ${releaseUri.fsPath}`);
+		Logger.info("Extracting zip archive to {path}", {
+			path: releaseUri.fsPath,
+		});
 
 		fs.rmSync(releaseUri.fsPath, { recursive: true, force: true });
 
