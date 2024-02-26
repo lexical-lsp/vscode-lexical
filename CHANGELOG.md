@@ -1,5 +1,12 @@
 # Change Log
 
+## [Unreleased]
+
+### Added
+
+- Added the changelog to the extension bundle so it's readable directly from
+  VsCode
+
 ## [0.0.13]
 
 ### Added
