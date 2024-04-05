@@ -135,7 +135,16 @@
         "category": "Lexical",
         "title": "Restart Lexical's language server"
       }
-    ]
+    ],
+    "configurationDefaults": {
+      "[elixir]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true
+      }
+    }
   },
   "scripts": {
     "test-compile": "tsc -p ./src/test-e2e --outDir ./out/test-e2e && npm run esbuild && rm -rf ./out/test-e2e/fixtures && cp -r ./src/test-e2e/fixtures ./out/test-e2e/fixtures",
