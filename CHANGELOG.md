@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.0.15]
+
+### Added
+
+- Added default VS Code settings to better match Elixir's official style even
+  when not using Lexical's formatting functionality
+
 ## [0.0.14]
 
 ### Added
