@@ -11,6 +11,7 @@ import {
 import { join } from "path";
 import * as fs from "fs";
 import Commands from "./commands";
+import extractFunction from "./commands/extract-function";
 import restartServer from "./commands/restart-server";
 import { URI } from "vscode-uri";
 import Logger from "./logger";
@@ -28,9 +29,15 @@ export async function activate(context: ExtensionContext): Promise<void> {
 			context.subscriptions.push(commands.registerCommand(id, handler));
 		});
 
-		registerCommand(restartServer, {
-			client,
-		});
+		if (client !== undefined) {
+			registerCommand(extractFunction, {
+				client,
+				showWarning: window.showWarningMessage,
+			});
+			registerCommand(restartServer, {
+				client,
+			});
+		}
 	}
 }
 

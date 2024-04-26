@@ -134,6 +134,11 @@
         "command": "lexical.server.restart",
         "category": "Lexical",
         "title": "Restart Lexical's language server"
+      },
+      {
+        "category": "Elixir",
+        "command": "extension.extractFunction",
+        "title": "Extract function"
       }
     ],
     "configurationDefaults": {
@@ -144,6 +149,15 @@
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true
       }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "category": "Elixir",
+          "command": "extension.extractFunction",
+          "when": "editorLangId == elixir"
+        }
+      ]
     }
   },
   "scripts": {
