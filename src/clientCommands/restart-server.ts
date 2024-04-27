@@ -1,12 +1,12 @@
 import { LanguageClient } from "vscode-languageclient/node";
-import Commands from ".";
+import ClientCommands from ".";
 import Logger from "../logger";
 
 interface Context {
 	client: LanguageClient;
 }
 
-const restartServer: Commands.T<Context> = {
+const restartServer: ClientCommands.T<Context> = {
 	id: "lexical.server.restart",
 	createHandler: ({ client }) => {
 		function handle() {

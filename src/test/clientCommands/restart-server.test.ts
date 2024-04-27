@@ -1,6 +1,6 @@
 import { describe, expect, jest, test } from "@jest/globals";
-import restartServer from "../../commands/restart-server";
 import { LanguageClient } from "vscode-languageclient/node";
+import restartServer from "../../clientCommands/restart-server";
 
 describe("restartServer", () => {
 	test("given it is running, restarts it", () => {

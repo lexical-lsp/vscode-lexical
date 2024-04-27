@@ -134,6 +134,11 @@
         "command": "lexical.server.restart",
         "category": "Lexical",
         "title": "Restart Lexical's language server"
+      },
+      {
+        "command": "lexical.server.reindexProject",
+        "category": "Lexical",
+        "title": "Rebuild code search index"
       }
     ],
     "configurationDefaults": {
