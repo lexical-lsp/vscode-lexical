@@ -9,7 +9,7 @@ describe("reindexProject", () => {
 		const handler = reindexProject.createHandler({
 			client: clientStub({ isRunning: true }),
 		});
-		mockResolvedValue(ServerCommands, "reindex", undefined);
+		mockResolvedValue(ServerCommands, "reindex");
 
 		handler();
 
@@ -20,7 +20,7 @@ describe("reindexProject", () => {
 		const handler = reindexProject.createHandler({
 			client: clientStub({ isRunning: false }),
 		});
-		mockResolvedValue(ServerCommands, "reindex", undefined);
+		mockResolvedValue(ServerCommands, "reindex");
 
 		handler();
 

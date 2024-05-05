@@ -10,11 +10,11 @@ import {
 } from "vscode-languageclient/node";
 import { join } from "path";
 import * as fs from "fs";
-import Commands from "./commands";
-import restartServer from "./commands/restart-server";
 import { URI } from "vscode-uri";
 import Logger from "./logger";
-import reindexProject from "./commands/reindex-project";
+import Commands from "./clientCommands";
+import restartServer from "./clientCommands/restart-server";
+import reindexProject from "./clientCommands/reindex-project";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
