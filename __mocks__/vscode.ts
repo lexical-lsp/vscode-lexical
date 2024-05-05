@@ -48,3 +48,15 @@ export const l10n = {
 		return message;
 	},
 };
+
+export class CallHierarchyItem {}
+export class CodeAction {}
+export class CodeLens {}
+export class CompletionItem {}
+export class Converter {}
+export class Diagnostic {}
+export class DocumentLink {}
+export class InlayHint {}
+export class TypeHierarchyItem {}
+export class SymbolInformation {}
+export class CancellationError {}

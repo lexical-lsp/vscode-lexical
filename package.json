@@ -134,6 +134,11 @@
         "command": "lexical.server.restart",
         "category": "Lexical",
         "title": "Restart Lexical's language server"
+      },
+      {
+        "command": "lexical.server.reindexProject",
+        "category": "Lexical",
+        "title": "Rebuild code search index"
       }
     ],
     "configurationDefaults": {
@@ -180,7 +185,7 @@
     "ovsx": "0.8.3",
     "prettier": "3.2.5",
     "ts-jest": "29.1.2",
-    "typescript": "5.3.3",
+    "typescript": "5.4.5",
     "vscode-uri": "3.0.8"
   },
   "dependencies": {

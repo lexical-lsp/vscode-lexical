@@ -1,5 +1,12 @@
 # Change Log
 
+## [Unreleased]
+
+### Added
+
+- Added the "Rebuild code search index" which instructs Lexical to rebuild the
+  code search index for the current project.
+
 ## [0.0.15]
 
 ### Added

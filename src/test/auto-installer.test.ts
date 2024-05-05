@@ -1,4 +1,4 @@
-import { describe, test, expect, jest } from "@jest/globals";
+import { describe, test, expect, jest, beforeEach } from "@jest/globals";
 import ReleaseVersion from "../release/version";
 import ReleaseFixture from "./fixtures/release-fixture";
 import AutoInstaller from "../auto-installer";
@@ -11,17 +11,6 @@ import * as os from "os";
 import Zip from "../zip";
 import Release from "../release";
 
-jest.mock("../installation-manifest", () => {
-	const original = jest.requireActual<typeof InstallationManifest>(
-		"../installation-manifest",
-	);
-
-	return {
-		...original,
-		fetch: jest.fn(),
-	};
-});
-jest.mock("../github");
 jest.mock("fs", () => {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const { mockKeys } = require("./utils/strict-mocks");
@@ -33,10 +22,12 @@ jest.mock("fs", () => {
 		realpathSync: original.realpathSync,
 	};
 });
-jest.mock("../zip");
-jest.mock("os");
 
 describe("AutoInstaller", () => {
+	beforeEach(() => {
+		mockResolvedValue(Zip, "extract");
+	});
+
 	describe("isInstalledReleaseLatest", () => {
 		test("should return false given manifest version is lower than remote version", () => {
 			givenAnInstallationManifestWithVersion("0.3.0");

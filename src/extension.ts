@@ -10,10 +10,11 @@ import {
 } from "vscode-languageclient/node";
 import { join } from "path";
 import * as fs from "fs";
-import Commands from "./commands";
-import restartServer from "./commands/restart-server";
 import { URI } from "vscode-uri";
 import Logger from "./logger";
+import Commands from "./clientCommands";
+import restartServer from "./clientCommands/restart-server";
+import reindexProject from "./clientCommands/reindex-project";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -28,9 +29,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
 			context.subscriptions.push(commands.registerCommand(id, handler));
 		});
 
-		registerCommand(restartServer, {
-			client,
-		});
+		registerCommand(restartServer, { client });
+		registerCommand(reindexProject, { client });
 	}
 }
 

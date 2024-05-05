@@ -1,11 +1,11 @@
 import { describe, expect, jest, test } from "@jest/globals";
-import Commands from "../../commands";
+import ClientCommands from "../../clientCommands";
 
 describe("Commands", () => {
 	describe("getRegisterFunction", () => {
 		test("returns a function that registers the command with the client when called", () => {
 			const clientRegister = jest.fn();
-			const register = Commands.getRegisterFunction(clientRegister);
+			const register = ClientCommands.getRegisterFunction(clientRegister);
 
 			register(commandStub, undefined);
 
@@ -16,7 +16,7 @@ describe("Commands", () => {
 
 const handler = jest.fn();
 
-const commandStub: Commands.T<undefined> = {
+const commandStub: ClientCommands.T<undefined> = {
 	id: "stub",
 	createHandler: () => handler,
 };
