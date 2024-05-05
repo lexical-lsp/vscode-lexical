@@ -1,14 +1,12 @@
 import { describe, expect, jest, test } from "@jest/globals";
-import {
-	ExecuteCommandRequest,
-	LanguageClient,
-} from "vscode-languageclient/node";
+import { ExecuteCommandRequest } from "vscode-languageclient/node";
 import ServerCommands from "../../serverCommands/server-commands";
+import clientStub from "../fixtures/client-stub";
 
 describe("reindex", () => {
 	test("it should send a request to the server with the 'Reindex' command", () => {
 		const sendRequest = jest.fn();
-		const client = getClientStub({ sendRequest });
+		const client = clientStub({ sendRequest });
 
 		ServerCommands.reindex(client);
 
@@ -18,13 +16,3 @@ describe("reindex", () => {
 		});
 	});
 });
-
-function getClientStub({
-	sendRequest,
-}: {
-	sendRequest: jest.Mock;
-}): LanguageClient {
-	return {
-		sendRequest: sendRequest,
-	} as unknown as LanguageClient;
-}
