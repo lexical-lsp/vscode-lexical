@@ -10,6 +10,8 @@ import * as fs from "fs";
 import * as os from "os";
 import Zip from "../zip";
 import Release from "../release";
+import Notifications from "../notifications";
+import Configuration from "../configuration";
 
 jest.mock("fs", () => {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -26,6 +28,7 @@ jest.mock("fs", () => {
 describe("AutoInstaller", () => {
 	beforeEach(() => {
 		mockResolvedValue(Zip, "extract");
+		mockReturnValue(Notifications, "notifyAutoInstallSuccess");
 	});
 
 	describe("isInstalledReleaseLatest", () => {
@@ -109,6 +112,25 @@ describe("AutoInstaller", () => {
 				A_RELEASE_URI,
 				A_RELEASE.version,
 			);
+		});
+
+		test("notifies the user of the newly installed version", async () => {
+			mockReturnValue(Notifications, "notifyAutoInstallSuccess");
+			givenDownloadedZip();
+			await AutoInstaller.install(A_PROGRESS, A_RELEASE, A_RELEASE_URI);
+
+			expect(Notifications.notifyAutoInstallSuccess).toHaveBeenCalledWith(
+				ReleaseVersion.deserialize(ReleaseVersion.serialize(A_RELEASE.version)),
+			);
+		});
+
+		test("given auto-install notifications are disabled, it does not notify user of the newly installed version", async () => {
+			mockReturnValue(Configuration, "getAutoInstallUpdateNotification", false);
+			mockReturnValue(Notifications, "notifyAutoInstallSuccess");
+			givenDownloadedZip();
+			await AutoInstaller.install(A_PROGRESS, A_RELEASE, A_RELEASE_URI);
+
+			expect(Notifications.notifyAutoInstallSuccess).not.toHaveBeenCalled();
 		});
 	});
 });

@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Progress } from "vscode";
+import {
+	Progress,
+	WorkspaceConfiguration,
+	type workspace as vsWorkspace,
+} from "vscode";
+import { toJSONObject } from "vscode-languageclient/lib/common/configuration";
 import { URI } from "vscode-uri";
+import { jest } from "@jest/globals";
 
 function joinPath(base: URI, ...pathSegments: string[]): URI {
 	return base.with({ path: [base.path, ...pathSegments].join("/") });

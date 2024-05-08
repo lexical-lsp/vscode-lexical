@@ -126,6 +126,12 @@
           "scope": "window",
           "type": "string",
           "markdownDescription": "A subdirectory of the current workspace in which to start Lexical."
+        },
+        "lexical.notifyOnServerAutoUpdate": {
+          "scope": "window",
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Whether to notify when a new release of Lexical is installed automatically."
         }
       }
     },
@@ -184,6 +190,7 @@
     "jest-extended": "4.0.2",
     "ovsx": "0.8.3",
     "prettier": "3.2.5",
+    "synchronous-promise": "2.0.17",
     "ts-jest": "29.1.2",
     "typescript": "5.4.5",
     "vscode-uri": "3.0.8"

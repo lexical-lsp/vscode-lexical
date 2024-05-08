@@ -12,7 +12,6 @@ describe("Configuration", () => {
 			workspace,
 		);
 
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		expect(projectDirUri).toEqual(workspace.workspaceFolders![0].uri);
 	});
 
@@ -24,7 +23,6 @@ describe("Configuration", () => {
 			workspace,
 		);
 
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		expect(projectDirUri).toEqual(URI.file("/stub/subdirectory"));
 	});
 });

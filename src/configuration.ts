@@ -1,6 +1,7 @@
 import path = require("path");
-import type { workspace as vsWorkspace } from "vscode";
+import { ConfigurationTarget, workspace as vsWorkspace } from "vscode";
 import { URI } from "vscode-uri";
+import Logger from "./logger";
 
 namespace Configuration {
 	type GetConfig = (section: string) => unknown;
@@ -26,6 +27,19 @@ namespace Configuration {
 		} else {
 			return URI.file(workspacePath);
 		}
+	}
+
+	export function disableAutoInstallUpdateNotification(): void {
+		vsWorkspace
+			.getConfiguration("lexical")
+			.update("notifyOnServerAutoUpdate", false, ConfigurationTarget.Global)
+			.then(undefined, (e) => Logger.error(e.toString()));
+	}
+
+	export function getAutoInstallUpdateNotification(): boolean {
+		return vsWorkspace
+			.getConfiguration("lexical")
+			.get("notifyOnServerAutoUpdate", true);
 	}
 }
 
