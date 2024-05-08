@@ -6,6 +6,8 @@ import * as fs from "fs";
 import Zip from "./zip";
 import Paths from "./paths";
 import Logger from "./logger";
+import Notifications from "./notifications";
+import Configuration from "./configuration";
 
 namespace AutoInstaller {
 	export function isInstalledReleaseLatest(
@@ -41,6 +43,10 @@ namespace AutoInstaller {
 		fs.writeFileSync(zipUri.fsPath, zipBuffer, "binary");
 
 		await Zip.extract(zipUri, releaseUri, latestRelease.version);
+
+		if (Configuration.getAutoInstallUpdateNotification()) {
+			Notifications.notifyAutoInstallSuccess(latestRelease.version);
+		}
 	}
 }
 
