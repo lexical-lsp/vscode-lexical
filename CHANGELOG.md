@@ -6,6 +6,9 @@
 
 - Added the "Rebuild code search index" which instructs Lexical to rebuild the
   code search index for the current project.
+- Added a notification after automatic installation of a new version of Lexical.
+  This notification can be disabled through the ǹew
+  `lexical.notifyOnServerAutoUpdate` configuration setting.
 
 ## [0.0.15]
 

@@ -43,6 +43,11 @@ script (assumed to be `start_lexical.sh`) or any executable launcher script.
 The path should look something like
 `/home/username/Projects/lexical/_build/dev/package/lexical/bin/start_lexical.sh`.
 
+### lexical.notifyOnServerAutoUpdate
+
+Controls whether notifications are shown after automatic installs of new Lexcial
+versions. Defaults to `true`.
+
 ### Erlang and Elixir version compatibility
 
 #### Erlang
