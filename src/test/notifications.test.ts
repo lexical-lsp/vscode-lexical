@@ -17,12 +17,12 @@ describe("notifyAutoInstallSuccess", () => {
 		Notifications.notifyAutoInstallSuccess(ReleaseVersion.deserialize("1.2.3"));
 
 		expect(window.showInformationMessage).toHaveBeenCalledWith(
-			expect.stringContaining("1.2.3"),
+			expect.stringContaining("version 1.2.3"),
 			"Disable this notification",
 		);
 	});
 
-	test("when user requests to disable the notification, it updates the configuration", async () => {
+	test("when user requests to disable the notification, it updates the configuration", () => {
 		mockReturnValue(Configuration, "disableAutoInstallUpdateNotification");
 		mockReturnValue(
 			window,
@@ -37,5 +37,22 @@ describe("notifyAutoInstallSuccess", () => {
 		expect(
 			Configuration.disableAutoInstallUpdateNotification,
 		).toHaveBeenCalled();
+	});
+
+	test("notification should include a link to the release notes", () => {
+		mockReturnValue(
+			window,
+			"showInformationMessage",
+			Promise.resolve(undefined),
+		);
+
+		Notifications.notifyAutoInstallSuccess(ReleaseVersion.deserialize("1.2.3"));
+
+		expect(window.showInformationMessage).toHaveBeenCalledWith(
+			expect.stringContaining(
+				"https://github.com/lexical-lsp/lexical/releases/tag/v1.2.3",
+			),
+			"Disable this notification",
+		);
 	});
 });
