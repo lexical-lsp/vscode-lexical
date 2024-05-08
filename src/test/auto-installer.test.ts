@@ -29,6 +29,7 @@ describe("AutoInstaller", () => {
 	beforeEach(() => {
 		mockResolvedValue(Zip, "extract");
 		mockReturnValue(Notifications, "notifyAutoInstallSuccess");
+		mockReturnValue(Configuration, "getAutoInstallUpdateNotification", false);
 	});
 
 	describe("isInstalledReleaseLatest", () => {
@@ -115,6 +116,7 @@ describe("AutoInstaller", () => {
 		});
 
 		test("notifies the user of the newly installed version", async () => {
+			mockReturnValue(Configuration, "getAutoInstallUpdateNotification", true);
 			mockReturnValue(Notifications, "notifyAutoInstallSuccess");
 			givenDownloadedZip();
 			await AutoInstaller.install(A_PROGRESS, A_RELEASE, A_RELEASE_URI);
