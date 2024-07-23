@@ -1,5 +1,12 @@
 # Change Log
 
+## [Unreleased]
+
+### Added
+
+- Added support for `do`/`end` and `fn`/`end` as brackets for VSCode, enabling
+  bracket colorization and bracket navigation features.
+
 ## [0.0.16]
 
 ### Added

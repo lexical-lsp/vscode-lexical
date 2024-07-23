@@ -57,7 +57,10 @@
       {
         "language": "elixir",
         "scopeName": "source.elixir",
-        "path": "./syntaxes/elixir.json"
+        "path": "./syntaxes/elixir.json",
+        "unbalancedBracketScopes": [
+          "constant.language.symbol.elixir"
+        ]
       },
       {
         "language": "eex",

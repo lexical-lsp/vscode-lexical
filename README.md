@@ -48,6 +48,28 @@ The path should look something like
 Controls whether notifications are shown after automatic installs of new Lexcial
 versions. Defaults to `true`.
 
+### Editor Configuration
+
+The extension provides a language configuration for Elixir which marks
+`do`/`end` and `fn`/`end` as brackets. Among other things, this enables
+colorization of `do`/`end` and `fn`/`end` with VSCode's
+`editor.bracketPairColorization.enabled` setting. While this can be helpful when
+searching for a `do`'s corresponding `end`, some users may prefer to use the
+standard keyword coloring, while still highlighting parenthesis and other
+brackets. This can be achieved by adding the following to your VSCode
+configuration.
+
+```jsonc
+"editor.bracketPairColorization.enabled": true,
+"[elixir]": {
+  "editor.language.colorizedBracketPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"]
+  ]
+}
+```
+
 ### Erlang and Elixir version compatibility
 
 #### Erlang
