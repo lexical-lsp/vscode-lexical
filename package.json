@@ -59,7 +59,8 @@
         "scopeName": "source.elixir",
         "path": "./syntaxes/elixir.json",
         "unbalancedBracketScopes": [
-          "constant.language.symbol.elixir"
+          "constant.language.symbol.elixir",
+          "entity.name.map-access.elixir"
         ]
       },
       {

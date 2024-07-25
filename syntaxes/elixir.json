@@ -1,6 +1,9 @@
 {
   "comment": "Atom Syntax Parser for Elixir Programming Language.",
-  "fileTypes": ["ex", "exs"],
+  "fileTypes": [
+    "ex",
+    "exs"
+  ],
   "firstLineMatch": "^#!/.*\\belixir",
   "foldingStartMarker": "(after|else|catch|rescue|\\-\\>|\\{|\\[|do)\\s*$",
   "foldingStopMarker": "^\\s*((\\}|\\]|after|else|catch|rescue)\\s*$|end\\b)",
@@ -165,6 +168,18 @@
         },
         "3": {
           "name": "entity.name.function-call.elixir"
+        }
+      }
+    },
+    {
+      "comment": "Qualified map access without parenthesis",
+      "match": "\\s*(\\.)\\s*([a-z_]\\w*[!?]?)",
+      "captures": {
+        "1": {
+          "name": "punctuation.separator.method.elixir"
+        },
+        "2": {
+          "name": "entity.name.map-access.elixir"
         }
       }
     },
