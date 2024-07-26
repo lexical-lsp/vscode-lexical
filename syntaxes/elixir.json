@@ -169,6 +169,18 @@
       }
     },
     {
+      "comment": "Qualified map access without parenthesis",
+      "match": "\\s*(\\.)\\s*([a-z_]\\w*[!?]?)",
+      "captures": {
+        "1": {
+          "name": "punctuation.separator.method.elixir"
+        },
+        "2": {
+          "name": "entity.name.map-access.elixir"
+        }
+      }
+    },
+    {
       "comment": "Erlang Function call without parenthesis",
       "match": "(\\:\\w+)\\s*(\\.)\\s*([_]?\\w*[!?]?)",
       "captures": {

@@ -1,5 +1,12 @@
 # Change Log
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed an issue with `do`/`end` and `fn`/`end` brackets where `end` would
+  mistakenly be considered a closing bracket when used as a map or struct field.
+
 ## [0.0.17]
 
 ### Added
