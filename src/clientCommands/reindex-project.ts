@@ -1,6 +1,6 @@
+import { LanguageClient } from "vscode-languageclient/node";
 import Commands from ".";
 import Logger from "../logger";
-import { LanguageClient } from "vscode-languageclient/node";
 import ServerCommands from "../serverCommands/server-commands";
 
 interface Context {

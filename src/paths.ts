@@ -1,7 +1,7 @@
-import { Uri } from "vscode";
-import ReleaseVersion from "./release/version";
 import * as fs from "fs";
 import * as os from "os";
+import { Uri } from "vscode";
+import ReleaseVersion from "./release/version";
 
 namespace Paths {
 	export function getInstallationDirectoryUri(globalStorageUri: Uri): Uri {

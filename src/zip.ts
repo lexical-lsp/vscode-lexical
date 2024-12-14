@@ -1,8 +1,8 @@
 import { Uri } from "vscode";
 import extractZip = require("extract-zip");
 import * as fs from "fs";
-import ReleaseVersion from "./release/version";
 import Logger from "./logger";
+import ReleaseVersion from "./release/version";
 
 namespace Zip {
 	export async function extract(

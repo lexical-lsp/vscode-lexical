@@ -1,8 +1,8 @@
-import { describe, expect, jest, test } from "@jest/globals";
 import * as fs from "fs";
-import InstallationManifest from "../installation-manifest";
-import { Uri } from "vscode";
+import { describe, expect, jest, test } from "@jest/globals";
 import * as semver from "semver";
+import { Uri } from "vscode";
+import InstallationManifest from "../installation-manifest";
 import ReleaseVersion from "../release/version";
 import { mockReturnValue } from "./utils/strict-mocks";
 

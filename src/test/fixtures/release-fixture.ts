@@ -1,7 +1,7 @@
 import { URI } from "vscode-uri";
 import Release from "../../release";
-import ReleaseVersionFixture from "./release-version-fixture";
 import ReleaseVersion from "../../release/version";
+import ReleaseVersionFixture from "./release-version-fixture";
 
 namespace ReleaseFixture {
 	export function create(overloads: Partial<Release.T> = {}): Release.T {

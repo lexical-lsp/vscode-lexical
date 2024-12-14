@@ -1,6 +1,6 @@
 import { Uri } from "vscode";
-import ReleaseVersion from "./release/version";
 import GithubRelease from "./github/release";
+import ReleaseVersion from "./release/version";
 
 namespace Release {
 	export interface T {

@@ -1,9 +1,9 @@
 import { jest } from "@jest/globals";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 type AsyncFunction = (...args: any) => Promise<unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 type Fun = (...args: any) => unknown;
 
 // `keyof` returns the keys of the given object type, except for keys of type `never`
@@ -25,14 +25,18 @@ type ReturnOfFunctionOfType<T, F extends keyof T> = T[F] extends Fun
   In essence, we're looking for the same behavior as optional params (`param?: any`), but rather than being generally
   optional we want the parameter to be required or not based on the function's other parameters.
 */
-type AsyncReturnTypeTuple<T, F extends KeyOfType<T, AsyncFunction>> =
-	AwaitedReturnOfFunctionOfType<T, F> extends void
-		? []
-		: [AwaitedReturnOfFunctionOfType<T, F>];
-type SyncReturnTypeTuple<T, F extends KeyOfType<T, Fun>> =
-	ReturnOfFunctionOfType<T, F> extends void
-		? []
-		: [ReturnOfFunctionOfType<T, F>];
+type AsyncReturnTypeTuple<
+	T,
+	F extends KeyOfType<T, AsyncFunction>,
+> = AwaitedReturnOfFunctionOfType<T, F> extends void
+	? []
+	: [AwaitedReturnOfFunctionOfType<T, F>];
+type SyncReturnTypeTuple<
+	T,
+	F extends KeyOfType<T, Fun>,
+> = ReturnOfFunctionOfType<T, F> extends void
+	? []
+	: [ReturnOfFunctionOfType<T, F>];
 
 function mockModuleFunction<M, F extends KeyOfType<M, Fun>>(
 	module: M,
@@ -140,7 +144,7 @@ export function clearMock<M, F extends KeyOfType<M, Fun>>(
 
 export function mockKeys<T extends object>(obj: T): T {
 	return Object.keys(obj).reduce((acc, cur) => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		acc[cur as keyof T] = jest.fn() as any;
 		return acc;
 	}, {} as T);

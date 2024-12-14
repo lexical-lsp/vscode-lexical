@@ -1,7 +1,7 @@
 import axios from "axios";
 import GithubRelease from "./github/release";
-import Release from "./release";
 import Logger from "./logger";
+import Release from "./release";
 
 // Raw github types as per official documentation: https://docs.github.com/en/rest?apiVersion=2022-11-28
 

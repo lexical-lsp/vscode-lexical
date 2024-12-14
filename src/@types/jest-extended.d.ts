@@ -1,5 +1,5 @@
-import * as matchers from "jest-extended";
 import { jest } from "@jest/globals";
+import * as matchers from "jest-extended";
 
 type JestExtendedMatchers = typeof matchers;
 

@@ -1,6 +1,6 @@
 import { window } from "vscode";
-import ReleaseVersion from "./release/version";
 import Configuration from "./configuration";
+import ReleaseVersion from "./release/version";
 
 namespace Notifications {
 	export function notifyAutoInstallSuccess(version: ReleaseVersion.T): void {

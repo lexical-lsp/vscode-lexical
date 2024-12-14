@@ -1,10 +1,10 @@
 import { ProgressLocation, Uri, window } from "vscode";
-import InstallationManifest from "./installation-manifest";
-import Github from "./github";
-import Paths from "./paths";
 import AutoInstaller from "./auto-installer";
-import Release from "./release";
+import Github from "./github";
+import InstallationManifest from "./installation-manifest";
 import Logger from "./logger";
+import Paths from "./paths";
+import Release from "./release";
 
 namespace LanguageServer {
 	export async function install(

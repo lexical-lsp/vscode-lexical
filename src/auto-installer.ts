@@ -1,13 +1,13 @@
-import { Progress, Uri } from "vscode";
-import InstallationManifest from "./installation-manifest";
-import Release from "./release";
-import Github from "./github";
 import * as fs from "fs";
-import Zip from "./zip";
-import Paths from "./paths";
+import { Progress, Uri } from "vscode";
+import Configuration from "./configuration";
+import Github from "./github";
+import InstallationManifest from "./installation-manifest";
 import Logger from "./logger";
 import Notifications from "./notifications";
-import Configuration from "./configuration";
+import Paths from "./paths";
+import Release from "./release";
+import Zip from "./zip";
 
 namespace AutoInstaller {
 	export function isInstalledReleaseLatest(

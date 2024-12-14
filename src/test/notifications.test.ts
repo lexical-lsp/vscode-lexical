@@ -1,10 +1,10 @@
 import { describe, expect, test } from "@jest/globals";
-import { mockReturnValue } from "./utils/strict-mocks";
-import { MessageItem, window } from "vscode";
 import { SynchronousPromise } from "synchronous-promise";
+import { MessageItem, window } from "vscode";
+import Configuration from "../configuration";
 import Notifications from "../notifications";
 import ReleaseVersion from "../release/version";
-import Configuration from "../configuration";
+import { mockReturnValue } from "./utils/strict-mocks";
 
 describe("notifyAutoInstallSuccess", () => {
 	test("sends an information message with the installed version", () => {

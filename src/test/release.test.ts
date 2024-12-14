@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
-import Release from "../release";
-import { URI } from "vscode-uri";
 import * as semver from "semver";
+import { URI } from "vscode-uri";
 import GithubRelease from "../github/release";
+import Release from "../release";
 
 describe("fromGithubRelease", () => {
 	test("should throw given github release without a name", () => {

@@ -1,20 +1,20 @@
+import * as fs from "fs";
+import { join } from "path";
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import { ExtensionContext, commands, window, workspace } from "vscode";
-import LanguageServer from "./language-server";
-import Configuration from "./configuration";
 import {
 	LanguageClient,
 	LanguageClientOptions,
 	ServerOptions,
 } from "vscode-languageclient/node";
-import { join } from "path";
-import * as fs from "fs";
 import { URI } from "vscode-uri";
-import Logger from "./logger";
 import Commands from "./clientCommands";
-import restartServer from "./clientCommands/restart-server";
 import reindexProject from "./clientCommands/reindex-project";
+import restartServer from "./clientCommands/restart-server";
+import Configuration from "./configuration";
+import LanguageServer from "./language-server";
+import Logger from "./logger";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -36,7 +36,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 // This method is called when your extension is deactivated
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export function deactivate(): void {}
+export function deactivate(): void {
+	// noop
+}
 
 async function maybeAutoInstall(
 	context: ExtensionContext,
@@ -65,7 +67,7 @@ function isExecutableFile(path: fs.PathLike): boolean {
 	try {
 		fs.accessSync(path, fs.constants.X_OK);
 		hasExecuteAccess = true;
-	} catch (e) {
+	} catch (_e) {
 		hasExecuteAccess = false;
 	}
 	return stat.isFile() && hasExecuteAccess;

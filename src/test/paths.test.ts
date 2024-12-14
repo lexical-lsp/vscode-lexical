@@ -1,9 +1,9 @@
-import { test, describe, expect, jest } from "@jest/globals";
+import * as fs from "fs";
+import * as os from "os";
+import { describe, expect, jest, test } from "@jest/globals";
 import { URI } from "vscode-uri";
 import Paths from "../paths";
 import ReleaseVersionFixture from "./fixtures/release-version-fixture";
-import * as fs from "fs";
-import * as os from "os";
 import { mockReturnValue } from "./utils/strict-mocks";
 
 jest.mock("fs");

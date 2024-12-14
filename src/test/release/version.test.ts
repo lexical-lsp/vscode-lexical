@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
-import ReleaseVersion from "../../release/version";
 import { SemVer } from "semver";
+import ReleaseVersion from "../../release/version";
 
 const validDate = "2023-05-27T15:48:20.000Z";
 const validSemanticVersion = "1.2.3";

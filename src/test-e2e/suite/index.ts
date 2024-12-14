@@ -9,13 +9,13 @@ import path = require("path");
 
 const jestTestRunnerForVSCodeE2E: ITestRunner = {
 	run(
-		testsRoot: string,
+		_testsRoot: string,
 		reportTestResults: (error?: Error, failures?: number) => void,
 	): void {
 		const projectRootPath = process.cwd();
 		const config = path.join(projectRootPath, "jest.e2e.config.js");
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		runCLI({ config } as any, [projectRootPath])
 			.then((jestCliCallResult) => {
 				jestCliCallResult.results.testResults.forEach((testResult) => {

@@ -1,17 +1,17 @@
-import { describe, test, expect, jest, beforeEach } from "@jest/globals";
-import ReleaseVersion from "../release/version";
-import ReleaseFixture from "./fixtures/release-fixture";
-import AutoInstaller from "../auto-installer";
-import { URI } from "vscode-uri";
-import InstallationManifest from "../installation-manifest";
-import { mockResolvedValue, mockReturnValue } from "./utils/strict-mocks";
-import Github from "../github";
 import * as fs from "fs";
 import * as os from "os";
-import Zip from "../zip";
-import Release from "../release";
-import Notifications from "../notifications";
+import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { URI } from "vscode-uri";
+import AutoInstaller from "../auto-installer";
 import Configuration from "../configuration";
+import Github from "../github";
+import InstallationManifest from "../installation-manifest";
+import Notifications from "../notifications";
+import Release from "../release";
+import ReleaseVersion from "../release/version";
+import Zip from "../zip";
+import ReleaseFixture from "./fixtures/release-fixture";
+import { mockResolvedValue, mockReturnValue } from "./utils/strict-mocks";
 
 jest.mock("fs", () => {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires

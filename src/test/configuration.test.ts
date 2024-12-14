@@ -1,6 +1,6 @@
-import { describe, test, jest, expect } from "@jest/globals";
-import Configuration from "../configuration";
+import { describe, expect, jest, test } from "@jest/globals";
 import { URI } from "vscode-uri";
+import Configuration from "../configuration";
 import WorkspaceFixture from "./fixtures/workspace-fixture";
 
 describe("Configuration", () => {

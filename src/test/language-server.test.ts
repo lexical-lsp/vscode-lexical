@@ -1,19 +1,19 @@
 import { describe, expect, jest, test } from "@jest/globals";
-import LanguageServer from "../language-server";
-import Github from "../github";
 import { URI } from "vscode-uri";
+import AutoInstaller from "../auto-installer";
+import Github from "../github";
+import InstallationManifest from "../installation-manifest";
+import LanguageServer from "../language-server";
+import Paths from "../paths";
+import Release from "../release";
+import ReleaseVersion from "../release/version";
+import ReleaseFixture from "./fixtures/release-fixture";
+import ReleaseVersionFixture from "./fixtures/release-version-fixture";
 import {
 	mockRejectedValue,
 	mockResolvedValue,
 	mockReturnValue,
 } from "./utils/strict-mocks";
-import ReleaseFixture from "./fixtures/release-fixture";
-import Paths from "../paths";
-import AutoInstaller from "../auto-installer";
-import InstallationManifest from "../installation-manifest";
-import Release from "../release";
-import ReleaseVersionFixture from "./fixtures/release-version-fixture";
-import ReleaseVersion from "../release/version";
 
 jest.mock("../github");
 jest.mock("../paths");

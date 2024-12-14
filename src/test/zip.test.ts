@@ -1,8 +1,8 @@
-import { test, describe, expect, jest } from "@jest/globals";
-import Zip from "../zip";
-import { URI } from "vscode-uri";
-import ReleaseVersionFixture from "./fixtures/release-version-fixture";
 import * as fs from "fs";
+import { describe, expect, jest, test } from "@jest/globals";
+import { URI } from "vscode-uri";
+import Zip from "../zip";
+import ReleaseVersionFixture from "./fixtures/release-version-fixture";
 import extract = require("extract-zip");
 
 jest.mock("extract-zip");
@@ -95,7 +95,7 @@ describe("extract", () => {
 	});
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function asMocked<F extends (...args: any[]) => unknown>(
 	fun: F,
 ): jest.MockedFunction<F> {

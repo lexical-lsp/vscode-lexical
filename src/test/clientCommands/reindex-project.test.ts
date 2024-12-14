@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
 import reindexProject from "../../clientCommands/reindex-project";
-import { mockResolvedValue } from "../utils/strict-mocks";
 import ServerCommands from "../../serverCommands/server-commands";
 import clientStub from "../fixtures/client-stub";
+import { mockResolvedValue } from "../utils/strict-mocks";
 
 describe("reindexProject", () => {
 	test("should call the 'Reindex' server command", () => {

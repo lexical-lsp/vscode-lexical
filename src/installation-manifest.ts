@@ -1,8 +1,8 @@
-import { Uri } from "vscode";
 import * as fs from "fs";
+import { Uri } from "vscode";
+import Logger from "./logger";
 import Release from "./release";
 import ReleaseVersion from "./release/version";
-import Logger from "./logger";
 
 namespace InstallationManifest {
 	export interface T {

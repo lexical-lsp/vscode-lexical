@@ -1,9 +1,9 @@
-import * as vscode from "vscode";
-import { activate, Fixture } from "../helpers";
 import { expect, test } from "@jest/globals";
+import * as vscode from "vscode";
+import { Fixture, activate } from "../helpers";
 
 test("Should get diagnostics", async () => {
-	await testDiagnostics(Fixture.diagnostics, [
+	await testDiagnostics(Fixture.Diagnostics, [
 		{
 			message: "undefined function foo/0",
 			range: toRange(2, 4, 3, 0),

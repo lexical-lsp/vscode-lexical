@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import axios from "axios";
-import Github from "../github";
-import GithubReleaseFixture from "./fixtures/github-release-fixture";
-import ReleaseVersion from "../release/version";
 import { URI } from "vscode-uri";
-import { mockResolvedValue } from "./utils/strict-mocks";
+import Github from "../github";
+import ReleaseVersion from "../release/version";
+import GithubReleaseFixture from "./fixtures/github-release-fixture";
 import ReleaseFixture from "./fixtures/release-fixture";
+import { mockResolvedValue } from "./utils/strict-mocks";
 
 jest.mock("axios");
 
