@@ -5,8 +5,7 @@ import { Fixture, activate } from "../helpers";
 test("Should get diagnostics", async () => {
 	await testDiagnostics(Fixture.Diagnostics, [
 		{
-			message:
-				"** (CompileError) lib/diagnostics.ex:3: undefined function foo/0 (expected Fixtures to define such a function or for it to be imported, but none are available)\n\n",
+			message: "undefined function foo/0",
 			range: toRange(2, 4, 3, 0),
 			severity: vscode.DiagnosticSeverity.Error,
 			source: "Elixir",
