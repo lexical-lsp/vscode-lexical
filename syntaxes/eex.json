@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/refs/heads/master/tmlanguage.json",
   "fileTypes": ["eex", "leex"],
   "name": "Embedded Elixir",
   "patterns": [
