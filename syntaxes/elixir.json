@@ -20,136 +20,71 @@
       "name": "meta.module.elixir"
     },
     {
-      "begin": "@(?:module|type)?doc (?:~s)?\"\"\"",
+      "begin": "@(module|type)?doc (~s)?\"\"\"",
       "comment": "@doc with interpolated heredocs",
       "end": "\\s*\"\"\"",
-      "name": "documentation.heredoc.elixir",
-      "beginCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
+      "name": "comment.documentation.heredoc.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
         },
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },
     {
-      "begin": "@(?:module|type)?doc ~s'''",
+      "begin": "@(module|type)?doc ~s'''",
       "comment": "@doc with interpolated single quoted heredocs",
       "end": "\\s*'''",
-      "name": "documentation.heredoc.elixir",
-      "beginCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
+      "name": "comment.documentation.heredoc.elixir",
       "patterns": [
         {
           "include": "#interpolated_elixir"
         },
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },
     {
-      "begin": "@(?:module|type)?doc ~S\"\"\"",
+      "begin": "@(module|type)?doc ~S\"\"\"",
       "comment": "@doc with heredocs is treated as documentation",
       "end": "\\s*\"\"\"",
-      "name": "documentation.heredoc.elixir",
-      "beginCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
+      "name": "comment.documentation.heredoc.elixir",
       "patterns": [
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },
     {
-      "begin": "@(?:module|type)?doc ~S'''",
+      "begin": "@(module|type)?doc ~S'''",
       "comment": "@doc with heredocs is treated as documentation",
       "end": "\\s*'''",
-      "name": "documentation.heredoc.elixir",
-      "beginCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
+      "name": "comment.documentation.heredoc.elixir",
       "patterns": [
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },
     {
       "comment": "@doc false is treated as documentation",
-      "match": "@(?:module|type)?doc false",
+      "match": "@(module|type)?doc false",
       "name": "comment.documentation.false"
     },
     {
-      "begin": "@(?:module|type)?doc \"",
+      "begin": "@(module|type)?doc \"",
       "comment": "@doc with string is treated as documentation",
       "end": "\"",
-      "name": "documentation.string",
-      "beginCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
+      "name": "comment.documentation.string",
       "patterns": [
         {
           "include": "#interpolated_elixir"
         },
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },

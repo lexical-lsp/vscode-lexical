@@ -1,12 +1,5 @@
 # Change Log
 
-## [Unreleased]
-
-### Added
-
-- Identify contents of documentation attributes (`@doc`, `@moduledoc` and
-  `@typedoc`) as Markdown, thus enabling Markdown syntax highlighting.
-
 ## [0.0.18]
 
 ### Fixed
