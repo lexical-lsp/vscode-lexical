@@ -24,7 +24,12 @@
       "comment": "@doc with interpolated heredocs",
       "end": "\\s*\"\"\"",
       "name": "documentation.heredoc.elixir",
-      "captures": {
+      "beginCaptures": {
+        "0": {
+          "name": "comment"
+        }
+      },
+      "endCaptures": {
         "0": {
           "name": "comment"
         }
@@ -46,7 +51,12 @@
       "comment": "@doc with interpolated single quoted heredocs",
       "end": "\\s*'''",
       "name": "documentation.heredoc.elixir",
-      "captures": {
+      "beginCaptures": {
+        "0": {
+          "name": "comment"
+        }
+      },
+      "endCaptures": {
         "0": {
           "name": "comment"
         }
@@ -68,7 +78,12 @@
       "comment": "@doc with heredocs is treated as documentation",
       "end": "\\s*\"\"\"",
       "name": "documentation.heredoc.elixir",
-      "captures": {
+      "beginCaptures": {
+        "0": {
+          "name": "comment"
+        }
+      },
+      "endCaptures": {
         "0": {
           "name": "comment"
         }
@@ -87,7 +102,12 @@
       "comment": "@doc with heredocs is treated as documentation",
       "end": "\\s*'''",
       "name": "documentation.heredoc.elixir",
-      "captures": {
+      "beginCaptures": {
+        "0": {
+          "name": "comment"
+        }
+      },
+      "endCaptures": {
         "0": {
           "name": "comment"
         }
@@ -111,7 +131,12 @@
       "comment": "@doc with string is treated as documentation",
       "end": "\"",
       "name": "documentation.string",
-      "captures": {
+      "beginCaptures": {
+        "0": {
+          "name": "comment"
+        }
+      },
+      "endCaptures": {
         "0": {
           "name": "comment"
         }
