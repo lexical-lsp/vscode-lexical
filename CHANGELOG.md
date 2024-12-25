@@ -1,5 +1,10 @@
 # Change Log
 
+# [Unreleased]
+
+### Added
+
+- Added syntax highlighting for markdown in `@doc`, `@moduledoc` and `@typedoc` modules attributes. All credits for this solution belong to @SteffenDE
 ## [0.0.18]
 
 ### Fixed
