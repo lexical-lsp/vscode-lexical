@@ -50,7 +50,8 @@ code --install-extension *.vsix
 ## Publishing the extension
 
 1. Make sure the version number has been updated in
-   [`package.json`](./package.json)
+	 [`package.json`](./package.json) and in [CHANGELOG.md](./CHANGELOG.md) if
+	 there are any unreleased documented changes
 1. Log in to your Azure DevOps account
    1. [Create an Azure DevOps organization](https://learn.microsoft.com/en-ca/azure/devops/organizations/accounts/create-organization?view=azure-devops#create-an-organization)
       if you don't already have one. The organization name doesn't matter, you
