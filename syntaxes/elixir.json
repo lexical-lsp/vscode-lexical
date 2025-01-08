@@ -171,9 +171,6 @@
         },
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },
