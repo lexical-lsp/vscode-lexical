@@ -154,26 +154,13 @@
       "begin": "@(?:module|type)?doc \"",
       "comment": "@doc with string is treated as documentation",
       "end": "\"",
-      "name": "documentation.string",
-      "beginCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "comment"
-        }
-      },
+      "name": "comment.documentation.string",
       "patterns": [
         {
           "include": "#interpolated_elixir"
         },
         {
           "include": "#escaped_char"
-        },
-        {
-          "include": "text.html.markdown"
         }
       ]
     },
