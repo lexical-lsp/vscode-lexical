@@ -1,6 +1,12 @@
 # Change Log
 
-# [0.0.19]
+## [0.0.20]
+
+### Fixed
+
+- Fixed an issue where syntax highlighting would break after single-line @doc annotations. Thanks @pdm-jd!
+
+## [0.0.19]
 
 ### Added
 
