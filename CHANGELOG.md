@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.0.21]
+
+### Fixed
+
+- Reverted markdown syntax highlighting in heredoc to maintain clearer separation between documentation and actual elixir code.
+
 ## [0.0.20]
 
 ### Fixed
