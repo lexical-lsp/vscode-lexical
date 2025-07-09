@@ -1,5 +1,24 @@
 # Change Log
 
+## [0.0.22]
+
+### Added
+
+- Update the Elixir grammar to the latest from [Elixir LS](https://github.com/elixir-lsp/vscode-elixir-ls). This update
+  brings over ~2 years of improvements to Elixir LS' grammar to Lexical. Thanks to @probably-not!
+
+  Here's the list of improvements brought by this upgrade, gracefully provided by @lukaszsamson:
+    - unicode identifier support added
+    - unicode support in atoms
+    - reraise keyword
+    - correct list of operator atoms
+    - correct matching of defguard as function scope
+    - removed pre 1.0 keywords
+    - multiletter uppercase sigils
+    - corrected textmate scopes for variables
+    - function call matching
+    - improvements to @doc and friends
+
 ## [0.0.21]
 
 ### Fixed
