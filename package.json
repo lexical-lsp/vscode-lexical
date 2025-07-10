@@ -28,6 +28,12 @@
         "aliases": ["Embedded Elixir", "EEx", "eex"],
         "extensions": [".eex", ".leex"],
         "configuration": "./eex-language-configuration.json"
+      },
+      {
+        "id": "html-eex",
+        "aliases": ["HTML (EEx)", "html-eex"],
+        "extensions": [".html.eex", ".heex"],
+        "configuration": "./eex-language-configuration.json"
       }
     ],
     "grammars": [
@@ -51,6 +57,11 @@
         "language": "eex",
         "scopeName": "text.elixir",
         "path": "./syntaxes/eex.json"
+      },
+      {
+        "language": "html-eex",
+        "scopeName": "text.html.eex",
+        "path": "./syntaxes/html-eex.json"
       }
     ],
     "problemMatchers": [
