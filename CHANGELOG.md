@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.23]
+
+### Added
+
+- Update some language configurations to match the latest from [Elixir LS](https://github.com/elixir-lsp/vscode-elixir-ls). The main changes are:
+		- Adds many new common sigil-delimiter combinations as auto-closing pairs
+		- Adds basic support for HEEX syntax highlighting
+
 ## [0.0.22]
 
 ### Added
