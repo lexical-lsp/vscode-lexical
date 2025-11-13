@@ -43,7 +43,7 @@ export function deactivate(): void {
 async function maybeAutoInstall(
 	context: ExtensionContext,
 ): Promise<string | undefined> {
-	const releasePathOverride = Configuration.getReleasePathOverride(getConfig);
+	const releasePathOverride = Configuration.getReleasePathOverride(getConfig, workspace);
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
 		Logger.info(
@@ -115,9 +115,13 @@ async function start(
 		clientOptions,
 	);
 
-	Logger.info(
-		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`,
-	);
+	if (fs.existsSync(startScriptPath)) {
+		Logger.info(
+			`Starting lexical at "${startScriptPath}"`,
+		);
+	} else {
+		Logger.error(`Lexical start script not found: ${startScriptPath}`)
+	}
 
 	try {
 		await client.start();

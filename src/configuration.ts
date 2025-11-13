@@ -8,8 +8,19 @@ namespace Configuration {
 
 	export function getReleasePathOverride(
 		getConfig: GetConfig,
+		workspace: typeof vsWorkspace,
 	): string | undefined {
-		return getConfig("releasePathOverride") as string | undefined;
+		const releasePath = getConfig("releasePathOverride") as string | undefined;
+
+		if (!releasePath) {
+			return undefined;
+		} else if (path.isAbsolute(releasePath)) {
+			return releasePath;
+		} else {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const workspacePath = workspace.workspaceFolders![0].uri.path;
+			return path.join(workspacePath, releasePath);
+		}
 	}
 
 	export function getProjectDirUri(
