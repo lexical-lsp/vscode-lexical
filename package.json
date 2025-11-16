@@ -2,7 +2,7 @@
   "name": "lexical",
   "displayName": "Lexical (Elixir Language Server)",
   "description": "Elixir language support for Visual Studio Code",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "repository": "github:lexical-lsp/vscode-lexical",
   "publisher": "lexical-lsp",
   "icon": "assets/lexi-logo-square-128.png",
