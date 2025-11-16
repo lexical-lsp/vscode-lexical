@@ -1,5 +1,17 @@
 # Change Log
 
+## Unreleased
+
+### Added
+
+- The `lexical.server.releasePathOverride` configuration option now accepts
+  relative paths. Relative paths will be interpreted relative to the VS Code
+  workspace path. Thanks @kristoff3r!
+- An error will now be logged when the starting script does not exist at the
+  expected path, making debugging configuration issues easier. This applies
+  to auto-installation setups as well as when the release path is overridden.
+  Thanks @kristoff3r!
+
 ## [0.0.23]
 
 ### Added
