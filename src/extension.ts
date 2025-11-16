@@ -43,17 +43,18 @@ export function deactivate(): void {
 async function maybeAutoInstall(
 	context: ExtensionContext,
 ): Promise<string | undefined> {
-	const releasePathOverride = Configuration.getReleasePathOverride(getConfig);
+	const releasePathOverride = Configuration.getReleasePathOverride(
+		getConfig,
+		workspace,
+	);
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
-		Logger.info(
-			`Release override path set to "${releasePathOverride}". Skipping auto-install.`,
-		);
+		Logger.info(`Release override path is set. Skipping auto-install.`);
 
 		return releasePathOverride as string;
 	}
 
-	Logger.info("Release override path is undefined, starting auto-install.");
+	Logger.info("Release override path is undefined. Starting auto-install.");
 
 	return await LanguageServer.install(
 		context.globalStorageUri,
@@ -115,9 +116,11 @@ async function start(
 		clientOptions,
 	);
 
-	Logger.info(
-		`Starting lexical release in "${startScriptOrReleaseFolderPath}"`,
-	);
+	if (fs.existsSync(startScriptPath)) {
+		Logger.info(`Starting lexical at "${startScriptPath}"`);
+	} else {
+		Logger.error(`Lexical start script not found: ${startScriptPath}`);
+	}
 
 	try {
 		await client.start();

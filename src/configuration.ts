@@ -8,8 +8,27 @@ namespace Configuration {
 
 	export function getReleasePathOverride(
 		getConfig: GetConfig,
+		workspace: typeof vsWorkspace,
 	): string | undefined {
-		return getConfig("releasePathOverride") as string | undefined;
+		const releasePath = getConfig("releasePathOverride") as string | undefined;
+
+		if (!releasePath) {
+			Logger.info("Release override path is undefined.");
+			return undefined;
+		} else if (path.isAbsolute(releasePath)) {
+			Logger.info(
+				`Release override path is set to absolute path "${releasePath}".`,
+			);
+			return releasePath;
+		} else {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const workspacePath = workspace.workspaceFolders![0].uri.path;
+			const absolutePath = path.join(workspacePath, releasePath);
+			Logger.info(
+				`Release override path is set to relative path "${releasePath}". Expanded absolute path is "${absolutePath}".`,
+			);
+			return absolutePath;
+		}
 	}
 
 	export function getProjectDirUri(

@@ -39,6 +39,7 @@ Tells the extension to use a local release of the Lexical language server
 instead of the automatically installed one. Useful to work on Lexical, or use an
 older version. This path can point to a directory that holds the lexical start
 script (assumed to be `start_lexical.sh`) or any executable launcher script.
+Relative paths will be interpreted to be relative to the current VSCode workspace.
 
 The path should look something like
 `/home/username/Projects/lexical/_build/dev/package/lexical/bin/start_lexical.sh`.
