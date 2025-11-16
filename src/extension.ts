@@ -49,14 +49,12 @@ async function maybeAutoInstall(
 	);
 
 	if (releasePathOverride !== undefined && releasePathOverride !== "") {
-		Logger.info(
-			`Release override path set to "${releasePathOverride}". Skipping auto-install.`,
-		);
+		Logger.info(`Release override path is set. Skipping auto-install.`);
 
 		return releasePathOverride as string;
 	}
 
-	Logger.info("Release override path is undefined, starting auto-install.");
+	Logger.info("Release override path is undefined. Starting auto-install.");
 
 	return await LanguageServer.install(
 		context.globalStorageUri,
