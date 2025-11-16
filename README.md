@@ -31,6 +31,36 @@ Github when starting up. You can disable this behaviour and point the extension
 to your own build with the
 [`lexical.server.releasePathOverride` configuration option](#lexicalserverreleasepathoverride).
 
+### Using with Expert
+
+While this extension was originally built for the Lexical language server,
+it does not actually have any functionality specific to it outside of automatic
+server installation.
+
+This means it can also be used with other language servers, such as [Expert](https://github.com/elixir-lang/expert).
+
+Because vscode-lexical does not yet [support passing arguments to the server](https://github.com/lexical-lsp/vscode-lexical/issues/98),
+a little more work is required to use this extension with Expert. Here is an
+example configuration:
+
+1. Create a script within your project that starts Expert at the correct
+location with the `--stdio` flag. Under your workspace, create the script
+`scripts/start_expert.sh`:
+    ```sh
+    #!/bin/sh
+
+    /path/to/my/expert/build --stdio
+    ```
+1. Make the script executable: `chmod +x scripts/start_expert.sh`
+1. Configure vscode-lexical to start the server using this script. In your `settings.json`:
+    ```json
+    {
+      "lexical.server.releasePathOverride": "./scripts/start_expert.sh"
+    }
+    ```
+
+Expert should now start instead of Lexical when loading VS Code in your workspace.
+
 ## Configuration
 
 ### lexical.server.releasePathOverride
@@ -39,7 +69,7 @@ Tells the extension to use a local release of the Lexical language server
 instead of the automatically installed one. Useful to work on Lexical, or use an
 older version. This path can point to a directory that holds the lexical start
 script (assumed to be `start_lexical.sh`) or any executable launcher script.
-Relative paths will be interpreted to be relative to the current VSCode workspace.
+Relative paths will be interpreted to be relative to the current VS Code workspace.
 
 The path should look something like
 `/home/username/Projects/lexical/_build/dev/package/lexical/bin/start_lexical.sh`.
