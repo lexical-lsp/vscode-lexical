@@ -1,3 +1,10 @@
+> [!NOTE]
+> Development on Lexical has halted to focus efforts on Expert, the official
+> Elixir language server. Please refer to [Expert's VS Code extension](https://github.com/expert-lsp/vscode-expert)
+> for current status and installation instructions.
+
+<br />
+
 [![Discord](https://img.shields.io/badge/Discord-5865F3?style=flat&logo=discord&logoColor=white&link=https://discord.gg/FvdkuVyted)](https://discord.gg/FvdkuVyted)
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/lexical-lsp/vscode-lexical/workflow.yml)
 [![Number of installs](https://img.shields.io/visual-studio-marketplace/i/lexical-lsp.lexical)](https://marketplace.visualstudio.com/items?itemName=lexical-lsp.lexical)
